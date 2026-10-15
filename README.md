@@ -1,9 +1,28 @@
 # PokéSurvivor Mod
 
-Extensión de navegador para [pokesurvivor.com](https://pokesurvivor.com/) que añade:
+Extensión de navegador para [pokesurvivor.com](https://pokesurvivor.com/): medidor de daño, minimapa, avisos de shiny y jefes, más campo de visión, resumen de cada partida y más.
+
+## Cómo instalarlo (2 minutos)
+
+Funciona en el ordenador con Chrome, Edge, Brave u Opera.
+
+1. **Descarga el zip**: entra en la [última versión](https://github.com/aparmor2/pokesurvivor-mod/releases/latest) y baja hasta *Assets*. Descarga el archivo `pokesurvivor-mod-….zip` (los dos "Source code" no hacen falta).
+2. **Descomprímelo**: clic derecho sobre el zip → *Extraer todo…* → *Extraer*. Deja la carpeta en un sitio donde no la vayas a borrar (por ejemplo, en Documentos), porque el navegador carga el mod desde ahí cada vez.
+3. **Abre la página de extensiones**: escribe `chrome://extensions` en la barra de direcciones y pulsa Enter. En Edge es `edge://extensions`, en Brave `brave://extensions` y en Opera `opera://extensions`.
+4. **Activa el "Modo de desarrollador"**: es un interruptor arriba a la derecha (en Edge, en el menú de la izquierda).
+5. **Pulsa "Cargar descomprimida"** (arriba a la izquierda) y elige la carpeta que acabas de descomprimir. Es la que tiene dentro `manifest.json`: si te dice que falta el manifiesto, entra una carpeta más adentro.
+6. **Abre o recarga [pokesurvivor.com](https://pokesurvivor.com/)**. Verás el panel del mod con el daño de la partida. `Alt` + `M` lo muestra y lo oculta.
+
+Si el navegador te avisa de que tienes extensiones en modo de desarrollador, es normal en las extensiones que no vienen de la tienda: cierra el aviso, pero no pulses "Desactivar".
+
+## Actualizar
+
+Cuando salga una versión nueva, el juego te lo dirá con una tarjeta amarilla en la barra de arriba. Descarga el zip nuevo, descomprímelo encima de la carpeta de antes (reemplazando los archivos) y pulsa el botón de recargar (↻) del mod en la página de extensiones.
+
+## Qué añade
 
 - **Medidor de daño**: un panel con el daño total de cada jugador de la partida, su daño por segundo, el porcentaje del total y su vida. Pulsando tu fila ves el daño de cada uno de tus ataques.
-- **Avisos**: mensaje en pantalla (con sonido) cuando aparece un shiny (con un destello como el de los juegos principales, también en el gacha), un dorado, el ladrón, un jefe, los legendarios o una grieta, y cuando un amigo tiene poca vida o cae.
+- **Avisos**: mensaje en pantalla (con sonido) cuando aparece un shiny (con el sonido de shiny de Leyendas Pokémon: Arceus, también en el gacha), un dorado (salvo en la hora dorada, que ya la anuncia el juego), el ladrón, un jefe, los legendarios o una grieta, y cuando un amigo tiene poca vida o cae.
 - **Ritmo y tiempos**: cuánto te falta para subir de nivel al ritmo actual, cuánto queda para los legendarios del minuto 30, cuánto sigue abierta una grieta y cuándo puede salir la siguiente.
 - **Mejoras**: tus multiplicadores (daño, recarga, velocidad, defensa, regeneración, críticos, imán, experiencia, mejoras activas y objeto) y, en cooperativo, lo que compartís: el Aprendizaje de cada uno, la experiencia que recibe el equipo y cuánto suben los enemigos por jugador.
 - **Menos expulsiones en cooperativo**: si se corta la conexión entre vosotros, el mod espera hasta 30 s a que vuelva en vez de echar al jugador al instante, y evita que Chrome cierre la pestaña del juego para ahorrar memoria. Todo queda apuntado en un registro.
@@ -13,15 +32,8 @@ Extensión de navegador para [pokesurvivor.com](https://pokesurvivor.com/) que a
 - **Controles a tu gusto**: cambia la tecla de cada acción (moverse, cambiar de ataque, elegir ataque, pausa…) y usa la rueda del ratón o sus botones central y laterales. Viene con la rueda para ir cambiando de ataque.
 - **Minimapa**: el terreno, tus amigos, los enemigos, los cofres y los objetos del suelo que hay a tu alrededor.
 - **Pokédex Nacional**: en la pantalla de Pokémon, una pestaña "Nacional" al principio de las regiones para verlos todos juntos (los filtros siguen funcionando).
+- **Favoritos**: en la pantalla de Pokémon, pulsa la ★ de la esquina de cualquier Pokémon que tengas para marcarlo; la pestaña "★ Favoritos" los junta todos, sean de la región que sean.
 - **Gacha más rápido**: botón para saltar la animación de la tragaperras, opción para saltarla siempre y botón "Tirar todo" para gastar todos los tickets de una vez.
-
-## Instalar (Chrome, Edge, Brave, Opera)
-
-1. Descomprime la carpeta en algún sitio donde no la vayas a borrar.
-2. Abre `chrome://extensions` (en Edge, `edge://extensions`).
-3. Activa el **Modo de desarrollador** (arriba a la derecha).
-4. Pulsa **Cargar descomprimida** y elige la carpeta (la que contiene `manifest.json`).
-5. Recarga pokesurvivor.com.
 
 ## Uso
 

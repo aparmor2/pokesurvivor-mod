@@ -1,0 +1,1 @@
+Extensión de navegador para [pokesurvivor.com](https://pokesurvivor.com/): medidor de daño, minimapa, avisos de shiny y jefes, más campo de visión, resumen de cada partida y más. Gratis y de código abierto.

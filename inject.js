@@ -307,6 +307,7 @@
 #psmod .ps-empty{padding:6px;font-size:12px;color:#b9cbf0}
 #psmod .ps-foot{display:flex;align-items:center;gap:6px;padding:4px 8px 7px;border-top:2px solid #0b1838}
 #psmod .ps-foot span{flex:1;font-weight:700}
+#psmod .ps-ver{font-size:11px;color:#b9cbf0}
 #psmod button{font:inherit;font-weight:700;color:#fff;background:#0b1838;border:2px solid #5b83d6;border-radius:4px;
   min-width:26px;height:24px;cursor:pointer;padding:0 6px}
 #psmod button:hover{border-color:#ffd23f}
@@ -357,7 +358,7 @@
         <button data-h="1" title="HUD del juego más grande">+</button>
       </div>
       <div class="ps-foot">
-        <span>Controles</span>
+        <span>Controles</span><small class="ps-ver" title="Versión del mod"></small>
         <button data-k="1" title="Cambiar teclas y rueda del ratón (Alt + K)">Cambiar</button>
       </div>`;
     document.body.appendChild(panel);
@@ -390,6 +391,7 @@
       });
     }
     renderHud();
+    panel.querySelector('.ps-ver').textContent = modVersion() ? 'v' + modVersion() : '';
     // Stop clicks reaching the game canvas underneath.
     for (const ev of ['pointerdown', 'mousedown', 'touchstart']) panel.addEventListener(ev, (e) => e.stopPropagation());
 
@@ -710,13 +712,12 @@
     try { NS.Audio.sfx(name); } catch {}
   }
 
-  // Shiny sound: a sparkle like the one of the main games when a shiny shows
-  // up (synthesised here: two quick runs of bell-like pings over a little
-  // shimmer, no audio files). It replaces the game's 'shiny' sfx when a shiny
-  // spawns and for shiny cards in the gacha; the other uses of that sfx
-  // (invites, tickets) keep the game's sound. Volume follows the game's
-  // effects volume and mute ('ps.audio').
-  let sparkleCtx = null, sparkleAt = 0;
+  // Shiny sound: the one of Pokémon Legends: Arceus (sounds/shiny.ogg; its
+  // URL comes from keepalive.js, which can reach chrome.runtime). It replaces
+  // the game's 'shiny' sfx when a shiny spawns and for shiny cards in the
+  // gacha; the other uses of that sfx (invites, tickets) keep the game's
+  // sound. Volume follows the game's effects volume and mute ('ps.audio').
+  let sparkleEl = null, sparkleAt = 0;
   const sparkled = new Set(); // shiny enemy ids already announced
 
   function sparkle() {
@@ -726,45 +727,13 @@
     let vol = 0.7;
     try { const a = JSON.parse(localStorage.getItem('ps.audio') || '{}'); if (a.muted) return; if (typeof a.sfx === 'number') vol = a.sfx; } catch {}
     if (vol <= 0) return;
+    const url = document.documentElement.dataset.psmodShiny;
+    if (!url) return;
     try {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return;
-      const ac = sparkleCtx || (sparkleCtx = new AC());
-      if (ac.state === 'suspended') ac.resume();
-      const out = ac.createGain();
-      out.gain.value = 0.32 * vol;
-      out.connect(ac.destination);
-      const now = ac.currentTime + 0.02;
-      const ping = (t, f, len, g) => {
-        for (const [mul, type, amp] of [[1, 'triangle', 1], [2.01, 'sine', 0.35]]) {
-          const o = ac.createOscillator(), e = ac.createGain();
-          o.type = type;
-          o.frequency.setValueAtTime(f * mul, t);
-          o.frequency.exponentialRampToValueAtTime(f * mul * 1.015, t + len);
-          e.gain.setValueAtTime(0.0001, t);
-          e.gain.exponentialRampToValueAtTime(g * amp, t + 0.006);
-          e.gain.exponentialRampToValueAtTime(0.0001, t + len);
-          o.connect(e).connect(out);
-          o.start(t);
-          o.stop(t + len + 0.02);
-        }
-      };
-      // Two sparkles, the second one a step higher and softer.
-      const RUN = [2093, 2637, 3136, 3951, 4699];
-      RUN.forEach((f, i) => ping(now + i * 0.035, f, 0.28, 0.5));
-      RUN.forEach((f, i) => ping(now + 0.3 + i * 0.035, f * 1.122, 0.36, 0.38));
-      // Shimmer: high-passed noise under both runs.
-      const len = 0.75, buf = ac.createBuffer(1, Math.floor(ac.sampleRate * len), ac.sampleRate);
-      const d = buf.getChannelData(0);
-      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 2);
-      const n = ac.createBufferSource(), hp = ac.createBiquadFilter(), ng = ac.createGain();
-      n.buffer = buf;
-      hp.type = 'highpass';
-      hp.frequency.value = 7000;
-      ng.gain.value = 0.12;
-      n.connect(hp).connect(ng).connect(out);
-      n.start(now);
-      setTimeout(() => out.disconnect(), 1500);
+      if (!sparkleEl) sparkleEl = new Audio(url);
+      sparkleEl.volume = Math.min(1, vol);
+      sparkleEl.currentTime = 0;
+      sparkleEl.play().catch(() => {});
     } catch {}
   }
 
@@ -798,6 +767,9 @@
       if (e.dead || alerted.has(e.id)) continue;
       let text = null, color = '#f4f8ff', sfx = null;
       if (e.judge || e.legend) { alerted.add(e.id); legends++; continue; }
+      // In the golden hour every spawn is golden and the game already shows
+      // its own banner: no notice per enemy.
+      if (e.golden && !e.shiny && !e.boss && e.behavior !== 'thief' && NS.Events && NS.Events.golden) { alerted.add(e.id); continue; }
       if (e.shiny) { text = `¡Shiny! ${e.name}`; color = '#7fe0ff'; sfx = 'sparkle'; sparkled.add(e.id); }
       else if (e.boss) { text = `Jefe: ${e.name}`; color = '#ff3048'; sfx = 'legend'; }
       else if (e.golden) { text = `Pokémon dorado: ${e.name}`; color = '#ffd23f'; sfx = 'select'; }
@@ -887,7 +859,20 @@
 #psmod-sum th{color:#b9cbf0;font-weight:600}
 #psmod-sum td.n{text-align:right;font-variant-numeric:tabular-nums}
 #psmod-sum .best{color:#ffd23f}
-#psmod-sum .sub{color:#b9cbf0;font-size:12px;margin:0}`;
+#psmod-sum .sub{color:#b9cbf0;font-size:12px;margin:0}
+#psmod-sum .star{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;background:linear-gradient(#3a2a00,#1f1600);
+  border:2px solid #ffd23f;border-radius:6px;padding:10px 12px;animation:psmod-glow 1.6s ease-in-out 4}
+#psmod-sum .star i{grid-row:span 2;font-style:normal;font-size:34px;line-height:1;animation:psmod-wiggle 1.6s ease-in-out 4}
+#psmod-sum .star b{font-size:16px;color:#ffd23f}
+#psmod-sum .star span{color:#fff3c4}
+#psmod-sum .star .acts{grid-column:1/-1;display:flex;gap:8px;align-items:center;margin-top:6px}
+#psmod-sum .star a{flex:1;text-align:center;font-weight:700;font-size:15px;color:#0b1838;background:#ffd23f;border-radius:4px;
+  padding:6px 10px;text-decoration:none;box-shadow:0 3px 0 #a07800}
+#psmod-sum .star a:hover{filter:brightness(1.1)}
+#psmod-sum .star button{background:none;border:none;color:#b9a86a;font-weight:400;text-decoration:underline}
+@keyframes psmod-glow{50%{box-shadow:0 0 14px 2px rgba(255,210,63,.65)}}
+@keyframes psmod-wiggle{0%,60%,100%{transform:none}70%{transform:rotate(-14deg) scale(1.15)}85%{transform:rotate(14deg) scale(1.15)}}
+@media (prefers-reduced-motion:reduce){#psmod-sum .star,#psmod-sum .star i{animation:none}}`;
     document.head.appendChild(style);
     sumEl = document.createElement('div');
     sumEl.id = 'psmod-sum';
@@ -899,7 +884,25 @@
       if (!b) return;
       if (b.dataset.act === 'close') sumEl.hidden = true;
       if (b.dataset.act === 'clear') { save('history', []); showSummary(null); }
+      if (b.dataset.act === 'nostar') { save('starAsk', STAR_ASKS); b.closest('.star').remove(); }
     });
+    sumEl.addEventListener('click', (e) => {
+      const a = e.target.closest('.star a');
+      if (a) { save('starAsk', STAR_ASKS); a.closest('.star').remove(); }
+    });
+  }
+
+  // After a finished run, a small note asking for a star on GitHub. It shows
+  // on the next summaries until the player clicks either button, and at
+  // most STAR_ASKS times.
+  const STAR_ASKS = 3;
+  function starNote() {
+    const n = load('starAsk', 0);
+    if (n >= STAR_ASKS) return '';
+    save('starAsk', n + 1);
+    return `<div class="star"><i>⭐</i><b>¿Te está gustando el mod?</b>
+      <span>Dale una estrella en GitHub: es gratis, son dos clics y ayuda a que lo conozca más gente.</span>
+      <div class="acts"><a href="https://github.com/${REPO}" target="_blank" rel="noopener">⭐ Dar una estrella</a><button data-act="nostar">No, gracias</button></div></div>`;
   }
 
   function showSummary(s) {
@@ -928,6 +931,7 @@
     }).join('');
     sumEl.innerHTML = `
       <div class="top"><h3>${s ? 'Resumen de la partida' : 'Historial'}</h3><button data-act="close">Cerrar</button></div>
+      ${s ? starNote() : ''}
       ${head}
       <h3>${s ? 'Tus últimas partidas' : 'Tus últimas partidas'}</h3>
       ${rowsHtml ? `<table><thead><tr><th>Fecha</th><th>Pokémon</th><th class="n">Tiempo</th><th class="n">Nv.</th><th class="n">Daño/s</th></tr></thead><tbody>${rowsHtml}</tbody></table>
@@ -1623,79 +1627,186 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addPuzzlesCard);
   else addPuzzlesCard();
 
-  // ---------------------------------------------------- Pokédex: Nacional
+  // ------------------------------------------------------- new version
+  // keepalive.js (isolated world) writes the manifest version on <html>.
+  // Every 6 h at most we ask GitHub for the latest release and, if it is
+  // newer, put a pill in the top bar that links to it. If the request
+  // fails nothing is shown: the mod never depends on it.
+  const REPO = 'aparmor2/pokesurvivor-mod';
+  const modVersion = () => document.documentElement.dataset.psmodVersion || '';
+  const newer = (a, b) => {
+    const x = a.split('.').map(Number), y = b.split('.').map(Number);
+    for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0);
+    return false;
+  };
+
+  async function checkUpdate() {
+    const mine = modVersion();
+    if (!mine) return;
+    let info = load('update', null);
+    if (!info || Date.now() - info.at > 6 * 3600e3) {
+      try {
+        const r = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: 'application/vnd.github+json' } });
+        if (!r.ok) return;
+        const j = await r.json();
+        info = { at: Date.now(), tag: String(j.tag_name || '').replace(/^v/, ''), url: j.html_url };
+        save('update', info);
+      } catch { return; }
+    }
+    if (!info.tag || !newer(info.tag, mine)) return;
+    const bar = document.getElementById('topbar');
+    if (!bar || document.getElementById('psmod-upd')) return;
+    const style = document.createElement('style');
+    style.textContent = `
+#psmod-upd{text-decoration:none;cursor:pointer;color:#0b1838;background:#ffd23f;text-shadow:none;white-space:nowrap}
+#psmod-upd:hover,#psmod-upd:focus-visible{filter:brightness(1.08)}`;
+    document.head.appendChild(style);
+    const a = document.createElement('a');
+    a.id = 'psmod-upd';
+    a.className = 'pill';
+    a.href = info.url || `https://github.com/${REPO}/releases/latest`;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.title = `Tienes la ${mine}. Descarga el zip nuevo, descomprímelo encima de la carpeta del mod y recarga la extensión.`;
+    a.textContent = `Mod ${info.tag} disponible`;
+    bar.prepend(a);
+  }
+
+  setTimeout(checkUpdate, 3000);
+
+  // --------------------------------------- Pokédex: Nacional, Favoritos
   // The Pokémon screen shows one region at a time: MenuUI rebuilds the region
   // tabs (#dex-gens) and the grid (#dex-grid) for the chosen one, with the
   // filters applied, and keeps the choice private. For "Nacional" we click
   // through every region tab ourselves, keep each grid's cells (with their
   // own click handlers, which only touch #dex-grid and the detail panel), go
   // back to the region that was chosen and show all the cells together.
-  // Whenever the game redraws the screen (a filter, a new partner) we do it
-  // again; picking a region tab leaves Nacional.
-  let dexNational = load('dexNational', false);
+  // "Favoritos" does the same and keeps only the starred ones. Whenever the
+  // game redraws the screen (a filter, a new partner) we do it again; picking
+  // a region tab goes back to the game's own view.
+  let dexView = load('dexView', load('dexNational', false) ? 'nat' : ''); // '' | 'nat' | 'fav'
+  const favs = new Set(load('favs', []));
 
-  function setupDexNational() {
+  function setupDex() {
     const gens = document.getElementById('dex-gens'), grid = document.getElementById('dex-grid');
     if (!gens || !grid) return;
     let busy = false;
-    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat)')];
+    const OURS = ['psmod-nat', 'psmod-fav'];
+    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat):not(#psmod-fav)')];
+    const setView = (v) => { dexView = v; save('dexView', v); };
 
-    function addTab() {
-      let tab = document.getElementById('psmod-nat');
+    const style = document.createElement('style');
+    style.textContent = `
+#dex-grid .psmod-star{position:absolute;bottom:2px;right:4px;font-size:15px;line-height:1;padding:2px;
+  color:rgba(244,248,255,.45);text-shadow:0 0 3px rgba(0,0,0,.8);cursor:pointer;transition:color .1s,transform .1s}
+#dex-grid .cell:hover .psmod-star{color:rgba(244,248,255,.8)}
+#dex-grid .psmod-star.on{color:#ffd23f}
+#dex-grid .psmod-star:hover{transform:scale(1.25)}
+#dex-grid .psmod-empty{grid-column:1/-1;color:var(--muted);font-size:14px;padding:16px 4px;text-align:center}`;
+    document.head.appendChild(style);
+
+    function makeTab(id, view) {
+      let tab = document.getElementById(id);
       if (!tab) {
         tab = document.createElement('button');
-        tab.id = 'psmod-nat';
+        tab.id = id;
         tab.className = 'gen-tab';
-        tab.addEventListener('click', () => { dexNational = true; save('dexNational', true); redraw(); });
+        tab.addEventListener('click', () => { setView(view); redraw(); });
       }
-      if (gens.firstChild !== tab) gens.prepend(tab);
+      return tab;
+    }
+
+    function addTabs() {
+      const nat = makeTab('psmod-nat', 'nat'), fav = makeTab('psmod-fav', 'fav');
+      if (gens.children[0] !== nat || gens.children[1] !== fav) gens.prepend(nat, fav);
       const sv = (NS && NS.DB && NS.DB.save) || {};
       const owned = sv.owned || {};
       const all = (NS && NS.DEX) || [];
-      tab.innerHTML = `<b>Nacional</b><small>${all.filter((p) => owned[p.dex]).length}/${all.length}</small>`;
-      tab.classList.toggle('on', dexNational);
-      return tab;
+      nat.innerHTML = `<b>Nacional</b><small>${all.filter((p) => owned[p.dex]).length}/${all.length}</small>`;
+      fav.innerHTML = `<b>★ Favoritos</b><small>${favs.size}</small>`;
+      nat.classList.toggle('on', dexView === 'nat');
+      fav.classList.toggle('on', dexView === 'fav');
+    }
+
+    const cellDex = (c) => parseInt((c.querySelector('.no') || {}).textContent, 10);
+
+    // A star on every Pokémon you own; clicking it doesn't pick the cell.
+    function addStars(cells) {
+      for (const c of cells) {
+        if (c.classList.contains('locked') || c.querySelector('.psmod-star')) continue;
+        const dex = cellDex(c);
+        if (!dex) continue;
+        const s = document.createElement('span');
+        s.className = 'psmod-star' + (favs.has(dex) ? ' on' : '');
+        s.textContent = '★';
+        s.title = favs.has(dex) ? 'Quitar de favoritos' : 'Añadir a favoritos';
+        s.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (favs.has(dex)) favs.delete(dex); else favs.add(dex);
+          save('favs', [...favs]);
+          s.classList.toggle('on', favs.has(dex));
+          s.title = favs.has(dex) ? 'Quitar de favoritos' : 'Añadir a favoritos';
+          busy = true;
+          try { addTabs(); } finally { obs.takeRecords(); busy = false; }
+        });
+        c.appendChild(s);
+      }
     }
 
     function redraw() {
       if (busy) return;
       busy = true;
       try {
-        addTab();
-        if (!dexNational) return;
-        const tabs = gameTabs();
-        const orig = Math.max(0, tabs.findIndex((t) => t.classList.contains('on')));
-        const cells = [];
-        for (let i = 0; i < tabs.length; i++) {
-          const t = gameTabs()[i]; // the game rebuilds the tabs on every click
-          if (!t) break;
-          t.click();
-          cells.push(...grid.querySelectorAll('.cell'));
+        addTabs();
+        if (dexView) {
+          const tabs = gameTabs();
+          const orig = Math.max(0, tabs.findIndex((t) => t.classList.contains('on')));
+          let cells = [];
+          for (let i = 0; i < tabs.length; i++) {
+            const t = gameTabs()[i]; // the game rebuilds the tabs on every click
+            if (!t) break;
+            t.click();
+            cells.push(...grid.querySelectorAll('.cell'));
+          }
+          const back = gameTabs()[orig];
+          if (back) back.click();
+          if (dexView === 'fav') {
+            cells = cells.filter((c) => favs.has(cellDex(c)) && !c.classList.contains('locked'));
+            if (cells.length) grid.replaceChildren(...cells);
+            else {
+              const p = document.createElement('div');
+              p.className = 'psmod-empty';
+              p.textContent = favs.size
+                ? 'Ninguno de tus favoritos pasa los filtros.'
+                : 'Aún no tienes favoritos. Pasa el ratón por un Pokémon y pulsa la ★ de su esquina.';
+              grid.replaceChildren(p);
+            }
+          } else if (cells.length) grid.replaceChildren(...cells);
+          for (const t of gameTabs()) t.classList.remove('on');
+          addTabs();
         }
-        const back = gameTabs()[orig];
-        if (back) back.click();
-        if (cells.length) grid.replaceChildren(...cells);
-        for (const t of gameTabs()) t.classList.remove('on');
-        addTab();
+        addStars(grid.querySelectorAll('.cell'));
       } finally {
         obs.takeRecords();
         busy = false;
       }
     }
 
-    // Leave Nacional when a region tab is picked (before the game redraws).
+    // Leave our views when a region tab is picked (before the game redraws).
     gens.addEventListener('click', (e) => {
       if (busy) return;
       const t = e.target.closest('.gen-tab');
-      if (t && t.id !== 'psmod-nat' && dexNational) { dexNational = false; save('dexNational', false); }
+      if (t && !OURS.includes(t.id) && dexView) setView('');
     }, true);
     const obs = new MutationObserver(() => { if (!busy) redraw(); });
     obs.observe(gens, { childList: true });
+    // In case the game redraws only the grid, put the stars back.
+    new MutationObserver(() => { if (!busy) addStars(grid.querySelectorAll('.cell')); }).observe(grid, { childList: true });
     if (gens.children.length) redraw();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupDexNational);
-  else setupDexNational();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupDex);
+  else setupDex();
 
   // ----------------------------------------------------------- controls
   // The game reads keys by e.code ('keyw', 'digit1'...) from window keydown /
