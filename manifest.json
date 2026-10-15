@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "PokéSurvivor Mod",
+  "version": "1.2.0",
+  "description": "Medidor de daño, minimapa, avisos, más visión y ayudas para pokesurvivor.com",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://pokesurvivor.com/*", "https://www.pokesurvivor.com/*"],
+      "js": ["inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://pokesurvivor.com/*", "https://www.pokesurvivor.com/*"],
+      "js": ["keepalive.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

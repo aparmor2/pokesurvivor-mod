@@ -1,0 +1,13 @@
+# Editor / herramientas locales
+.vscode/
+.vexp/
+.claude/
+CLAUDE.md
+AGENTS.md
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Zips de las releases (se suben en GitHub > Releases, no al repo)
+*.zip
