@@ -1,6 +1,6 @@
 # Al subir una etiqueta vX.Y.Z: comprueba que coincide con manifest.json,
 # crea el zip de la extensión y publica la Release con ese zip.
-# Notas: intro.md + instalar.md + novedades (.github/notes/vX.Y.Z.md si existe) + funciones.md.
+# Notas: intro.md + instalar.md + autor.md + novedades (.github/notes/vX.Y.Z.md si existe) + funciones.md.
 name: Release
 
 on:
@@ -37,6 +37,8 @@ jobs:
             cat .github/notes/intro.md
             echo
             cat .github/notes/instalar.md
+            echo
+            cat .github/notes/autor.md
             echo
             if [ -f ".github/notes/$GITHUB_REF_NAME.md" ]; then cat ".github/notes/$GITHUB_REF_NAME.md"; echo; fi
             cat .github/notes/funciones.md
