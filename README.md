@@ -3,7 +3,7 @@
 Extensión de navegador para [pokesurvivor.com](https://pokesurvivor.com/) que añade:
 
 - **Medidor de daño**: un panel con el daño total de cada jugador de la partida, su daño por segundo, el porcentaje del total y su vida. Pulsando tu fila ves el daño de cada uno de tus ataques.
-- **Avisos**: mensaje en pantalla (con sonido) cuando aparece un shiny, un dorado, el ladrón, un jefe, los legendarios o una grieta, y cuando un amigo tiene poca vida o cae.
+- **Avisos**: mensaje en pantalla (con sonido) cuando aparece un shiny (con un destello como el de los juegos principales, también en el gacha), un dorado, el ladrón, un jefe, los legendarios o una grieta, y cuando un amigo tiene poca vida o cae.
 - **Ritmo y tiempos**: cuánto te falta para subir de nivel al ritmo actual, cuánto queda para los legendarios del minuto 30, cuánto sigue abierta una grieta y cuándo puede salir la siguiente.
 - **Mejoras**: tus multiplicadores (daño, recarga, velocidad, defensa, regeneración, críticos, imán, experiencia, mejoras activas y objeto) y, en cooperativo, lo que compartís: el Aprendizaje de cada uno, la experiencia que recibe el equipo y cuánto suben los enemigos por jugador.
 - **Menos expulsiones en cooperativo**: si se corta la conexión entre vosotros, el mod espera hasta 30 s a que vuelva en vez de echar al jugador al instante, y evita que Chrome cierre la pestaña del juego para ahorrar memoria. Todo queda apuntado en un registro.
@@ -12,6 +12,7 @@ Extensión de navegador para [pokesurvivor.com](https://pokesurvivor.com/) que a
 - **HUD más grande**: agranda el HUD del juego (nombre, vida, mejoras, ataques, flechas) de 1x a 2x, viene en 1.4x. Además pone el nivel de cada ataque encima de su icono, también en los ataques fusionados (en dorado si está al máximo, ★ si ha evolucionado).
 - **Controles a tu gusto**: cambia la tecla de cada acción (moverse, cambiar de ataque, elegir ataque, pausa…) y usa la rueda del ratón o sus botones central y laterales. Viene con la rueda para ir cambiando de ataque.
 - **Minimapa**: el terreno, tus amigos, los enemigos, los cofres y los objetos del suelo que hay a tu alrededor.
+- **Pokédex Nacional**: en la pantalla de Pokémon, una pestaña "Nacional" al principio de las regiones para verlos todos juntos (los filtros siguen funcionando).
 - **Gacha más rápido**: botón para saltar la animación de la tragaperras, opción para saltarla siempre y botón "Tirar todo" para gastar todos los tickets de una vez.
 
 ## Instalar (Chrome, Edge, Brave, Opera)
@@ -99,7 +100,7 @@ En cooperativo el dado lo tira el anfitrión; en los demás la cuenta puede ir u
 
 El juego conecta a los jugadores directamente entre sí. Cuando esa conexión se corta un momento (wifi, cambio de red, el router), el juego original echa al jugador sin avisar. Con el mod:
 
-- Sale un aviso "Se ha cortado la conexión con…" y el mod espera hasta 30 s. El anfitrión vuelve a intentar la conexión a los 15 s; si vuelve, seguís jugando.
+- Sale un aviso "Se ha cortado la conexión con…" y el mod espera hasta 30 s. El anfitrión vuelve a intentar la conexión a los 15 s; si vuelve, seguís jugando. Si no vuelve, la partida sigue para el anfitrión y al otro le saca como haría el juego (antes podíais quedaros los dos bloqueados "esperando" al otro).
 - Mientras estuvo cortada pueden haber salido enemigos que el jugador desconectado no ve. No le hacen daño y desaparecen al morir.
 - Chrome ya no puede cerrar la pestaña del juego para ahorrar memoria ("Ahorro de memoria"), que es otra causa típica de que se recargue la página.
 - Si aun así os echa, pulsad `Alt` + `L`: el registro dice si fue la conexión entre vosotros, internet o el navegador. Pasadme esa línea.
@@ -109,3 +110,7 @@ El juego conecta a los jugadores directamente entre sí. Cuando esa conexión se
 
 - Con más visión, los enemigos aparecen más lejos (el juego los genera fuera de la cámara). Los objetos que dan a todo lo que se ve en pantalla alcanzan más enemigos. Con mucha visión el juego puede ir algo más lento.
 - El juego está ofuscado y el mod se engancha a sus módulos internos (`Camera`, `Net`, `Coop`, `Game`). Si una actualización del juego cambia esos nombres, el mod puede dejar de funcionar hasta que se arregle.
+
+## Del mismo autor
+
+[**PokéPuzzles**](https://pokepuzzles.net/?utm_source=github&utm_medium=readme): puzles diarios de Pokémon (adivina el Pokémon, debilidades, rankings, gritos y más). En el juego tienes el enlace en la barra de arriba, a la izquierda de las monedas.

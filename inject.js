@@ -471,6 +471,7 @@
   function onNewRun() {
     moveDmg.clear();
     alerted.clear();
+    sparkled.clear();
     mateState.clear();
     lastRift = null;
     xpHist = [];
@@ -705,8 +706,81 @@
 
   function sound(name) {
     if (!alertSound) return;
+    if (name === 'sparkle') { sparkle(); return; }
     try { NS.Audio.sfx(name); } catch {}
   }
+
+  // Shiny sound: a sparkle like the one of the main games when a shiny shows
+  // up (synthesised here: two quick runs of bell-like pings over a little
+  // shimmer, no audio files). It replaces the game's 'shiny' sfx when a shiny
+  // spawns and for shiny cards in the gacha; the other uses of that sfx
+  // (invites, tickets) keep the game's sound. Volume follows the game's
+  // effects volume and mute ('ps.audio').
+  let sparkleCtx = null, sparkleAt = 0;
+  const sparkled = new Set(); // shiny enemy ids already announced
+
+  function sparkle() {
+    const t0 = performance.now();
+    if (t0 - sparkleAt < 1500) return; // spawn sound and our alert, once
+    sparkleAt = t0;
+    let vol = 0.7;
+    try { const a = JSON.parse(localStorage.getItem('ps.audio') || '{}'); if (a.muted) return; if (typeof a.sfx === 'number') vol = a.sfx; } catch {}
+    if (vol <= 0) return;
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      const ac = sparkleCtx || (sparkleCtx = new AC());
+      if (ac.state === 'suspended') ac.resume();
+      const out = ac.createGain();
+      out.gain.value = 0.32 * vol;
+      out.connect(ac.destination);
+      const now = ac.currentTime + 0.02;
+      const ping = (t, f, len, g) => {
+        for (const [mul, type, amp] of [[1, 'triangle', 1], [2.01, 'sine', 0.35]]) {
+          const o = ac.createOscillator(), e = ac.createGain();
+          o.type = type;
+          o.frequency.setValueAtTime(f * mul, t);
+          o.frequency.exponentialRampToValueAtTime(f * mul * 1.015, t + len);
+          e.gain.setValueAtTime(0.0001, t);
+          e.gain.exponentialRampToValueAtTime(g * amp, t + 0.006);
+          e.gain.exponentialRampToValueAtTime(0.0001, t + len);
+          o.connect(e).connect(out);
+          o.start(t);
+          o.stop(t + len + 0.02);
+        }
+      };
+      // Two sparkles, the second one a step higher and softer.
+      const RUN = [2093, 2637, 3136, 3951, 4699];
+      RUN.forEach((f, i) => ping(now + i * 0.035, f, 0.28, 0.5));
+      RUN.forEach((f, i) => ping(now + 0.3 + i * 0.035, f * 1.122, 0.36, 0.38));
+      // Shimmer: high-passed noise under both runs.
+      const len = 0.75, buf = ac.createBuffer(1, Math.floor(ac.sampleRate * len), ac.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 2);
+      const n = ac.createBufferSource(), hp = ac.createBiquadFilter(), ng = ac.createGain();
+      n.buffer = buf;
+      hp.type = 'highpass';
+      hp.frequency.value = 7000;
+      ng.gain.value = 0.12;
+      n.connect(hp).connect(ng).connect(out);
+      n.start(now);
+      setTimeout(() => out.disconnect(), 1500);
+    } catch {}
+  }
+
+  function setupShinySound() {
+    const A = NS.Audio;
+    const sfx = A.sfx;
+    A.sfx = function (name) {
+      if (name === 'shiny') {
+        if (NS.UI && NS.UI.isOpen && NS.UI.isOpen('scr-gacha')) { sparkle(); return; }
+        const fresh = NS.EnemyMgr && NS.EnemyMgr.all().filter((e) => e.shiny && !e.dead && !sparkled.has(e.id));
+        if (fresh && fresh.length) { for (const e of fresh) sparkled.add(e.id); sparkle(); return; }
+      }
+      return sfx.apply(this, arguments);
+    };
+  }
+  waitFor(() => NS && NS.Audio && NS.Audio.sfx, setupShinySound);
 
   const ARROWS = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗'];
   function where(p, x, y) {
@@ -724,7 +798,7 @@
       if (e.dead || alerted.has(e.id)) continue;
       let text = null, color = '#f4f8ff', sfx = null;
       if (e.judge || e.legend) { alerted.add(e.id); legends++; continue; }
-      if (e.shiny) { text = `¡Shiny! ${e.name}`; color = '#7fe0ff'; sfx = 'shiny'; }
+      if (e.shiny) { text = `¡Shiny! ${e.name}`; color = '#7fe0ff'; sfx = 'sparkle'; sparkled.add(e.id); }
       else if (e.boss) { text = `Jefe: ${e.name}`; color = '#ff3048'; sfx = 'legend'; }
       else if (e.golden) { text = `Pokémon dorado: ${e.name}`; color = '#ffd23f'; sfx = 'select'; }
       else if (e.behavior === 'thief') { text = `¡Ladrón! ${e.name}`; color = '#ffd23f'; sfx = 'select'; }
@@ -940,32 +1014,44 @@
     Net.onPeer = function (cb) { return onPeer.call(this, graceWrap(cb)); };
   }
 
+  // The deadline counts from the first drop and only a 'direct' link ends the
+  // hold early. Each retry of the host goes 'connecting' -> 'failed' again,
+  // and that used to restart the wait, so a link that never came back left
+  // both players frozen for good (e.g. on the level-up screen, each one
+  // "waiting" for the other). Past the deadline the game gets the drop and
+  // handles it as it would without the mod; an attempt already under way
+  // gets up to GRACE_EXTRA_MS more to finish.
+  const GRACE_EXTRA_MS = 10000;
+
   function graceWrap(cb) {
-    const held = new Map(); // uid -> timer
+    const held = new Map(); // uid -> { timer, name, until }
+    const release = (uid, self) => {
+      const h = held.get(uid);
+      if (!h) return;
+      const now = NS.Net.mode(uid);
+      if (now === 'direct') { clearTimeout(h.timer); held.delete(uid); return; }
+      if (now === 'connecting' && Date.now() < h.until) { h.timer = setTimeout(() => release(uid, self), 1000); return; }
+      held.delete(uid);
+      netLog(`No se pudo recuperar la conexión con ${h.name} (${now}).`);
+      toast(`No se pudo recuperar la conexión con ${h.name}`, '#ff5f6d');
+      cb.call(self, uid, now === 'connecting' ? 'failed' : now);
+    };
     return function (uid, mode) {
-      if ((mode === 'failed' || mode === 'closed') && stillInGame(uid)) {
-        if (!held.has(uid)) {
-          const name = peerName(uid);
-          netLog(`Conexión con ${name} cortada (${mode}). Esperando a que vuelva.`);
-          toast(`Se ha cortado la conexión con ${name}`, '#ffcb3d', 'Reconectando… (hasta 30 s)');
-          held.set(uid, setTimeout(() => {
-            held.delete(uid);
-            const now = NS.Net.mode(uid);
-            if (now === 'direct') return;
-            netLog(`No se pudo recuperar la conexión con ${name} (${now}).`);
-            toast(`No se pudo recuperar la conexión con ${name}`, '#ff5f6d');
-            cb(uid, now === 'connecting' ? 'failed' : now);
-          }, GRACE_MS));
-        }
-        return;
-      }
-      if (held.has(uid)) {
-        clearTimeout(held.get(uid));
+      if (mode === 'direct' && held.has(uid)) {
+        clearTimeout(held.get(uid).timer);
         held.delete(uid);
-        if (mode === 'direct') {
-          netLog(`Conexión con ${peerName(uid)} recuperada.`);
-          toast(`Conexión con ${peerName(uid)} recuperada`, '#5fe08a');
-        }
+        netLog(`Conexión con ${peerName(uid)} recuperada.`);
+        toast(`Conexión con ${peerName(uid)} recuperada`, '#5fe08a');
+        return cb.apply(this, arguments);
+      }
+      if (held.has(uid)) return; // retries in between: still within the same wait
+      if ((mode === 'failed' || mode === 'closed') && stillInGame(uid)) {
+        const name = peerName(uid);
+        netLog(`Conexión con ${name} cortada (${mode}). Esperando a que vuelva.`);
+        toast(`Se ha cortado la conexión con ${name}`, '#ffcb3d', `Reconectando… (hasta ${GRACE_MS / 1000} s)`);
+        const self = this;
+        held.set(uid, { name, until: Date.now() + GRACE_MS + GRACE_EXTRA_MS, timer: setTimeout(() => release(uid, self), GRACE_MS) });
+        return;
       }
       return cb.apply(this, arguments);
     };
@@ -1499,6 +1585,117 @@
   }
 
   waitFor(() => NS && NS.Slots && NS.Gacha && NS.Audio && NS.DB, setupGacha);
+
+  // ---------------------------------------------------- PokéPuzzles card
+  // The game's pill shape (coins, tickets) at the start of the top bar, in
+  // PokéPuzzles' own look: its pixel Poké Ball icon and its wordmark (Archivo
+  // 700, "Poké" in ink and "Puzzles" in red, on the site's midnight colours).
+  const PP_SITE = 'https://pokepuzzles.net';
+  const PP_URL = PP_SITE + '/?utm_source=pokesurvivor-mod&utm_medium=topbar';
+
+  function addPuzzlesCard() {
+    const bar = document.getElementById('topbar');
+    if (!bar || document.getElementById('psmod-pp')) return;
+    const font = document.createElement('link');
+    font.rel = 'stylesheet';
+    font.href = 'https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap';
+    document.head.appendChild(font);
+    const style = document.createElement('style');
+    style.textContent = `
+#psmod-pp{text-decoration:none;cursor:pointer;background:rgba(9,11,16,.92);text-shadow:none;
+  font:700 15px/1 'Archivo',system-ui,sans-serif;letter-spacing:-.02em;color:#F2EBDA;white-space:nowrap}
+#psmod-pp img{width:20px;height:20px;image-rendering:pixelated;flex:none}
+#psmod-pp b{color:#ff4444;font-weight:700}
+#psmod-pp:hover,#psmod-pp:focus-visible{border-color:#ff4444;background:#1C2130}
+@media (max-width:760px){#psmod-pp{font-size:13px}#psmod-pp img{width:16px;height:16px}}`;
+    document.head.appendChild(style);
+    const a = document.createElement('a');
+    a.id = 'psmod-pp';
+    a.className = 'pill';
+    a.href = PP_URL;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.title = 'Puzles diarios de Pokémon, del autor de este mod';
+    a.innerHTML = `<img src="${PP_SITE}/icon-192.png" alt=""><span>Poké<b>Puzzles</b></span>`;
+    bar.prepend(a);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addPuzzlesCard);
+  else addPuzzlesCard();
+
+  // ---------------------------------------------------- Pokédex: Nacional
+  // The Pokémon screen shows one region at a time: MenuUI rebuilds the region
+  // tabs (#dex-gens) and the grid (#dex-grid) for the chosen one, with the
+  // filters applied, and keeps the choice private. For "Nacional" we click
+  // through every region tab ourselves, keep each grid's cells (with their
+  // own click handlers, which only touch #dex-grid and the detail panel), go
+  // back to the region that was chosen and show all the cells together.
+  // Whenever the game redraws the screen (a filter, a new partner) we do it
+  // again; picking a region tab leaves Nacional.
+  let dexNational = load('dexNational', false);
+
+  function setupDexNational() {
+    const gens = document.getElementById('dex-gens'), grid = document.getElementById('dex-grid');
+    if (!gens || !grid) return;
+    let busy = false;
+    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat)')];
+
+    function addTab() {
+      let tab = document.getElementById('psmod-nat');
+      if (!tab) {
+        tab = document.createElement('button');
+        tab.id = 'psmod-nat';
+        tab.className = 'gen-tab';
+        tab.addEventListener('click', () => { dexNational = true; save('dexNational', true); redraw(); });
+      }
+      if (gens.firstChild !== tab) gens.prepend(tab);
+      const sv = (NS && NS.DB && NS.DB.save) || {};
+      const owned = sv.owned || {};
+      const all = (NS && NS.DEX) || [];
+      tab.innerHTML = `<b>Nacional</b><small>${all.filter((p) => owned[p.dex]).length}/${all.length}</small>`;
+      tab.classList.toggle('on', dexNational);
+      return tab;
+    }
+
+    function redraw() {
+      if (busy) return;
+      busy = true;
+      try {
+        addTab();
+        if (!dexNational) return;
+        const tabs = gameTabs();
+        const orig = Math.max(0, tabs.findIndex((t) => t.classList.contains('on')));
+        const cells = [];
+        for (let i = 0; i < tabs.length; i++) {
+          const t = gameTabs()[i]; // the game rebuilds the tabs on every click
+          if (!t) break;
+          t.click();
+          cells.push(...grid.querySelectorAll('.cell'));
+        }
+        const back = gameTabs()[orig];
+        if (back) back.click();
+        if (cells.length) grid.replaceChildren(...cells);
+        for (const t of gameTabs()) t.classList.remove('on');
+        addTab();
+      } finally {
+        obs.takeRecords();
+        busy = false;
+      }
+    }
+
+    // Leave Nacional when a region tab is picked (before the game redraws).
+    gens.addEventListener('click', (e) => {
+      if (busy) return;
+      const t = e.target.closest('.gen-tab');
+      if (t && t.id !== 'psmod-nat' && dexNational) { dexNational = false; save('dexNational', false); }
+    }, true);
+    const obs = new MutationObserver(() => { if (!busy) redraw(); });
+    obs.observe(gens, { childList: true });
+    if (gens.children.length) redraw();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupDexNational);
+  else setupDexNational();
 
   // ----------------------------------------------------------- controls
   // The game reads keys by e.code ('keyw', 'digit1'...) from window keydown /
