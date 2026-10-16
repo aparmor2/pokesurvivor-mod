@@ -53,6 +53,7 @@
     "Todavía no hay partidas guardadas. Se guardan al acabar cada partida.": "No saved runs yet. Runs are saved when they end.",
     "Empezar con un solo movimiento aunque tenga Repertorio": "Start with one move even with Repertoire unlocked",
     "el anfitrión": "the host",
+    "un jugador": "a player",
     "No se pudo recuperar la conexión con": "Could not reconnect to",
     "Conexión con": "Connection to",
     " recuperada": " restored",
@@ -1225,7 +1226,7 @@
     const C = NS.Coop;
     if (C && NS.Net && uid === NS.Net.hostUid) return tr('el anfitrión');
     const m = C && C.mate && C.mate(uid);
-    return (m && m.name) || 'un jugador';
+    return (m && m.name) || tr('un jugador');
   }
 
   function stillInGame(uid) {
@@ -2088,6 +2089,12 @@
     ShiftLeft: tr('Mayús'), ShiftRight: tr('Mayús der.'), ControlLeft: 'Ctrl', ControlRight: tr('Ctrl der.'), AltRight: 'Alt Gr',
     ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→',
   };
+  // The symbol keys above are named as on a Spanish keyboard; in English,
+  // as on a US one.
+  if (locale() === 'en-US') Object.assign(KEY_NAMES, {
+    Backquote: '`', Minus: '-', Equal: '=', BracketLeft: '[', BracketRight: ']', Semicolon: ';',
+    Quote: "'", Backslash: '\\', IntlBackslash: '\\', Slash: '/', AltRight: 'Right Alt',
+  });
   function keyName(c) {
     if (!c) return '—';
     if (KEY_NAMES[c]) return KEY_NAMES[c];
