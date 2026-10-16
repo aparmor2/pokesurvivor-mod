@@ -15,6 +15,14 @@ Funciona en el ordenador con Chrome, Edge, Brave u Opera.
 
 Si el navegador te avisa de que tienes extensiones en modo de desarrollador, es normal en las extensiones que no vienen de la tienda: cierra el aviso, pero no pulses "Desactivar".
 
+## Idioma / Language
+
+El mod sigue el idioma del juego (español o inglés). Cambia el idioma en los Ajustes de PokéSurvivor y recarga la página. Se traducen los paneles, avisos, controles, historial y ayudas de gacha; los nombres de movimientos y objetos usan el traductor del juego. Los nombres de jugadores no se traducen.
+
+The mod follows PokéSurvivor's language setting (English or Spanish). Change the language in the game's Settings and reload the page. Panels, alerts, controls, history, and gacha helpers are translated; move and item names use the game's translator. Player names are preserved. Number formatting also follows the selected language. If the game setting is unavailable, detection follows the game's saved preference, `/en/` URL, and browser language.
+
+Developer checks (Node.js 18+): `node --test tests/*.test.cjs`.
+
 ## Actualizar
 
 Cuando salga una versión nueva, el juego te lo dirá con una tarjeta amarilla en la barra de arriba. Descarga el zip nuevo, descomprímelo encima de la carpeta de antes (reemplazando los archivos) y pulsa el botón de recargar (↻) del mod en la página de extensiones.
