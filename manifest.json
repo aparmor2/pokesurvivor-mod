@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "PokéSurvivor Mod",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Medidor de daño, minimapa, avisos, más visión y ayudas para pokesurvivor.com",
   "background": {
     "service_worker": "background.js"

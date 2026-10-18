@@ -35,6 +35,8 @@ Cuando salga una versión nueva, el juego te lo dirá con una tarjeta amarilla e
 - **Resumen e historial**: al acabar la partida, un resumen con tiempo, nivel, derrotados, daño, daño por segundo y tus mejores ataques, comparado con tus amigos. Se guardan tus últimas 30 partidas.
 - **Más campo de visión**: aleja la cámara para ver más mapa (de 1.0x a 2.5x, viene en 1.4x).
 - **HUD más grande**: agranda el HUD del juego (nombre, vida, mejoras, ataques, flechas) de 1x a 2x, viene en 1.4x. Además pone el nivel de cada ataque encima de su icono, también en los ataques fusionados (en dorado si está al máximo, ★ si ha evolucionado).
+- **Cuánto le queda a cada mejora**: debajo de cada mejora activa del HUD (Danza Espada, Maquinación, Agilidad, Fortaleza, Danza Dragón, Acua Aro) sale una barrita que se vacía con el tiempo que le queda, y parpadea en los 2 últimos segundos. Cuando se acaba se pierden todas las acumulaciones a la vez.
+- **Movedex**: una Pokédex con todos los movimientos del juego. De cada uno, sus números a nivel 1, a nivel 5 y evolucionado, si es físico o especial, sus mejoras, qué pide para evolucionar y qué Pokémon lo aprenden. Escribe tu Pokémon para ver solo lo que puede aprender y con qué tipo de ataque pega más. Trae también una guía de cómo funcionan los efectos (quemadura, veneno, tipos, defensa…). Los datos salen del propio juego, así que se actualiza solo.
 - **Controles a tu gusto**: cambia la tecla de cada acción (moverse, cambiar de ataque, elegir ataque, pausa…) y usa la rueda del ratón o sus botones central y laterales. Viene con la rueda para ir cambiando de ataque.
 - **Minimapa**: el terreno, tus amigos, los enemigos, los cofres y los objetos del suelo que hay a tu alrededor.
 - **Pokédex Nacional**: en la pantalla de Pokémon, una pestaña "Nacional" al principio de las regiones para verlos todos juntos (los filtros siguen funcionando).
@@ -58,6 +60,8 @@ Cuando salga una versión nueva, el juego te lo dirá con una tarjeta amarilla e
 | Mejoras tuyas y del equipo | Botón "Mejoras" del panel, o `Alt` + `J` |
 | Registro de conexión | `Alt` + `L` |
 | Mostrar / ocultar el minimapa | `Alt` + `N` |
+| Abrir la Movedex | Botón "Movedex" de la barra de arriba (junto a PokéPuzzles), `Alt` + `P`, el botón "Abrir" del panel o la pestaña "Movedex" de la pantalla de Pokémon. En partida en solitario pausa el juego |
+| Moverse por la Movedex | Flechas arriba / abajo. `Esc` la cierra |
 | Zoom del minimapa | Rueda del ratón encima del mapa, o sus botones `-` / `+` |
 | Mover el minimapa | Arrastrarlo por el título "MAPA" |
 
@@ -71,6 +75,7 @@ En la pantalla de Mejoras del juego hay una casilla nueva: "Empezar con un solo 
 
 - **Saltar animación**: durante la tragaperras sale un botón debajo para ir directo a los resultados.
 - **Saltar siempre**: casilla debajo de los botones de tirar. Si está marcada, la tragaperras no sale nunca.
+- **Banner Nacional**: una pestaña más al principio de los banners. Cada tirada va a la primera región que aún no tienes completa (Kanto, luego Johto…), así no gastas tickets en regiones terminadas. Si ya lo tienes todo, no gasta nada.
 - **Tirar todo · N**: gasta todos tus tickets de golpe en el banner que tengas elegido y enseña todas las cartas juntas (N es el número de tiradas). Primero usa los tickets ×10, luego los normales de 10 en 10 (así cada grupo de 10 mantiene la épica garantizada) y lo que sobre, de uno en uno.
 - Si al tirar desbloqueas un logro que da tickets, esos tickets llegan después de la tirada y se quedan para la siguiente.
 - **Lo que te falta por región**: debajo de los botones de tirar, una tabla con cuántos Pokémon tienes de cada región, cuántos te faltan, cuántas tiradas quedan para la legendaria garantizada en cada banner y la lista de los que te faltan. En amarillo, el banner donde más te falta.

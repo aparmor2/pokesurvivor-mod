@@ -91,6 +91,8 @@
     "Legendaria en": "5-star pity in",
     " tiradas": " pulls",
     "Saltar animación": "Skip animation",
+    "Cada tirada va a la primera región que aún no tienes completa, así no gastas tickets en regiones terminadas.": "Each pull goes to the first region you haven't completed, so no tickets are spent on finished regions.",
+    "Ya tienes todos los Pokémon de todas las regiones": "You already have every Pokémon in every region",
     "Puzles diarios de Pokémon, del autor de este mod": "Daily Pokémon puzzles by the mod author",
     "Quitar de favoritos": "Remove from favorites",
     "Añadir a favoritos": "Add to favorites",
@@ -169,6 +171,116 @@
     ". Descarga el zip nuevo, descomprímelo encima de la carpeta del mod y recarga la extensión.": ". Download the new ZIP, extract it over the mod folder, and reload the extension.",
     "En amarillo, tu mejor partida por daño por segundo. Se guardan las últimas ": "Your highest-DPS run is highlighted in yellow. Your last ",
     " en este navegador. Alt + H abre esto cuando quieras.": " runs are saved in this browser. Open with Alt + H.",
+    "Abrir": "Open",
+    "Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)": "Every move, who learns it and how it works (Alt + P)",
+    "movimientos": "moves",
+    "Movimientos": "Moves",
+    "ataque físico": "physical attack",
+    "ataque especial": "special attack",
+    "reducción de daño": "damage reduction",
+    "Estado": "Status",
+    "Golpe en arco": "Arc strike",
+    "Golpea en abanico delante de ti.": "Hits in an arc in front of you.",
+    "Embestida": "Dash",
+    "Te lanzas hacia el enemigo dañando todo el recorrido.": "You rush at the enemy, hitting everything on the way.",
+    "Mejora": "Buff",
+    "No hace daño, sube una estadística.": "Deals no damage, raises a stat.",
+    "Proyectil": "Projectile",
+    "Dispara al enemigo más cercano.": "Shoots the nearest enemy.",
+    "Abanico": "Cone",
+    "Ráfaga corta de disparos en cono.": "Short burst of shots in a cone.",
+    "Orbitales": "Orbitals",
+    "Gira a tu alrededor y golpea lo que toca.": "Circles around you and hits what it touches.",
+    "Onda radial": "Radial burst",
+    "Dispara en todas direcciones.": "Shoots in every direction.",
+    "Rayo": "Beam",
+    "Línea recta que daña todo lo que cruza.": "Straight line that damages everything it crosses.",
+    "Daña continuamente lo que tienes cerca.": "Keeps damaging whatever is near you.",
+    "Cadena": "Chain",
+    "Salta de un enemigo a otro.": "Jumps from one enemy to the next.",
+    "Bumerán": "Boomerang",
+    "Va y vuelve golpeando en los dos sentidos.": "Goes out and comes back, hitting both ways.",
+    "Rastro": "Trail",
+    "Deja charcos dañinos por donde pasas.": "Leaves harmful puddles where you walk.",
+    "Minas": "Mines",
+    "Deja trampas que estallan al pisarlas.": "Leaves traps that blow up when stepped on.",
+    "Meteoros": "Meteors",
+    "Caen del cielo sobre enemigos cercanos.": "Fall from the sky on nearby enemies.",
+    "Torreta": "Turret",
+    "Deja algo que dispara solo un rato.": "Leaves something that shoots on its own for a while.",
+    "Por acumul.": "Per stack",
+    "Máx. acumul.": "Max stacks",
+    "Duración": "Duration",
+    "Cada": "Every",
+    "Repite golpe": "Re-hit every",
+    "Charco cada": "Puddle every",
+    "Saltos": "Jumps",
+    "Orbes": "Orbs",
+    "Bumeranes": "Boomerangs",
+    "A la vez": "At once",
+    "Disparos": "Shots",
+    "Proyectiles": "Projectiles",
+    "Perforación": "Pierce",
+    "Largo": "Length",
+    "Distancia": "Distance",
+    "Alcance": "Reach",
+    "Salto máx.": "Max jump",
+    "Explosión": "Blast",
+    "Radio": "Radius",
+    "Grosor": "Width",
+    "Arco": "Arc",
+    "Apertura": "Spread",
+    "Dispara cada": "Fires every",
+    "Dura": "Lasts",
+    "Vida proy.": "Proj. life",
+    "Velocidad proy.": "Proj. speed",
+    "Quema": "Burns",
+    "Envenena": "Poisons",
+    "Frena": "Slows",
+    "Teledirigido": "Homing",
+    "a enemigos con estado": "vs. statused enemies",
+    "Empuje": "Knockback",
+    "Cómo funciona": "How it works",
+    "Cerrar (Alt + P)": "Close (Alt + P)",
+    "Buscar: Lanzallamas, quema…": "Search: Flamethrower, burn…",
+    "Buscar movimiento": "Search moves",
+    "Tu Pokémon: Pikachu, Gengar…": "Your Pokémon: Pikachu, Gengar…",
+    "Tipo": "Type",
+    "Categoría": "Category",
+    "Forma": "Shape",
+    "Ningún movimiento coincide.": "No moves match.",
+    "No evoluciona": "Doesn't evolve",
+    "No evoluciona.": "Doesn't evolve.",
+    "Nivel 1": "Level 1",
+    "Nivel 5": "Level 5",
+    "Evolución": "Evolution",
+    "No tiene evolución: estos son sus números a nivel 5.": "It doesn't evolve: these are its level 5 numbers.",
+    "Mejoras al subir de nivel": "Level-up upgrades",
+    "Cómo funcionan los efectos": "How the effects work",
+    "Físico y especial": "Physical and special",
+    "Eficacia de tipos": "Type effectiveness",
+    "Tu defensa": "Your defense",
+    "Quemadura": "Burn",
+    "Ralentizar": "Slow",
+    "Cadena e Infortunio": "Chain and Hex",
+    "Mejoras sin daño": "Buffs without damage",
+    "Cada golpe hace el daño del movimiento × tu ataque × la eficacia de tipo. Un crítico multiplica por 1,5; la probabilidad viene de objetos y mejoras.": "Each hit deals the move's damage × your attack × type effectiveness. A critical hit multiplies it by 1.5; the chance comes from items and upgrades.",
+    "Los movimientos físicos usan el Ataque de tu Pokémon y los especiales su Ataque Especial. Elige tu Pokémon arriba para ver con cuáles pega más.": "Physical moves use your Pokémon's Attack and special moves its Special Attack. Pick your Pokémon above to see which ones hit harder.",
+    "Cada tipo del enemigo débil al movimiento multiplica por 1,6, cada uno que lo resiste por 0,6 y uno inmune por 0,3 (nunca es cero). El total queda entre ×0,3 y ×2,4.": "Each enemy type weak to the move multiplies by 1.6, each one that resists it by 0.6 and an immune one by 0.3 (never zero). The total stays between ×0.3 and ×2.4.",
+    "El daño que recibes baja con la Defensa de tu Pokémon si el golpe es físico y con su Defensa Especial si es especial: de un 25 % más a un 22 % menos.": "The damage you take goes down with your Pokémon's Defense for physical hits and its Special Defense for special ones: from 25% more to 22% less.",
+    "Cada golpe suma 1 acumulación (máximo 8) y la renueva a 3 s. Cada 0,5 s hace 1,6 × acumulaciones × (1 + 0,06 × tu nivel).": "Each hit adds 1 stack (up to 8) and resets it to 3 s. Every 0.5 s it deals 1.6 × stacks × (1 + 0.06 × your level).",
+    "Suma acumulaciones (máximo 8) y dura 4 s. Cada 0,6 s quita un 1,2 % de la vida máxima × acumulaciones + 1 (algo menos en jefes de más de 60.000 de vida), así que es lo mejor contra jefes.": "Adds stacks (up to 8) and lasts 4 s. Every 0.6 s it takes 1.2% of max HP × stacks + 1 (a bit less on bosses above 60,000 HP), so it's the best against bosses.",
+    "Frena al enemigo ese porcentaje durante un rato. Si le llegan dos, se queda el más fuerte, no se suman.": "Slows the enemy by that percentage for a while. If two hit it, the strongest one stays; they don't add up.",
+    "Cuántos enemigos extra atraviesa el proyectil antes de desaparecer.": "How many extra enemies the projectile goes through before it disappears.",
+    "El proyectil gira hacia el enemigo más cercano. Cuanto más alto el valor, más cerrado gira.": "The projectile turns towards the nearest enemy. The higher the value, the tighter it turns.",
+    "Cuánto retrocede el enemigo al recibir el golpe. Útil para que no te rodeen.": "How far the enemy is pushed back when hit. Useful so they don't surround you.",
+    "Los rayos en cadena saltan de enemigo en enemigo y pierden un 15 % de daño en cada salto. Infortunio hace más daño a quien esté quemado, envenenado o frenado.": "Chain moves jump from enemy to enemy and lose 15% damage on each jump. Hex deals more damage to burned, poisoned or slowed enemies.",
+    "Danza Espada, Maquinación, Agilidad, Fortaleza, Danza Dragón y Acua Aro se lanzan solas. Cada vez suman una acumulación y reinician la duración; si se acaba, se pierden todas a la vez. La barrita bajo cada mejora del HUD te dice cuánto le queda.": "Swords Dance, Nasty Plot, Agility, Harden, Dragon Dance and Aqua Ring cast themselves. Each cast adds a stack and restarts the timer; when it runs out, all stacks go at once. The small bar under each buff on the HUD shows how long it has left.",
+    "Un movimiento evoluciona cuando está a nivel 5 y además tienes la mejora pasiva que pide (Vigor, Potencia, Carrera, Reflejos, Coraza, Síntesis o Imán).": "A move evolves when it is at level 5 and you also have the passive upgrade it asks for.",
+    "Movimiento inicial por tipo": "Starting move by type",
+    "Con qué movimiento empieza tu Pokémon según su tipo, salvo que tenga uno propio. Al subir de nivel te pueden salir los de sus tipos y los de tipo Normal, que los aprende cualquiera.": "The move your Pokémon starts with for its type, unless it has its own. On level up you can get moves of its types and Normal moves, which anyone can learn.",
+    "Empieza con": "Starts with",
+    "Puede aprender además": "Can also learn",
     "Reparto entre ": "Sharing across ",
     " jugadores": " players"
   };
@@ -176,6 +288,30 @@
     "{x} a {x} casillas": "{x} {x} tiles away",
     "¡{x} legendarios!": "{x} legendaries!",
     "En amarillo, tu mejor partida por daño por segundo. Se guardan las últimas {x} en este navegador. Alt + H abre esto cuando quieras.": "Your highest-DPS run is highlighted in yellow. Your last {x} runs are saved in this browser. Open with Alt + H.",
+    "+{x} ataque": "+{x} attack",
+    "+{x} ataque físico": "+{x} physical attack",
+    "+{x} ataque especial": "+{x} special attack",
+    "+{x} velocidad": "+{x} speed",
+    "+{x} reducción de daño": "+{x} damage reduction",
+    "+{x} vida/s": "+{x} HP/s",
+    "Quema ×{x}": "Burns ×{x}",
+    "Envenena ×{x}": "Poisons ×{x}",
+    "Frena {x}": "Slows {x}",
+    "Teledirigido {x}": "Homing {x}",
+    "×{x} a enemigos con estado": "×{x} vs. statused enemies",
+    "Empuje {x}": "Knockback {x}",
+    "<span>{x} de {x}</span><span>↑ ↓ para moverte</span>": "<span>{x} of {x}</span><span>↑ ↓ to browse</span>",
+    "{x} movimientos": "{x} moves",
+    "Daño físico {x} · especial {x}": "Physical damage {x} · special {x}",
+    "Empieza con {x} · recibe físico {x}, especial {x}": "Starts with {x} · takes physical {x}, special {x}",
+    "Evoluciona de {x}": "Evolves from {x}",
+    "Evoluciona a {x}": "Evolves into {x}",
+    " · ×{x} con {x}": " · ×{x} with {x}",
+    "{x} empieza con este": "{x} starts with this one",
+    "<b>{x}</b> - necesita <span class=\"need\">{x}</span> y el movimiento a nivel 5<br>{x}": "<b>{x}</b> - needs <span class=\"need\">{x}</span> and the move at level 5<br>{x}",
+    "Empiezan la partida con él: <b>{x} Pokémon</b>": "Start the run with it: <b>{x} Pokémon</b>",
+    "Lo puede aprender <b>cualquier Pokémon</b> (los {x}).": "<b>Any Pokémon</b> can learn it (all {x}).",
+    "Lo aprenden <b>{x} Pokémon</b>: los de tipo {x}": "Learned by <b>{x} Pokémon</b>: those of type {x}",
     "Reparto entre {x} jugadores": "Sharing across {x} players",
     "Tienes la {x}. Descarga el zip nuevo, descomprímelo encima de la carpeta del mod y recarga la extensión.": "You have {x}. Download the new ZIP, extract it over the mod folder, and reload the extension.",
     "Mod {x} disponible": "Mod {x} available"
@@ -343,6 +479,7 @@
         args[1] = w / k; args[2] = h / k;
         const out = draw.apply(this, args);
         if (!touch && pl && pl.slots) drawSlotLevels(ctx, w / k, h / k, pl);
+        if (pl && pl.buffs) drawBuffTimers(ctx, pl);
         return out;
       } finally {
         btnK = 1;
@@ -387,6 +524,58 @@
       } else {
         badge(g[0], x + S - 8, y + 8);
       }
+    }
+    ctx.restore();
+  }
+
+  // The game shows each active stat buff (Danza Espada, Agilidad...) as a
+  // pill under the HP bar, "ATK ×3", but not how long it lasts. Every cast
+  // adds a stack and restarts the timer, and when it runs out all stacks go at
+  // once. Under each pill we draw a bar that empties with the time left,
+  // blinking in the last 2 s. Same layout as the game: pills from
+  // 16 px + safe area, 54 px down, 15 px tall, text width + 12 wide, 5 px
+  // apart, in the order of player.buffs. measureText is translated by the
+  // game in English like its fillText, so the widths match in both languages.
+  const BUFF_TAG = { atk: 'ATK', patk: 'ATK', satk: 'AT.E', spd: 'VEL', def: 'DEF', regen: 'REG' };
+  const BUFF_COLOR = { atk: '#ff6b4d', patk: '#ff6b4d', satk: '#c47bff', spd: '#7fe0ff', def: '#b0b8c8', regen: '#5fe08a' };
+  const buffSeen = new WeakMap(); // buff -> longest time seen
+
+  // Full duration: the buff move's own (it grows with its level), else the
+  // longest remaining time seen, which is the duration right after a cast.
+  function buffTotal(pl, k, b) {
+    for (const g of pl.slots || []) for (const m of g || []) if (m && m.kind === 'buff' && m.stat === k && m.dur > 0) return m.dur;
+    const d = Math.max(b.t, buffSeen.get(b) || 0);
+    buffSeen.set(b, d);
+    return d;
+  }
+
+  function drawBuffTimers(ctx, pl) {
+    const B = pl.buffs;
+    const sa = (NS.Touch && NS.Touch.safeArea && NS.Touch.safeArea()) || {};
+    const y = 54 + (sa.top || 0), H = 15;
+    const blink = 0.35 + 0.65 * Math.abs(Math.sin(performance.now() / 110));
+    let x = 16 + (sa.left || 0);
+    ctx.save();
+    ctx.font = '800 9px Pixelify,"Segoe UI",system-ui,sans-serif';
+    for (const k in B) {
+      const b = B[k];
+      if (!b || b.n <= 0) continue;
+      const w = ctx.measureText(`${BUFF_TAG[k] || k.toUpperCase()} ×${b.n}`).width + 12;
+      const total = buffTotal(pl, k, b);
+      const f = total > 0 ? Math.min(1, Math.max(0, b.t / total)) : 0;
+      const low = b.t < 2;
+      ctx.fillStyle = 'rgba(0,0,0,.6)';
+      ctx.beginPath(); ctx.roundRect(x, y + H + 2, w, 4, 2); ctx.fill();
+      ctx.fillStyle = BUFF_COLOR[k] || '#fff';
+      if (low) ctx.globalAlpha = blink;
+      ctx.beginPath(); ctx.roundRect(x, y + H + 2, Math.max(2, w * f), 4, 2); ctx.fill();
+      if (low) {
+        ctx.strokeStyle = BUFF_COLOR[k] || '#fff';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.roundRect(x, y, w, H, 7); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      x += w + 5;
     }
     ctx.restore();
   }
@@ -584,6 +773,10 @@
       <div class="ps-foot">
         <span>Controles</span><small class="ps-ver" title="Versión del mod"></small>
         <button data-k="1" title="Cambiar teclas y rueda del ratón (Alt + K)">Cambiar</button>
+      </div>
+      <div class="ps-foot">
+        <span>Movedex</span>
+        <button data-d="1" title="Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)">Abrir</button>
       </div>`;
     document.body.appendChild(panel);
     body = panel.querySelector('.ps-rows');
@@ -611,6 +804,7 @@
         if (b.dataset.f != null) { const d = +b.dataset.f; setFov(d === 0 ? 1 : fov + d * FOV_STEP); }
         if (b.dataset.h != null) { const d = +b.dataset.h; setHudScale(d === 0 ? 1 : hudScale + d * 0.1); }
         if (b.dataset.k != null) toggleKeys();
+        if (b.dataset.d != null) toggleDex();
         b.blur(); // keep keyboard focus off the button so the game keeps its keys
       });
     }
@@ -1338,7 +1532,7 @@
     out.push(kv(tr`Imán${n('mag')}`, pctOf((p.magnet || 78) / 78)));
     out.push(kv(tr`Experiencia${n('xp')}`, pctOf(p.xpMul || 1)));
     const B = p.buffs || {};
-    const BN = { atk: tr('ataque'), spd: tr('velocidad'), def: tr('defensa'), regen: tr('regeneración') };
+    const BN = { atk: tr('ataque'), patk: tr('ataque físico'), satk: tr('ataque especial'), spd: tr('velocidad'), def: tr('defensa'), regen: tr('regeneración') };
     for (const k of Object.keys(BN)) {
       const b = B[k];
       if (!b || !b.n) continue;
@@ -1646,7 +1840,16 @@
   // achievements and shows the cards as usual) and, for that one call, make
   // Gacha.pull spend every ticket instead: x10 tickets first, then normal
   // tickets in tens (keeping the "x10 guarantees an epic" rule), then singles.
+  //
+  // Nacional: one more banner tab. Its pulls go to the first region you
+  // haven't completed (Kanto, then Johto...), checked again after every pull,
+  // so no ticket goes to a region you already have and tickets left over once
+  // everything is complete stay unspent. Tens are pulled as tens only while
+  // that region misses at least 10 (they can't complete it early, and the x10
+  // keeps its epic); closer to the end it goes one by one. An x10 ticket can't
+  // be split, so near the end it's only used when no normal ticket is left.
   let skipGacha = load('skipGacha', false);
+  let gachaNat = load('gachaNat', false);
   let pullAllArmed = false, forceSkip = false, revealBudget = null;
 
   const pullsAvailable = () => {
@@ -1654,21 +1857,61 @@
     return (t.t1 || 0) + 10 * (t.t10 || 0);
   };
 
+  // What the gacha can give in a region (the game skips Pokémon without sprite).
+  const gachaPool = (gen) => NS.DEX.filter((p) => p.gen === gen && (!NS.SPRITE_META || NS.SPRITE_META[p.dex]));
+  function natTarget(sv) {
+    const owned = (sv && sv.owned) || {};
+    for (const b of NS.Gacha.BANNERS) {
+      const missing = gachaPool(b.gen).filter((p) => !owned[p.dex]).length;
+      if (missing) return { gen: b.gen, missing };
+    }
+    return null;
+  }
+
   function setupGacha() {
     const { Slots, Gacha, Audio } = NS;
 
     const pull = Gacha.pull;
     Gacha.pull = function (save, n, gen, kind) {
-      if (!pullAllArmed) return pull.apply(this, arguments);
+      const all = pullAllArmed;
       pullAllArmed = false;
+      if (!all && !gachaNat) return pull.apply(this, arguments);
       const t = save.tickets || {};
       const out = [];
-      const take = (count, k) => { const r = pull.call(this, save, count, gen, k); if (r) out.push(...r); return !!r; };
-      while ((t.t10 || 0) >= 1 && take(10, 't10'));
-      while ((t.t1 || 0) >= 10 && take(10, 't1'));
-      while ((t.t1 || 0) >= 1 && take(1, 't1'));
+      const take = (count, g, k) => { const r = pull.call(this, save, count, g, k); if (r) out.push(...r); return !!r; };
+      const t1 = () => t.t1 || 0, t10 = () => t.t10 || 0;
+      if (!gachaNat) {
+        while (t10() >= 1 && take(10, gen, 't10'));
+        while (t1() >= 10 && take(10, gen, 't1'));
+        while (t1() >= 1 && take(1, gen, 't1'));
+      } else if (all) {
+        for (let g; (g = natTarget(save));) {
+          const ok = g.missing >= 10
+            ? (t10() >= 1 && take(10, g.gen, 't10')) || (t1() >= 10 && take(10, g.gen, 't1')) || (t1() >= 1 && take(1, g.gen, 't1'))
+            : (t1() >= 1 && take(1, g.gen, 't1')) || (t10() >= 1 && take(10, g.gen, 't10'));
+          if (!ok) break;
+        }
+      } else {
+        const g = natTarget(save);
+        if (!g || !Gacha.costOf(save, n, kind)) return null;
+        if (kind === 't10' || n === 1 || g.missing >= 10) take(n, g.gen, kind);
+        // x10 with normal tickets near the end of a region: ten singles, each
+        // one to the region still incomplete.
+        else for (let i = 0, h; i < 10 && (h = natTarget(save)) && take(1, h.gen, 't1'); i++);
+      }
       return out.length ? out : null;
     };
+
+    // Nacional and everything complete: say so instead of the game's
+    // "not enough tickets".
+    const natDone = () => {
+      if (!gachaNat || natTarget(NS.DB.save)) return false;
+      try { NS.UI.toast(tr('Ya tienes todos los Pokémon de todas las regiones')); } catch {}
+      return true;
+    };
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('#pull-1, #pull-10, #pull-10b') && natDone()) { e.stopPropagation(); e.preventDefault(); }
+    }, true);
 
     // The game plays a 'reveal' sound per card; with dozens of cards shown at
     // once that is a wall of noise, so only the first one plays.
@@ -1721,7 +1964,7 @@
         all.disabled = n <= 0;
       };
       all.addEventListener('click', () => {
-        if (pullsAvailable() <= 0 || typeof one.onclick !== 'function') return;
+        if (pullsAvailable() <= 0 || typeof one.onclick !== 'function' || natDone()) return;
         pullAllArmed = true;
         forceSkip = true;
         revealBudget = 1;
@@ -1738,7 +1981,61 @@
       setInterval(() => { if (all.isConnected) refresh(); }, 500);
       refresh();
       addRegions(label);
+      waitFor(() => document.querySelector('#gacha-gens .gen-tab'), addNatTab);
     };
+
+    // The banner tabs are the game's: each one's handler sets the (private)
+    // chosen region and redraws the banner, marking its own tab. In Nacional
+    // we show the banner of the region being pulled (its pity, its odds) and
+    // move our mark back onto our tab after every redraw.
+    function addNatTab() {
+      const gens = document.getElementById('gacha-gens');
+      if (!gens || document.getElementById('psmod-gnat')) return;
+      const tab = document.createElement('button');
+      tab.id = 'psmod-gnat';
+      tab.className = 'gen-tab';
+      gens.prepend(tab);
+      const gameTabs = () => [...gens.querySelectorAll('.gen-tab[data-gen]')];
+      let shown = 0, sig = '';
+
+      function sync() {
+        const sv = NS.DB && NS.DB.save;
+        if (!sv || !tab.isConnected) return;
+        const owned = sv.owned || {};
+        let have = 0, total = 0;
+        for (const b of Gacha.BANNERS) for (const p of gachaPool(b.gen)) { total++; if (owned[p.dex]) have++; }
+        const s = have + '/' + total;
+        if (s !== sig) { sig = s; tab.innerHTML = tr`<b>Nacional</b><small>${s}</small>`; }
+        if (!gachaNat) { shown = 0; tab.classList.remove('on'); return; }
+        const g = natTarget(sv);
+        const gen = g ? g.gen : Gacha.BANNERS[Gacha.BANNERS.length - 1].gen;
+        if (shown !== gen) {
+          const t = gameTabs().find((x) => +x.dataset.gen === gen);
+          if (t && t.onclick) { t.onclick(); shown = gen; }
+        }
+        for (const t of gameTabs()) if (t.classList.contains('on')) t.classList.remove('on');
+        if (!tab.classList.contains('on')) tab.classList.add('on');
+        const title = document.getElementById('banner-title'), desc = document.getElementById('banner-desc');
+        const pre = tr('Nacional') + ' · ';
+        if (title && !title.textContent.startsWith(pre)) title.textContent = pre + title.textContent;
+        const d = g
+          ? tr('Cada tirada va a la primera región que aún no tienes completa, así no gastas tickets en regiones terminadas.')
+          : tr('Ya tienes todos los Pokémon de todas las regiones');
+        if (desc && desc.textContent !== d) desc.textContent = d;
+        obs.takeRecords();
+      }
+
+      tab.addEventListener('click', () => { gachaNat = true; save('gachaNat', true); shown = 0; sync(); tab.blur(); });
+      // Picking a region leaves Nacional (before the game's own handler).
+      gens.addEventListener('click', (e) => {
+        if (e.target.closest('.gen-tab[data-gen]') && gachaNat) { gachaNat = false; save('gachaNat', false); shown = 0; }
+      }, true);
+      // The game redraws the banner when the screen opens and after each pull.
+      const obs = new MutationObserver(() => { if (gachaNat) sync(); });
+      obs.observe(gens, { subtree: true, attributes: true, attributeFilter: ['class'] });
+      setInterval(sync, 500);
+      sync();
+    }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addToggle);
     else addToggle();
   }
@@ -1848,8 +2145,33 @@
     bar.prepend(a);
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addPuzzlesCard);
-  else addPuzzlesCard();
+  // A Movedex pill in the same bar, right after PokéPuzzles, with a tiny
+  // Pokédex drawn in CSS (red body, blue lens).
+  function addDexPill() {
+    const bar = document.getElementById('topbar');
+    if (!bar || document.getElementById('psmod-mdx')) return;
+    const style = document.createElement('style');
+    style.textContent = `
+#psmod-mdx{cursor:pointer;color:#fff;background:linear-gradient(#e8333f,#b5121f);border-color:#ff8a92;text-shadow:0 1px 0 #5c0710;white-space:nowrap;font:inherit;font-weight:700}
+#psmod-mdx i{flex:none;width:16px;height:18px;border-radius:3px 3px 3px 7px;background:#c8141f;border:2px solid #2a0408;position:relative}
+#psmod-mdx i::after{content:'';position:absolute;left:2px;top:2px;width:6px;height:6px;border-radius:50%;background:#4fc3ff;border:1px solid #fff}
+#psmod-mdx:hover,#psmod-mdx:focus-visible{filter:brightness(1.12)}
+@media (max-width:1100px){#psmod-mdx span{display:none}}`;
+    document.head.appendChild(style);
+    const b = document.createElement('button');
+    b.id = 'psmod-mdx';
+    b.className = 'pill';
+    b.type = 'button';
+    b.title = tr('Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)');
+    b.innerHTML = '<i></i><span>Movedex</span>';
+    b.addEventListener('click', (e) => { e.stopPropagation(); b.blur(); toggleDex(true); });
+    const pp = document.getElementById('psmod-pp');
+    if (pp) pp.after(b); else bar.prepend(b);
+  }
+
+  const addBarPills = () => { addPuzzlesCard(); addDexPill(); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addBarPills);
+  else addBarPills();
 
   // ------------------------------------------------------- new version
   // keepalive.js (isolated world) writes the manifest version on <html>.
@@ -1915,8 +2237,8 @@
     const gens = document.getElementById('dex-gens'), grid = document.getElementById('dex-grid');
     if (!gens || !grid) return;
     let busy = false;
-    const OURS = ['psmod-nat', 'psmod-fav'];
-    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat):not(#psmod-fav)')];
+    const OURS = ['psmod-nat', 'psmod-fav', 'psmod-mdex'];
+    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat):not(#psmod-fav):not(#psmod-mdex)')];
     const setView = (v) => { dexView = v; save('dexView', v); };
 
     const style = document.createElement('style');
@@ -1943,6 +2265,17 @@
     function addTabs() {
       const nat = makeTab('psmod-nat', 'nat'), fav = makeTab('psmod-fav', 'fav');
       if (gens.children[0] !== nat || gens.children[1] !== fav) gens.prepend(nat, fav);
+      // Opens the Movedex; it's not a view of this grid.
+      let mdex = document.getElementById('psmod-mdex');
+      if (!mdex) {
+        mdex = document.createElement('button');
+        mdex.id = 'psmod-mdex';
+        mdex.className = 'gen-tab';
+        mdex.title = tr('Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)');
+        mdex.innerHTML = tr('<b>Movedex</b><small>movimientos</small>');
+        mdex.addEventListener('click', (e) => { e.stopPropagation(); mdex.blur(); toggleDex(true); });
+      }
+      if (gens.lastElementChild !== mdex) gens.appendChild(mdex);
       const sv = (NS && NS.DB && NS.DB.save) || {};
       const owned = sv.owned || {};
       const all = (NS && NS.DEX) || [];
@@ -1989,11 +2322,13 @@
           for (let i = 0; i < tabs.length; i++) {
             const t = gameTabs()[i]; // the game rebuilds the tabs on every click
             if (!t) break;
-            t.click();
+            // Its own handler, not click(): the game plays a click sound for
+            // every click that reaches the document, one per region at once.
+            if (t.onclick) t.onclick(); else t.click();
             cells.push(...grid.querySelectorAll('.cell'));
           }
           const back = gameTabs()[orig];
-          if (back) back.click();
+          if (back) { if (back.onclick) back.onclick(); else back.click(); }
           if (dexView === 'fav') {
             cells = cells.filter((c) => favs.has(cellDex(c)) && !c.classList.contains('locked'));
             if (cells.length) grid.replaceChildren(...cells);
@@ -2031,6 +2366,453 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupDex);
   else setupDex();
+
+  // ------------------------------------------------------------ movedex
+  // A Pokédex of moves (Alt + P, the Movedex tab of the Pokémon screen or the
+  // panel's button): every move with its numbers at level 1, level 5 and
+  // evolved, which Pokémon learn it and how the effects work. All of it is
+  // read from the game (Moves, DEX, Stats, Types), and the numbers at each
+  // level come from its own Moves.instance / evolve, so it follows the game's
+  // updates. Names and descriptions go through the game's translation.
+  let dexEl = null, dexData = null;
+  const dx = { q: '', mon: null, lvl: 'base', sel: null, tab: 'moves', type: '', kind: '', cat: '' };
+
+  const KIND = {
+    melee: ['Golpe en arco', 'Golpea en abanico delante de ti.'],
+    dash: ['Embestida', 'Te lanzas hacia el enemigo dañando todo el recorrido.'],
+    buff: ['Mejora', 'No hace daño, sube una estadística.'],
+    projectile: ['Proyectil', 'Dispara al enemigo más cercano.'],
+    cone: ['Abanico', 'Ráfaga corta de disparos en cono.'],
+    orbit: ['Orbitales', 'Gira a tu alrededor y golpea lo que toca.'],
+    nova: ['Onda radial', 'Dispara en todas direcciones.'],
+    beam: ['Rayo', 'Línea recta que daña todo lo que cruza.'],
+    aura: ['Aura', 'Daña continuamente lo que tienes cerca.'],
+    chain: ['Cadena', 'Salta de un enemigo a otro.'],
+    boomerang: ['Bumerán', 'Va y vuelve golpeando en los dos sentidos.'],
+    trail: ['Rastro', 'Deja charcos dañinos por donde pasas.'],
+    mine: ['Minas', 'Deja trampas que estallan al pisarlas.'],
+    meteor: ['Meteoros', 'Caen del cielo sobre enemigos cercanos.'],
+    turret: ['Torreta', 'Deja algo que dispara solo un rato.'],
+  };
+  const kindName = (k) => tr(KIND[k] ? KIND[k][0] : k);
+  const typeName = (t) => gameText((NS.U && NS.U.TYPE_NAME && NS.U.TYPE_NAME[t]) || t);
+  const typeColor = (t) => (NS.U && NS.U.TYPE_COLOR && NS.U.TYPE_COLOR[t]) || '#b0a99f';
+  const catName = (c) => (c ? gameText((NS.Stats && NS.Stats.NAME && NS.Stats.NAME[c]) || c) : tr('Estado'));
+  const num = (v, d = 1) => (Math.round(v * 10 ** d) / 10 ** d).toLocaleString(locale());
+  const pct = (v) => Math.round(v * 100) + ' %';
+
+  function dexBuild() {
+    const M = NS.Moves;
+    const playable = NS.DEX.filter((p) => !NS.SPRITE_META || NS.SPRITE_META[p.dex]);
+    const start = new Map(playable.map((p) => [p.dex, NS.startMoveOf ? NS.startMoveOf(p.dex) : M.startFor(p)]));
+    const moves = M.ALL.map((d, i) => {
+      const max = M.instance(d.id, d.maxLvl);
+      const info = M.evoInfo(max);
+      let evo = null;
+      if (info) {
+        const e = M.instance(d.id, d.maxLvl);
+        M.evolve(e);
+        evo = { name: info.name, need: info.needName, text: info.text, stats: e };
+      }
+      const pools = Object.keys(M.POOL).filter((t) => M.POOL[t].includes(d.id));
+      return { no: i + 1, id: d.id, d, pools, all: pools.includes('normal'), base: M.instance(d.id, 1), max, evo };
+    });
+    return {
+      moves, playable, start,
+      byId: new Map(moves.map((m) => [m.id, m])),
+      byName: new Map(playable.map((p) => [p.name.toLowerCase(), p])),
+    };
+  }
+
+  const canLearn = (m, p) => m.all || p.types.some((t) => m.pools.includes(t)) || dexData.start.get(p.dex) === m.id;
+
+  function statsFor(m, s) {
+    const out = [];
+    const add = (label, value, unit = '') => out.push([tr(label), value, unit]);
+    const k = m.d.kind;
+    if (k === 'buff') {
+      const f = {
+        atk: (v) => tr`+${pct(v)} ataque`, patk: (v) => tr`+${pct(v)} ataque físico`, satk: (v) => tr`+${pct(v)} ataque especial`,
+        spd: (v) => tr`+${pct(v)} velocidad`, def: (v) => tr`+${pct(v)} reducción de daño`, regen: (v) => tr`+${num(v)} vida/s`,
+      }[s.stat] || ((v) => num(v, 2));
+      add('Por acumul.', f(s.amount));
+      add('Máx. acumul.', num(s.stacks, 0));
+      add('Total', f(s.amount * s.stacks));
+      add('Duración', num(s.dur), 's');
+      add('Recarga', num(s.cd, 2), 's');
+      return out;
+    }
+    add('Daño', num(s.dmg));
+    add({ aura: 'Cada', orbit: 'Repite golpe', trail: 'Charco cada' }[k] || 'Recarga', num(s.cd, 2), 's');
+    if (s.count != null) add({ chain: 'Saltos', orbit: 'Orbes', boomerang: 'Bumeranes', mine: 'Minas', meteor: 'Meteoros', turret: 'A la vez', cone: 'Disparos' }[k] || 'Proyectiles', num(s.count, 0));
+    if (s.pierce) add('Perforación', num(s.pierce, 0));
+    if (s.radius != null) add({ beam: 'Largo', dash: 'Distancia', boomerang: 'Alcance', chain: 'Salto máx.', mine: 'Explosión', melee: 'Alcance' }[k] || 'Radio', num(s.radius, 0));
+    if (s.width != null) add('Grosor', num(s.width, 0));
+    if (s.arc != null && k === 'melee') add('Arco', s.arc >= 6.28 ? '360°' : Math.round(s.arc * 180 / Math.PI) + '°');
+    if (s.arc != null && k === 'cone') add('Apertura', Math.round(s.arc * 180 / Math.PI) + '°');
+    if (s.range != null) add('Alcance', num(s.range, 0));
+    if (s.rate != null) add('Dispara cada', num(s.rate, 2), 's');
+    if (s.dur != null) add('Dura', num(s.dur), 's');
+    if (s.life != null && k !== 'cone') add('Vida proy.', num(s.life), 's');
+    if (s.speed != null && k !== 'orbit') add('Velocidad proy.', num(s.speed, 0));
+    return out;
+  }
+
+  function effects(s) {
+    const t = [];
+    if (s.burn) t.push(['#ff8a4c', tr`Quema ×${s.burn}`]);
+    if (s.poison) t.push(['#b45ec4', tr`Envenena ×${s.poison}`]);
+    if (s.slow) t.push(['#7fe0e0', tr`Frena ${pct(s.slow)}`]);
+    if (s.homing) t.push(['#ff6fa8', tr`Teledirigido ${s.homing}`]);
+    if (s.hex) t.push(['#9a8be0', tr`×${num(s.hex)} a enemigos con estado`]);
+    if (s.knock) t.push(['#8fa3c4', tr`Empuje ${s.knock}`]);
+    return t;
+  }
+
+  const DEX_CSS = `
+#psmod-dex{position:fixed;inset:0;z-index:100002;display:grid;place-items:center;background:rgba(4,8,20,.55);
+  font:13px/1.35 var(--font,'Pixelify',system-ui,sans-serif);color:#10202a}
+#psmod-dex[hidden]{display:none}
+#psmod-dex *{box-sizing:border-box}
+#psmod-dex button,#psmod-dex input,#psmod-dex select{font:inherit}
+.dx-shell{width:min(1000px,calc(100vw - 24px));height:min(700px,calc(100vh - 24px));display:grid;grid-template-rows:auto 1fr;
+  background:linear-gradient(160deg,#ef3a46,#c8141f 55%,#a50d18);border:3px solid #5c0710;border-radius:20px 20px 14px 14px;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.35),inset 0 -5px 0 rgba(0,0,0,.25),0 8px 0 #4a050c,0 18px 40px rgba(0,0,0,.5);overflow:hidden}
+.dx-top{display:flex;align-items:center;gap:10px;padding:12px 16px 10px;border-bottom:3px solid #5c0710;
+  background:linear-gradient(#f04450,#d01c28);box-shadow:inset 0 -2px 0 rgba(255,255,255,.18)}
+.dx-lens{flex:none;width:54px;height:54px;border-radius:50%;border:4px solid #f4f8ff;outline:3px solid #2a0408;
+  background:radial-gradient(circle at 34% 30%,#e6fbff 0 9%,#7fd6ff 14%,#2a8cf0 45%,#0d3f9e 80%);box-shadow:0 0 14px rgba(120,210,255,.65)}
+.dx-led{flex:none;width:13px;height:13px;border-radius:50%;border:2px solid #2a0408;align-self:flex-start;margin-top:4px}
+.dx-led.r{background:radial-gradient(circle at 35% 30%,#ffd0d0,#ff3b3b 60%)}
+.dx-led.y{background:radial-gradient(circle at 35% 30%,#fff6c8,#ffcc1f 60%)}
+.dx-led.g{background:radial-gradient(circle at 35% 30%,#d6ffd8,#2fd15a 60%)}
+.dx-top h2{margin:0 0 0 6px;font-size:24px;letter-spacing:.08em;color:#fff;text-shadow:0 2px 0 #5c0710}
+.dx-top nav{display:flex;gap:6px;margin-left:auto}
+.dx-top nav button,.dx-x{color:#fff;background:#2a0408;border:2px solid #ff8a92;border-radius:999px;height:28px;padding:0 12px;cursor:pointer}
+.dx-top nav button[aria-pressed="true"]{background:#ffd23f;border-color:#ffd23f;color:#2a0408}
+.dx-x{width:30px;padding:0;font-weight:700}
+.dx-top button:hover{filter:brightness(1.2)}
+.dx-body{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:14px;padding:14px;min-height:0}
+.dx-bezel{background:#e4e6ee;border:3px solid #5c0710;border-radius:10px 10px 10px 36px;padding:12px;min-height:0;height:100%;
+  display:grid;box-shadow:inset 0 2px 0 #fff,inset 0 -3px 0 #a9adbb}
+.dx-screen{background:#b8dcae;border:3px solid #33442f;border-radius:6px;padding:10px;display:grid;gap:7px;
+  grid-template-rows:auto auto auto auto auto 1fr;min-height:0;box-shadow:inset 0 0 0 2px #d6f0cc,inset 0 3px 8px rgba(0,0,0,.25)}
+.dx-screen input,.dx-screen select{width:100%;min-width:0;color:#10202a;background:#e9f6e2;border:2px solid #33442f;border-radius:4px;padding:4px 7px;height:28px}
+.dx-screen input:focus,.dx-screen select:focus{outline:2px solid #2a8cf0;outline-offset:1px}
+.dx-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.dx-filters select{padding:2px 3px;font-size:12px}
+.dx-count{font-size:11px;color:#33442f;display:flex;justify-content:space-between}
+.dx-list{list-style:none;margin:0;padding:2px;overflow-y:auto;min-height:0;background:#cfe9c5;border:2px solid #33442f;border-radius:4px}
+.dx-list li{display:grid;grid-template-columns:30px 22px 1fr auto;gap:6px;align-items:center;padding:3px 6px;border-radius:3px;cursor:pointer}
+.dx-list li:hover{background:#b0d4a4}
+.dx-list li.on{background:#33442f;color:#e9f6e2}
+.dx-list .no{font-size:11px;opacity:.7;font-variant-numeric:tabular-nums}
+.dx-list b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dx-list li.no-learn{opacity:.38}
+.dx-ty{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 6px;border-radius:3px;
+  background:var(--c);color:#111;border:1px solid rgba(0,0,0,.35);white-space:nowrap}
+.dx-mon[hidden]{display:none}
+.dx-mon{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;background:#e9f6e2;border:2px solid #33442f;border-radius:4px;padding:6px 8px;font-size:12px}
+.dx-mon canvas{grid-row:span 4;image-rendering:pixelated;width:69px;height:60px;background:radial-gradient(#fff,#cfe9c5 70%);border-radius:4px}
+.dx-mon b{font-size:14px}
+.dx-mon .best{color:#b31d1d;font-weight:700}
+.dx-bezel.dark{border-radius:10px 36px 10px 10px}
+.dx-view{background:#0d1b26;color:#e9f2ff;border:3px solid #050b10;border-radius:6px;padding:14px 16px;overflow-y:auto;min-height:0;
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);box-shadow:inset 0 0 24px rgba(0,0,0,.6)}
+#psmod-dex .dx-view>*+*{margin-top:12px}
+.dx-view>.dx-seg{display:flex;width:max-content}
+.dx-view h3{margin:0;font-size:24px;line-height:1.05;color:#fff}
+.dx-view h4{margin:0 0 4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8fb6ff}
+.dx-view p{margin:0}
+.dx-head{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center}
+.dx-head .ico{grid-row:span 2;width:56px;height:56px;display:grid;place-items:center;background:#16324a;border:2px solid var(--c);border-radius:8px}
+.dx-head .ico img{image-rendering:pixelated}
+.dx-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.dx-tags small{color:#b9cbf0}
+.dx-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 6px;border-radius:3px;border:1px solid #8fa3c4;color:#e9f2ff}
+.dx-cat.physical{background:#7a2a1a;border-color:#ff8a4c}.dx-cat.special{background:#2b2a7a;border-color:#9a8bff}
+.dx-seg{display:inline-flex;border:2px solid #2c4a8f;border-radius:6px;overflow:hidden;justify-self:start}
+.dx-seg button{color:#e9f2ff;background:#0b1838;border:0;padding:5px 12px;cursor:pointer}
+.dx-seg button+button{border-left:2px solid #2c4a8f}
+.dx-seg button[aria-pressed="true"]{background:#ffd23f;color:#0b1838}
+.dx-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px;margin:0}
+.dx-stats div{background:#16324a;border-radius:5px;padding:5px 8px}
+.dx-stats dt{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#8fb6ff}
+.dx-stats dd{margin:0;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.dx-stats dd small{font-weight:400;color:#b9cbf0;font-size:11px}
+.dx-stats .up dd{color:#ffd23f}
+.dx-fx{display:flex;flex-wrap:wrap;gap:6px}
+.dx-fx span{font-size:12px;padding:3px 8px;border-radius:4px;border:2px solid var(--fx)}
+.dx-ups{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.dx-ups li{display:flex;gap:8px}.dx-ups li span:first-child{min-width:42px;color:#8fb6ff}
+.dx-evo{border-top:2px dashed #2c4a8f;padding-top:10px}
+.dx-evo b{color:#ffd23f;font-size:16px}
+.dx-evo .need{background:#16324a;border-radius:3px;padding:1px 6px;font-weight:700}
+.dx-note{color:#b9cbf0;font-size:12px}
+.dx-learn summary{cursor:pointer}
+.dx-names{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:6px;max-height:180px;overflow-y:auto;font-size:12px}
+.dx-names i{font-style:normal;color:#8fa3c4}
+.dx-names mark{background:#ffd23f;color:#0b1838;border-radius:3px;padding:0 3px}
+.dx-starts{justify-self:start;background:#ffd23f;color:#0b1838;font-weight:700;font-size:11px;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.dx-gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.dx-gl div{background:#16324a;border-radius:6px;padding:8px 10px}
+.dx-gl h5{margin:0 0 3px;font-size:14px;color:#ffd23f}
+.dx-gl p{font-size:12.5px}
+.dx-view table{width:100%;border-collapse:collapse;font-size:12px}
+.dx-view th,.dx-view td{text-align:left;padding:4px 6px;border-bottom:1px solid #2c4a8f;vertical-align:top}
+.dx-view th{color:#8fb6ff;font-weight:600}
+@media (max-width:720px){.dx-body{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) minmax(0,1.2fr)}.dx-top nav button{padding:0 8px}.dx-lens{width:40px;height:40px}}`;
+
+  function buildDex() {
+    const style = document.createElement('style');
+    style.textContent = DEX_CSS;
+    document.head.appendChild(style);
+    dexEl = document.createElement('div');
+    dexEl.id = 'psmod-dex';
+    dexEl.hidden = true;
+    dexEl.innerHTML = tr`
+      <div class="dx-shell" role="dialog" aria-label="Movedex">
+        <header class="dx-top">
+          <i class="dx-lens"></i><i class="dx-led r"></i><i class="dx-led y"></i><i class="dx-led g"></i>
+          <h2>MOVEDEX</h2>
+          <nav><button data-tab="moves">Movimientos</button><button data-tab="guide">Cómo funciona</button></nav>
+          <button class="dx-x" data-act="close" title="Cerrar (Alt + P)">✕</button>
+        </header>
+        <div class="dx-body">
+          <div class="dx-bezel"><div class="dx-screen">
+            <input class="dx-q" type="search" placeholder="Buscar: Lanzallamas, quema…" aria-label="Buscar movimiento">
+            <input class="dx-monq" list="psmod-dexmons" placeholder="Tu Pokémon: Pikachu, Gengar…" autocomplete="off" aria-label="Pokémon">
+            <datalist id="psmod-dexmons"></datalist>
+            <div class="dx-moninfo dx-mon" hidden></div>
+            <div class="dx-filters">
+              <select data-f="type" aria-label="Tipo"></select>
+              <select data-f="cat" aria-label="Categoría"></select>
+              <select data-f="kind" aria-label="Forma"></select>
+            </div>
+            <div class="dx-count"></div>
+            <ol class="dx-list"></ol>
+          </div></div>
+          <div class="dx-bezel dark"><div class="dx-view"></div></div>
+        </div>
+      </div>`;
+    document.body.appendChild(dexEl);
+
+    const $ = (s) => dexEl.querySelector(s);
+    const opt = (v, label) => `<option value="${esc(v)}">${esc(label)}</option>`;
+    const types = [...new Set(dexData.moves.map((m) => m.d.type))];
+    const kinds = [...new Set(dexData.moves.map((m) => m.d.kind))];
+    $('[data-f="type"]').innerHTML = opt('', tr('Tipo')) + types.map((t) => opt(t, typeName(t))).join('');
+    $('[data-f="kind"]').innerHTML = opt('', tr('Forma')) + kinds.map((k) => opt(k, kindName(k))).join('');
+    $('[data-f="cat"]').innerHTML = opt('', tr('Categoría')) + opt('physical', catName('physical')) + opt('special', catName('special')) + opt('none', catName(null));
+    $('#psmod-dexmons').innerHTML = dexData.playable.map((p) => `<option value="${esc(p.name)}">#${p.dex}</option>`).join('');
+
+    // Keys typed here are not for the game (it would pause on P, move on WASD...).
+    for (const ev of ['keydown', 'keyup', 'keypress']) dexEl.addEventListener(ev, (e) => {
+      if (ev === 'keydown') dexKey(e);
+      e.stopPropagation();
+    });
+    for (const ev of ['pointerdown', 'mousedown', 'touchstart', 'wheel']) dexEl.addEventListener(ev, (e) => e.stopPropagation());
+    dexEl.addEventListener('click', (e) => {
+      if (e.target === dexEl) { toggleDex(false); return; }
+      const b = e.target.closest('button, li[data-id]');
+      if (!b) return;
+      if (b.dataset.act === 'close') toggleDex(false);
+      if (b.dataset.tab) { dx.tab = b.dataset.tab; renderDex(); }
+      if (b.dataset.lvl) { dx.lvl = b.dataset.lvl; renderView(); }
+      if (b.dataset.id) { dx.sel = b.dataset.id; dx.tab = 'moves'; renderDex(); }
+      if (b.tagName === 'BUTTON') b.blur();
+    });
+    $('.dx-q').addEventListener('input', (e) => { dx.q = e.target.value.trim().toLowerCase(); renderDex(); });
+    const monq = $('.dx-monq');
+    const pickMon = () => {
+      const typed = monq.value.trim();
+      const p = dexData.byName.get(typed.toLowerCase()) || null;
+      if (p === dx.mon || (!p && typed)) return; // unchanged, or still typing
+      dx.mon = p;
+      renderDex();
+    };
+    monq.addEventListener('input', pickMon);
+    monq.addEventListener('change', pickMon);
+    for (const s of dexEl.querySelectorAll('select[data-f]')) s.addEventListener('change', () => { dx[s.dataset.f] = s.value; renderDex(); });
+  }
+
+  // Up / down move through the list, like a Pokédex. Esc closes.
+  function dexKey(e) {
+    if (e.key === 'Escape') { toggleDex(false); return; }
+    if (e.altKey || e.ctrlKey || e.metaKey || (typing(e.target) && !e.target.matches('.dx-q'))) return;
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    const list = dexFiltered();
+    if (!list.length) return;
+    const i = list.findIndex((m) => m.id === dx.sel);
+    const next = list[Math.max(0, Math.min(list.length - 1, i + (e.key === 'ArrowDown' ? 1 : -1)))];
+    e.preventDefault();
+    dx.sel = next.id;
+    dx.tab = 'moves';
+    renderDex();
+    const li = dexEl.querySelector(`.dx-list li[data-id="${next.id}"]`);
+    if (li) li.scrollIntoView({ block: 'nearest' });
+  }
+
+  function toggleDex(force) {
+    if (!NS || !NS.Moves || !NS.DEX) return;
+    if (!dexData) { try { dexData = dexBuild(); } catch (err) { console.warn('[psmod] movedex', err); return; } }
+    if (!dexEl) buildDex();
+    const show = force == null ? dexEl.hidden : force;
+    dexEl.hidden = !show;
+    if (!show) return;
+    // Solo runs pause underneath (the game's own pause screen stays when the
+    // Movedex closes); co-op can't pause.
+    const G = NS.Game;
+    if (G && G.state === 'playing' && !(NS.Coop && NS.Coop.active) && G.togglePause) G.togglePause();
+    // During a run, start on your own Pokémon.
+    const p = me();
+    if (p && p.mon && inRun() && !dx.mon) {
+      dx.mon = dexData.playable.find((x) => x.dex === p.mon.dex) || null;
+      if (dx.mon) dexEl.querySelector('.dx-monq').value = dx.mon.name;
+    }
+    renderDex();
+    dexEl.querySelector('.dx-q').focus();
+  }
+
+  function dexFiltered() {
+    const q = dx.q;
+    return dexData.moves.filter((m) => {
+      const d = m.d;
+      if (dx.type && d.type !== dx.type) return false;
+      if (dx.kind && d.kind !== dx.kind) return false;
+      if (dx.cat && (d.cat || 'none') !== dx.cat) return false;
+      if (dx.mon && !canLearn(m, dx.mon)) return false;
+      if (!q) return true;
+      const hay = [gameText(d.name), m.evo && gameText(m.evo.name), gameText(d.desc), typeName(d.type), kindName(d.kind), catName(d.cat),
+        ...effects(m.max).map((e) => e[1]), ...d.ups.map((u) => gameText(u.t))].join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+  }
+
+  function renderDex() {
+    if (!dexEl || dexEl.hidden) return;
+    for (const b of dexEl.querySelectorAll('[data-tab]')) b.setAttribute('aria-pressed', String(b.dataset.tab === dx.tab));
+    const list = dexFiltered();
+    if (!list.some((m) => m.id === dx.sel)) dx.sel = list.length ? list[0].id : null;
+    const icon = (id) => { try { return NS.Icons.html('move:' + id, 18); } catch { return ''; } };
+    dexEl.querySelector('.dx-list').innerHTML = list.map((m) => `<li data-id="${m.id}" class="${m.id === dx.sel ? 'on' : ''}">
+      <span class="no">${String(m.no).padStart(3, '0')}</span>${icon(m.id)}<b>${esc(gameText(m.d.name))}</b>
+      <i class="dx-ty" style="--c:${typeColor(m.d.type)}">${esc(typeName(m.d.type))}</i></li>`).join('')
+      || `<li class="no-learn">${tr('Ningún movimiento coincide.')}</li>`;
+    dexEl.querySelector('.dx-count').innerHTML = tr`<span>${list.length} de ${dexData.moves.length}</span><span>↑ ↓ para moverte</span>`;
+    renderMon();
+    renderView();
+  }
+
+  function renderMon() {
+    const box = dexEl.querySelector('.dx-moninfo');
+    const p = dx.mon;
+    box.hidden = !p;
+    if (!p) return;
+    const start = dexData.byId.get(dexData.start.get(p.dex));
+    const n = dexData.moves.filter((m) => canLearn(m, p)).length;
+    const S = NS.Stats;
+    const atkP = S ? S.fit(p, 'physical') * (p.atk || 1) : 1, atkS = S ? S.fit(p, 'special') * (p.atk || 1) : 1;
+    const red = (c) => { const v = Math.round((S ? 1 - S.taken(p, c) : 0) * 100); return (v > 0 ? '-' : v < 0 ? '+' : '') + Math.abs(v) + ' %'; };
+    const best = (a, b) => `<span class="${a > b ? 'best' : ''}">×${num(a, 2)}</span>`;
+    box.innerHTML = `<span class="spr"></span>
+      <b>${esc(p.name)} <small>#${p.dex}</small></b>
+      <span>${p.types.map((t) => `<i class="dx-ty" style="--c:${typeColor(t)}">${esc(typeName(t))}</i>`).join(' ')} · ${tr`${n} movimientos`}</span>
+      <span>${tr`Daño físico ${best(atkP, atkS)} · especial ${best(atkS, atkP)}`}</span>
+      <span>${tr`Empieza con ${`<b>${esc(start ? gameText(start.d.name) : '-')}</b>`} · recibe físico ${red('physical')}, especial ${red('special')}`}</span>`;
+    try {
+      const c = NS.UI.spriteCanvas(p.dex, 92, 80, { scale: 2, shadow: true });
+      box.querySelector('.spr').replaceWith(c);
+    } catch { box.querySelector('.spr').remove(); }
+  }
+
+  function renderView() {
+    const view = dexEl.querySelector('.dx-view');
+    if (dx.tab === 'guide') { view.innerHTML = guideHtml(); return; }
+    const m = dexData.byId.get(dx.sel);
+    if (!m) { view.innerHTML = `<p class="dx-note">${tr('Ningún movimiento coincide.')}</p>`; return; }
+    const d = m.d;
+    const lvl = dx.lvl;
+    const s = lvl === 'base' ? m.base : lvl === 'max' ? m.max : (m.evo && m.evo.stats) || m.max;
+    const baseStats = statsFor(m, m.base);
+    const stats = statsFor(m, s).map(([l, v, u]) => {
+      const b = baseStats.find((x) => x[0] === l);
+      const up = lvl !== 'base' && (!b || String(b[1]) !== String(v));
+      return `<div class="${up ? 'up' : ''}"><dt>${l}</dt><dd>${v}${u ? ` <small>${u}</small>` : ''}</dd></div>`;
+    }).join('');
+    const fx = effects(s).map(([c, t]) => `<span style="--fx:${c}">${t}</span>`).join('');
+    const name = lvl === 'evo' && m.evo ? m.evo.name : d.name;
+    const sub = lvl === 'evo' && m.evo ? tr`Evoluciona de ${esc(gameText(d.name))}` : m.evo ? tr`Evoluciona a ${esc(gameText(m.evo.name))}` : tr('No evoluciona');
+    const p = dx.mon;
+    const S = NS.Stats;
+    const monMul = p && d.cat && S ? tr` · ×${num(S.fit(p, d.cat) * (p.atk || 1), 2)} con ${esc(p.name)}` : '';
+    let ico = '';
+    try { ico = NS.Icons.html('move:' + d.id, 40); } catch {}
+    const seg = (v, label) => `<button data-lvl="${v}" aria-pressed="${lvl === v}">${tr(label)}</button>`;
+    view.innerHTML = `
+      ${p && dexData.start.get(p.dex) === d.id ? `<span class="dx-starts">${tr`${esc(p.name)} empieza con este`}</span>` : ''}
+      <div class="dx-head" style="--c:${typeColor(d.type)}">
+        <span class="ico">${ico}</span>
+        <h3>${esc(gameText(name))}</h3>
+        <div class="dx-tags"><i class="dx-ty" style="--c:${typeColor(d.type)}">${esc(typeName(d.type))}</i>
+          <span class="dx-cat ${d.cat || ''}">${esc(catName(d.cat))}</span>
+          <small title="${esc(tr(KIND[d.kind] ? KIND[d.kind][1] : ''))}">${esc(kindName(d.kind))} · Nº ${String(m.no).padStart(3, '0')} · ${sub}${monMul}</small></div>
+      </div>
+      <p>${esc(gameText(d.desc))}</p>
+      <div class="dx-seg" role="group">${seg('base', 'Nivel 1')}${seg('max', 'Nivel 5')}${seg('evo', 'Evolución')}</div>
+      ${lvl === 'evo' && !m.evo ? `<p class="dx-note">${tr('No tiene evolución: estos son sus números a nivel 5.')}</p>` : ''}
+      <dl class="dx-stats">${stats}</dl>
+      ${fx ? `<div class="dx-fx">${fx}</div>` : ''}
+      <div><h4>${tr('Mejoras al subir de nivel')}</h4><ol class="dx-ups">${d.ups.map((u, i) => `<li><span>${tr('Nv.')} ${i + 2}</span><span>${esc(gameText(u.t))}</span></li>`).join('')}</ol></div>
+      <div class="dx-evo"><h4>${tr('Evolución')}</h4>${m.evo
+        ? tr`<b>${esc(gameText(m.evo.name))}</b> - necesita <span class="need">${esc(gameText(m.evo.need))}</span> y el movimiento a nivel 5<br>${esc(gameText(m.evo.text))}`
+        : tr('No evoluciona.')}</div>
+      ${learnHtml(m)}`;
+  }
+
+  function learnHtml(m) {
+    const P = dexData.playable, p = dx.mon;
+    const tag = (r) => `<span><i>#${r.dex}</i> ${p && r.dex === p.dex ? `<mark>${esc(r.name)}</mark>` : esc(r.name)}</span>`;
+    const starts = P.filter((r) => dexData.start.get(r.dex) === m.id);
+    const startList = starts.length
+      ? `<details class="dx-learn"><summary>${tr`Empiezan la partida con él: <b>${starts.length} Pokémon</b>`}</summary><p class="dx-names">${starts.map(tag).join('')}</p></details>`
+      : '';
+    if (m.all) return `<p class="dx-note">${tr`Lo puede aprender <b>cualquier Pokémon</b> (los ${P.length}).`}</p>${startList}`;
+    const list = P.filter((r) => canLearn(m, r));
+    const types = m.pools.map(typeName).join(', ');
+    return `<details class="dx-learn"${p ? ' open' : ''}><summary>${tr`Lo aprenden <b>${list.length} Pokémon</b>: los de tipo ${types}`}</summary><p class="dx-names">${list.map(tag).join('')}</p></details>${startList}`;
+  }
+
+  function guideHtml() {
+    const M = NS.Moves;
+    const card = (h, p) => `<div><h5>${tr(h)}</h5><p>${tr(p)}</p></div>`;
+    const rows = Object.keys(M.POOL).map((t) => {
+      const first = M.startFor({ types: [t] });
+      const fm = dexData.byId.get(first);
+      const rest = M.POOL[t].filter((id) => id !== first).map((id) => esc(gameText(M.BY_ID[id].name))).join(', ');
+      return `<tr><td><i class="dx-ty" style="--c:${typeColor(t)}">${esc(typeName(t))}</i></td><td><b>${esc(fm ? gameText(fm.d.name) : first)}</b></td><td>${rest || '-'}</td></tr>`;
+    }).join('');
+    return `
+      <h3>${tr('Cómo funcionan los efectos')}</h3>
+      <div class="dx-gl">
+        ${card('Daño', 'Cada golpe hace el daño del movimiento × tu ataque × la eficacia de tipo. Un crítico multiplica por 1,5; la probabilidad viene de objetos y mejoras.')}
+        ${card('Físico y especial', 'Los movimientos físicos usan el Ataque de tu Pokémon y los especiales su Ataque Especial. Elige tu Pokémon arriba para ver con cuáles pega más.')}
+        ${card('Eficacia de tipos', 'Cada tipo del enemigo débil al movimiento multiplica por 1,6, cada uno que lo resiste por 0,6 y uno inmune por 0,3 (nunca es cero). El total queda entre ×0,3 y ×2,4.')}
+        ${card('Tu defensa', 'El daño que recibes baja con la Defensa de tu Pokémon si el golpe es físico y con su Defensa Especial si es especial: de un 25 % más a un 22 % menos.')}
+        ${card('Quemadura', 'Cada golpe suma 1 acumulación (máximo 8) y la renueva a 3 s. Cada 0,5 s hace 1,6 × acumulaciones × (1 + 0,06 × tu nivel).')}
+        ${card('Veneno', 'Suma acumulaciones (máximo 8) y dura 4 s. Cada 0,6 s quita un 1,2 % de la vida máxima × acumulaciones + 1 (algo menos en jefes de más de 60.000 de vida), así que es lo mejor contra jefes.')}
+        ${card('Ralentizar', 'Frena al enemigo ese porcentaje durante un rato. Si le llegan dos, se queda el más fuerte, no se suman.')}
+        ${card('Perforación', 'Cuántos enemigos extra atraviesa el proyectil antes de desaparecer.')}
+        ${card('Teledirigido', 'El proyectil gira hacia el enemigo más cercano. Cuanto más alto el valor, más cerrado gira.')}
+        ${card('Empuje', 'Cuánto retrocede el enemigo al recibir el golpe. Útil para que no te rodeen.')}
+        ${card('Cadena e Infortunio', 'Los rayos en cadena saltan de enemigo en enemigo y pierden un 15 % de daño en cada salto. Infortunio hace más daño a quien esté quemado, envenenado o frenado.')}
+        ${card('Mejoras sin daño', 'Danza Espada, Maquinación, Agilidad, Fortaleza, Danza Dragón y Acua Aro se lanzan solas. Cada vez suman una acumulación y reinician la duración; si se acaba, se pierden todas a la vez. La barrita bajo cada mejora del HUD te dice cuánto le queda.')}
+        ${card('Evolución', 'Un movimiento evoluciona cuando está a nivel 5 y además tienes la mejora pasiva que pide (Vigor, Potencia, Carrera, Reflejos, Coraza, Síntesis o Imán).')}
+      </div>
+      <div><h4>${tr('Movimiento inicial por tipo')}</h4>
+      <p class="dx-note">${tr('Con qué movimiento empieza tu Pokémon según su tipo, salvo que tenga uno propio. Al subir de nivel te pueden salir los de sus tipos y los de tipo Normal, que los aprende cualquiera.')}</p></div>
+      <table><thead><tr><th>${tr('Tipo')}</th><th>${tr('Empieza con')}</th><th>${tr('Puede aprender además')}</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
 
   // ----------------------------------------------------------- controls
   // The game reads keys by e.code ('keyw', 'digit1'...) from window keydown /
@@ -2235,6 +3017,7 @@
       case 'KeyJ': toggleBuffs(); break;
       case 'KeyL': toggleNetLog(); break;
       case 'KeyK': toggleKeys(); break;
+      case 'KeyP': toggleDex(); break;
       case 'KeyB': setAlertSound(!alertSound); toast(alertSound ? tr('Avisos con sonido') : tr('Avisos sin sonido')); break;
       default: hit = false;
     }
