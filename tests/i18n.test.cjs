@@ -26,7 +26,8 @@ function mod(lang) {
     window.test = { fmt, dec, where, buffsHtml, showSummary, renderKeys, moveList,
       setNS(ns) { NS = ns; setGame(ns); },
       summary() { sumEl = { dataset: {}, hidden: true }; return sumEl; },
-      credit,
+      credit, autoChoose, autoHtml, movesets, movesetHtml,
+      setAuto(v) { auto = Object.assign(AUTO_DEF(), v); },
     };
   ` + injection.slice(marker), context);
   return { context, api: context.window.test };
@@ -128,4 +129,76 @@ test('localization is bundled in the existing extension entry point', () => {
   assert.ok(injection.indexOf('window.__psmodI18n =') < injection.indexOf('const { t: tr'));
   for (const entry of manifest.content_scripts) for (const file of entry.js) assert.ok(existsSync(path.join(root, file)));
   assert.match(readFileSync(path.join(root, '.github/workflows/release.yml'), 'utf8'), /zip .*inject\.js/);
+});
+
+test('auto-pick takes the first rule that matches a card', () => {
+  const { api } = mod('es');
+  const ns = game('es');
+  ns.Moves = { BY_ID: { ember: { cat: 'special', name: 'Ascuas', type: 'fire' }, tackle: { cat: 'physical', name: 'Placaje', type: 'normal' } }, ALL: [{ id: 'ember' }, { id: 'tackle' }], poolFor: () => ['ember'] };
+  ns.Stats = { fit: (mon, cat) => (cat === 'special' ? 1 : 0.8) };
+  ns.LevelUp = { STATS: [{ id: 'atk', title: 'Potencia', desc: '+10%' }, { id: 'heal', title: 'Baya Zidra', desc: 'Cura' }] };
+  api.setNS(ns);
+  const p = { hp: 80, maxHp: 100, mon: {} };
+  const cards = [
+    { type: 'new', key: 'new:tackle' },
+    { type: 'stat', key: 'stat:heal', color: '#8fa3c4' },
+    { type: 'new', key: 'new:ember' },
+  ];
+  api.setAuto({ rules: ['heal-low', 'new-fit', 'new'] });
+  assert.equal(api.autoChoose(cards, p).key, 'new:ember');
+  assert.equal(api.autoChoose(cards, { ...p, hp: 30 }).key, 'stat:heal');
+  api.setAuto({ rules: ['move:tackle', 'new-fit'] });
+  assert.equal(api.autoChoose(cards, p).key, 'new:tackle');
+  api.setAuto({ rules: ['stat:atk', 'evo'] });
+  assert.equal(api.autoChoose(cards, p), null);
+});
+
+test('auto-pick editor renders in English', () => {
+  const { api } = mod('en');
+  const ns = game('en');
+  ns.Moves = { BY_ID: { ember: { name: 'Ascuas', type: 'fire' } }, ALL: [{ id: 'ember' }] };
+  ns.LevelUp = { STATS: [{ id: 'atk', title: 'Potencia', desc: '+10%' }] };
+  ns.U = { TYPE_NAME: { fire: 'Fuego' } };
+  api.setNS(ns);
+  const html = api.autoHtml();
+  for (const label of ['Evolve a move', 'If nothing from the list comes up:', 'All moves', 'Reset the list']) assert.ok(html.includes(label), label);
+});
+
+test('a moveset goes first in its order and limits new moves', () => {
+  const { api } = mod('en');
+  const ns = game('en');
+  ns.Moves = {
+    BY_ID: { ember: { cat: 'special', name: 'Ascuas', type: 'fire' }, tackle: { cat: 'physical', name: 'Placaje', type: 'normal' }, bite: { cat: 'physical', name: 'Mordisco', type: 'dark' } },
+    poolFor: () => ['ember', 'bite'],
+  };
+  ns.startMoveOf = () => 'tackle';
+  api.setNS(ns);
+  const p = { hp: 100, maxHp: 100, mon: { dex: 25, name: 'Pikachu', types: ['electric'] } };
+  api.movesets[25] = ['tackle', 'ember'];
+  const cards = [{ type: 'new', key: 'new:bite' }, { type: 'new', key: 'new:ember' }, { type: 'up', key: 'up:tackle' }];
+  api.setAuto({ rules: ['set', 'new'] });
+  assert.equal(api.autoChoose(cards, p).key, 'up:tackle');
+  api.setAuto({ rules: ['new'] });
+  assert.equal(api.autoChoose(cards, p).key, 'new:ember');
+  api.setAuto({ rules: ['new'] });
+  assert.equal(api.autoChoose(cards, { ...p, mon: { dex: 1 } }).key, 'new:bite');
+  const html = api.movesetHtml(p.mon);
+  assert.ok(html.includes('Placaje') && html.includes('Add'));
+  delete api.movesets[25];
+  assert.ok(api.movesetHtml(p.mon).includes('No moveset'));
+});
+
+test('tied rules take turns, by how often each was taken', () => {
+  const { api } = mod('es');
+  const ns = game('es');
+  ns.Moves = { BY_ID: {} };
+  api.setNS(ns);
+  const cards = [{ type: 'stat', key: 'stat:atk' }, { type: 'stat', key: 'stat:spd' }, { type: 'stat', key: 'stat:cd' }];
+  api.setAuto({ rules: ['stat:cd', 'stat:atk', 'stat:spd'], tied: { 'stat:atk': true, 'stat:spd': true } });
+  const p = { hp: 1, maxHp: 1, mon: {}, statsTaken: { cd: 0, atk: 2, spd: 1 } };
+  assert.equal(api.autoChoose(cards, p).key, 'stat:cd');
+  api.setAuto({ rules: ['stat:atk', 'stat:spd', 'stat:cd'], tied: { 'stat:spd': true } });
+  assert.equal(api.autoChoose(cards, p).key, 'stat:spd');
+  assert.equal(api.autoChoose(cards, { ...p, statsTaken: { atk: 1, spd: 1 } }).key, 'stat:atk');
+  assert.equal(api.autoChoose(cards.slice(0, 1), p).key, 'stat:atk');
 });

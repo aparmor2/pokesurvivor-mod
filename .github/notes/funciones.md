@@ -8,9 +8,13 @@
 - **Resumen e historial** de tus últimas 30 partidas.
 - **Más campo de visión** y **HUD más grande**, con el nivel de cada ataque encima de su icono y una barrita con lo que le queda a cada mejora (Danza Espada, Agilidad, Fortaleza…).
 - **Movedex**: todos los movimientos con sus números, quién los aprende y cómo funcionan los efectos (`Alt` + `P`).
+- **Auto mejoras**: elige las cartas de subir de nivel por ti, en tu orden, con un moveset para cada Pokémon y tus objetos preferidos.
+- **Área de los cofres con candado** dibujada en el suelo.
+- **Iconos de tipo y de objetos** de los juegos principales.
+- **Todo en Ajustes**: una pestaña "Mod" en los Ajustes del juego con todas las opciones.
 - **Controles a tu gusto**, también con la rueda y los botones del ratón.
 - **Minimapa** con tus amigos, los enemigos, los cofres y los objetos.
-- **Pokédex**: pestaña "Nacional" con todos juntos y pestaña de **Favoritos**.
+- **Pokédex**: pestaña "Nacional" con todos juntos.
 - **Gacha más rápido**: saltar la animación, "Tirar todo" y un banner "Nacional" que solo tira en las regiones que te faltan.
 
 La lista completa y cómo se usa cada cosa, en el [README](https://github.com/aparmor2/pokesurvivor-mod#readme).

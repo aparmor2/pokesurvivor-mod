@@ -94,10 +94,6 @@
     "Cada tirada va a la primera región que aún no tienes completa, así no gastas tickets en regiones terminadas.": "Each pull goes to the first region you haven't completed, so no tickets are spent on finished regions.",
     "Ya tienes todos los Pokémon de todas las regiones": "You already have every Pokémon in every region",
     "Puzles diarios de Pokémon, del autor de este mod": "Daily Pokémon puzzles by the mod author",
-    "Quitar de favoritos": "Remove from favorites",
-    "Añadir a favoritos": "Add to favorites",
-    "Ninguno de tus favoritos pasa los filtros.": "None of your favorites match the filters.",
-    "Aún no tienes favoritos. Pasa el ratón por un Pokémon y pulsa la ★ de su esquina.": "No favorites yet. Hover over a Pokémon and click its corner star.",
     "Rueda arriba": "Wheel up",
     "Rueda abajo": "Wheel down",
     "Botón central": "Middle mouse",
@@ -146,7 +142,6 @@
     "Faltan": "Missing",
     "Ocultar": "Hide",
     "Completa": "Complete",
-    "Favoritos": "Favorites",
     "Nacional": "National",
     "Arriba": "Up",
     "Abajo": "Down",
@@ -282,7 +277,79 @@
     "Empieza con": "Starts with",
     "Puede aprender además": "Can also learn",
     "Reparto entre ": "Sharing across ",
-    " jugadores": " players"
+    " jugadores": " players",
+    "Auto mejoras": "Auto-pick",
+    "Auto mejoras: sí": "Auto-pick: on",
+    "Auto mejoras: no": "Auto-pick: off",
+    "Auto mejoras: no ha salido nada de tu lista": "Auto-pick: nothing from your list came up",
+    "Auto:": "Auto:",
+    "Activas": "On",
+    "Apagadas": "Off",
+    "Ajustar": "Edit",
+    "Añadir": "Add",
+    "Elegir solo las cartas al subir de nivel": "Pick level-up cards automatically",
+    "Orden en que se eligen las cartas (Alt + U)": "Card priority order (Alt + U)",
+    "Evolucionar un ataque": "Evolve a move",
+    "Mejora que deja evolucionar un ataque": "Stat that unlocks a move's evolution",
+    "Baya Zidra con menos de la mitad de vida": "Sitrus Berry when below half HP",
+    "Subir de nivel un ataque que ya tienes": "Level up a move you already have",
+    "Ataque nuevo que pega bien con tu Pokémon": "New move that suits your Pokémon",
+    "Cualquier ataque nuevo": "Any new move",
+    "Ataques de tu Pokémon": "Your Pokémon's moves",
+    "Todos los ataques": "All moves",
+    "Elijo yo": "I pick",
+    "Cambiar opciones y, si tampoco, elijo yo": "Reroll, and if still nothing, I pick",
+    "Si no sale nada de la lista:": "If nothing from the list comes up:",
+    "La lista está vacía: añade algo.": "The list is empty: add something.",
+    "Un ataque concreto vale para aprenderlo, subirlo de nivel o evolucionarlo. Con = una línea comparte puesto con la de arriba y se van turnando. En cooperativo verás las cartas un momento antes de que se elija. Lo que se elige sale en un aviso arriba.": "A specific move counts for learning it, leveling it up or evolving it. With = a line shares its place with the one above and they take turns. In co-op you'll see the cards for a moment before the pick. Each pick shows up in a notice at the top.",
+    "Restablecer la lista": "Reset the list",
+    "Panel del mod": "Mod panel",
+    "Panel de daño": "Damage panel",
+    "Daño de cada jugador, tiempos y ritmo durante la partida. Alt + M": "Damage per player, timers and pace during a run. Alt + M",
+    "Mejoras en el panel": "Stats in the panel",
+    "Tus multiplicadores y lo que compartís en cooperativo. Alt + J": "Your multipliers and what you share in co-op. Alt + J",
+    "Minimapa": "Minimap",
+    "Terreno, amigos, enemigos, cofres y objetos. Alt + N": "Terrain, friends, enemies, chests and items. Alt + N",
+    "Shiny, jefes, legendarios, grietas y amigos con poca vida. Alt + B": "Shinies, bosses, legendaries, rifts and friends with low HP. Alt + B",
+    "Cámara y HUD": "Camera and HUD",
+    "Aleja la cámara para ver más mapa. Alt + + / Alt + - / Alt + 0": "Zooms the camera out to show more of the map. Alt + + / Alt + - / Alt + 0",
+    "Tamaño del HUD": "HUD size",
+    "Nombre, vida, mejoras y ataques del juego.": "The game's name, HP, buffs and moves.",
+    "Elegir las cartas por mí": "Pick cards for me",
+    "Al subir de nivel, el mod coge la carta del primer punto de la lista que haya salido. Alt + U": "On level up, the mod takes the card for the highest entry on the list that came up. Alt + U",
+    "Más": "More",
+    "Teclas, rueda y botones del ratón. Alt + K": "Keys, mouse wheel and buttons. Alt + K",
+    "Todos los movimientos, quién los aprende y cómo funcionan. Alt + P": "Every move, who learns it and how it works. Alt + P",
+    "Historial de partidas": "Run history",
+    "Tus últimas partidas. Alt + H": "Your recent runs. Alt + H",
+    "Cortes de conexión en cooperativo. Alt + L": "Connection drops in co-op. Alt + L",
+    "Cualquier ataque": "Any move",
+    "Misma prioridad que la de arriba: se van turnando": "Same priority as the one above: they take turns",
+    "Iconos de objetos de los juegos": "Item icons from the main games",
+    "En los objetos y en las cartas de mejora.": "On items and on stat cards.",
+    "Iconos de tipo de los juegos recientes": "Type icons from the recent games",
+    "Los de Escarlata y Púrpura en los ataques, en vez de los pixelados del juego.": "The Scarlet and Violet ones on moves, instead of the game's pixel-art icons.",
+    "Objetos preferidos": "Favourite items",
+    "Al coger un objeto llevando otro, te quedas con el que esté más arriba sin que el juego pregunte.": "When you pick up an item while holding another, you keep whichever is higher on the list, without the game asking.",
+    "Sin objetos en la lista: el juego te pregunta siempre.": "No items on the list: the game always asks.",
+    "Te quedas con": "Keeping",
+    "Cambias a": "Switching to",
+    "Área de los cofres con candado": "Locked chest area",
+    "Un círculo en el suelo marca dónde tienes que quedarte para abrirlos.": "A circle on the ground shows where to stand to open them.",
+    "Mejora que evoluciona": "Evolution stat",
+    "Con menos de media vida": "Below half HP",
+    "En su orden": "In its order",
+    "Subir de nivel": "Level up",
+    "Un ataque que tienes": "A move you have",
+    "Ataque nuevo": "New move",
+    "Que pegue bien": "Suits your Pokémon",
+    "Cualquiera": "Any",
+    "Moveset de tu Pokémon, en su orden": "Your Pokémon's moveset, in order",
+    "Sin moveset: las auto mejoras pueden coger cualquier ataque.": "No moveset: auto-pick can take any move.",
+    "Moveset para las auto mejoras": "Auto-pick moveset",
+    "Pulsa los iconos de arriba o añádelos aquí. El orden es la prioridad.": "Click the icons above or add moves here. The order is the priority.",
+    "El moveset de cada Pokémon se elige en su ficha, en la pantalla Pokémon.": "Each Pokémon's moveset is set on its card in the Pokémon screen.",
+    "Los ataques que buscan las auto mejoras con este Pokémon, en orden. Solo aprende ataques nuevos de aquí.": "The moves auto-pick goes for with this Pokémon, in order. New moves only come from this list."
   };
   const TEMPLATES = {
     "{x} a {x} casillas": "{x} {x} tiles away",
@@ -314,7 +381,8 @@
     "Lo aprenden <b>{x} Pokémon</b>: los de tipo {x}": "Learned by <b>{x} Pokémon</b>: those of type {x}",
     "Reparto entre {x} jugadores": "Sharing across {x} players",
     "Tienes la {x}. Descarga el zip nuevo, descomprímelo encima de la carpeta del mod y recarga la extensión.": "You have {x}. Download the new ZIP, extract it over the mod folder, and reload the extension.",
-    "Mod {x} disponible": "Mod {x} available"
+    "Mod {x} disponible": "Mod {x} available",
+    "Moveset de {x}": "Moveset: {x}"
   };
   let game = null;
   const escape = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -580,6 +648,203 @@
     ctx.restore();
   }
 
+  // --------------------------------------------------------- chest area
+  // Locked chests ('bigchest' props) open after standing 3.5 s within
+  // max(46, chest.r + player.r + 24) world units of them (Interact.update),
+  // and the timer runs back down when you step out. The game only shows the
+  // progress ring once you're inside, so we draw that circle on the ground:
+  // right after World.drawLiquid, which paints the ground layer in world
+  // coordinates, under every prop and Pokémon.
+  let chestArea = load('chestArea', true);
+
+  function setupChestArea() {
+    const W = NS.World;
+    const drawLiquid = W.drawLiquid;
+    W.drawLiquid = function (ctx, view) {
+      const out = drawLiquid.apply(this, arguments);
+      if (chestArea) try { drawChestAreas(ctx, view); } catch {}
+      return out;
+    };
+  }
+
+  function drawChestAreas(ctx, view) {
+    const p = me();
+    if (!p || !inRun()) return;
+    const t = performance.now() / 1000;
+    for (const c of NS.World.visibleProps(view) || []) {
+      if (c.type !== 'bigchest') continue;
+      const r = Math.max(46, (c.r || 14) + (p.r || 0) + 24);
+      const inside = !p.dead && (p.x - c.x) ** 2 + (p.y - c.y) ** 2 < r * r;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = inside ? 'rgba(255,210,63,.18)' : 'rgba(255,210,63,.07)';
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.setLineDash([7, 5]);
+      ctx.lineDashOffset = -t * 12;
+      ctx.strokeStyle = inside ? 'rgba(255,210,63,.95)' : `rgba(255,210,63,${0.45 + 0.15 * Math.sin(t * 3)})`;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+  waitFor(() => NS && NS.World && NS.World.drawLiquid && NS.World.visibleProps, setupChestArea);
+
+  // --------------------------------------------------------- type icons
+  // The game draws every move and type icon itself (Icons.canvas(key) for
+  // 'move:<id>' and 'type:<type>'): a 16 px pixel-art circle in the type
+  // colour with a white glyph and, for moves, a badge of its kind in the
+  // bottom-right corner (7x7 px from 9,9, framed in #1b1528). They reach
+  // the screen through Icons.html, Icons.url and Icons.draw. We hand out
+  // instead the type icons of the recent games, redrawn as SVG by partywhale
+  // (github.com/partywhale/pokemon-type-icons, MIT), at 64 px with the
+  // game's kind badge copied on top, 4x and still pixel art.
+  //
+  // Icons licence (TYPE_SVG):
+  // MIT License
+  //
+  // Copyright (c) 2022 James Watkins
+  //
+  // Permission is hereby granted, free of charge, to any person obtaining a copy
+  // of this software and associated documentation files (the "Software"), to deal
+  // in the Software without restriction, including without limitation the rights
+  // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  // copies of the Software, and to permit persons to whom the Software is
+  // furnished to do so, subject to the following conditions:
+  //
+  // The above copyright notice and this permission notice shall be included in all
+  // copies or substantial portions of the Software.
+  //
+  // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  // SOFTWARE.
+  const TYPE_SVG = {"bug":"<circle fill=\"#9f9f28\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M57.84,144.71c-.01-17.4,1.6-28.85,6.39-39.68,3.81-8.63,8.14-10.12,15.18-4.54,9.56,7.57,20.13,12.71,32,15.35,6.4,1.43,8.85,5.18,6.73,11.74-7.23,22.39-14.49,44.78-21.4,67.27-2.38,7.73-5.96,7.47-11.48,3.27-19.56-14.89-27.26-35.22-27.42-53.41Z\"/><path fill=\"#fff\" d=\"M198.18,140.28c-.2,22.43-7.79,41.62-25.21,56.25-8.51,7.14-11.15,6.33-14.39-3.8-6.75-21.15-13.17-42.41-20.18-63.48-2.61-7.83-.79-11.92,7.38-13.71,11.17-2.45,21.18-7.45,30.21-14.58,7.71-6.09,11.86-4.82,15.86,4.29,4.91,11.17,6.33,22.98,6.33,35.02Z\"/><path fill=\"#fff\" d=\"M127.91,105.03c-15.42,.42-28.7-4.76-40.56-14.1-6.17-4.85-7.07-9.34-1.07-15.53,23.76-24.54,59.04-24.66,83.13-.34,6.45,6.51,5.42,11.16-1.15,16.22-11.96,9.2-25.27,14.31-40.34,13.75Z\"/><path fill=\"#fff\" d=\"M128.4,179.08c4.03-.22,7.65-.37,11.27-.64,4.75-.35,6.18,2.6,7.01,6.54,.84,3.97-.53,6.29-4.39,7.43-9.41,2.78-18.79,2.72-28.22,.13-4.4-1.21-5.59-3.84-4.63-8.17,.94-4.23,3.05-6.32,7.53-5.92,3.94,.35,7.89,.44,11.44,.63Z\"/><path fill=\"#fff\" d=\"M127.89,170.73c-4.86-.9-12.01,1.45-11.66-7,.31-7.45,5.28-9.23,12.43-9.21,7.21,.02,11.05,3,11.1,9.52,.07,8.37-7.16,5.71-11.86,6.69Z\"/>","dark":"<circle fill=\"#4f4747\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M74.46,84.24c7.49,7.56,17.75,14.95,27.04,16.93-1.38,2.84-1.88,5.07-2.37,8.23-2.78,17.82-1.19,34.63,12.15,48.3,10.06,10.31,23.45,10.28,33.51-.09,13.29-13.71,14.91-30.51,12.01-48.33-.43-2.62-1.93-9.15-1.88-9.24,.1-.18,0-.08,1-.38,6.48-1.51,18.62-7.99,26.05-15.5,15.36,11.88,23.65,36.91,14.18,56.85-12.94,27.24-43.16,51.76-81.43,43.96-29.15-5.94-49.04-24.49-57.95-53.21-4.14-13.33,1.67-35.98,17.7-47.52Z\"/><path fill=\"#fff\" d=\"M139.92,124.38c-.27,5.3-.79,12.61-6.05,18.45-4.12,4.57-7.96,4.83-11.66-.03-7.43-9.75-7.46-20.89-4.48-32.19,1.96-7.42,2.86-7.9,10.26-7.9,7.41,0,7.97,.58,10.38,7.85,1.28,3.88,1.58,7.78,1.56,13.83Z\"/>","dragon":"<circle fill=\"#576fbc\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M170.93,124.41c.8,15.21-5.05,28.07-14.96,38.95-4.86,5.34-7.13,10.82-7.01,17.85,.07,4.3-.64,8.63-1.21,12.91-1.48,11.17-7.97,16.55-19.79,16.53-11.81-.02-18.2-5.38-19.75-16.59-.18-1.32-.43-2.65-.42-3.97,.07-12.31-3.37-22.68-11.93-32.43-14.25-16.22-14.56-45.3-2.66-60.49,5.82-7.42,4.65-17.14,7.55-25.58,2.37-6.9,4.02-14.05,6.07-21.06,.48-1.65,1.51-3.06,3.48-3,2.02,.06,2.71,1.6,3.11,3.3,1.8,7.77,4.05,15.47,5.23,23.33,.95,6.31,4.94,5.95,9.39,5.97,4.5,.02,8.42,.25,9.35-6.03,1.11-7.53,3.32-14.9,5.03-22.34,.45-1.96,.74-4.19,3.34-4.19,2.43,0,3.15,1.99,3.71,4,1.88,6.72,3.88,13.4,5.7,20.14,3.01,11.13,4.22,22.74,11.59,32.51,4.31,5.71,3.98,13.22,4.18,20.21Z\"/><path fill=\"#fff\" d=\"M194.2,95.93c16.78,17.37,18.87,64.53-8.22,85.49-5.83-6.35-8.44-14.77-13.52-21.58-.65-.87-.74-2.88-.18-3.82,5.41-9,4.95-20.46,12.96-28.54,7.84-7.92,9.39-18.61,8.97-31.55Z\"/><path fill=\"#576fbc\" d=\"M141.47,153.95c6.61-10.7,12.32-19.93,18.62-30.12,5.76,18.39-.34,28.8-18.62,30.12Z\"/><path fill=\"#fff\" d=\"M61.68,95.93c-16.78,17.37-18.87,64.53,8.22,85.49,5.83-6.35,8.44-14.77,13.52-21.58,.65-.87,.74-2.88,.18-3.82-5.41-9-4.95-20.46-12.96-28.54-7.84-7.92-9.39-18.61-8.97-31.55Z\"/><path fill=\"#576fbc\" d=\"M115.46,153.95c-6.61-10.7-12.32-19.93-18.62-30.12-5.76,18.39,.34,28.8,18.62,30.12Z\"/>","electric":"<circle fill=\"#dfbc28\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M112.94,205.87c-4.35-1.07-3.09-4.21-2.41-6.43,3.08-10.15,6.21-20.3,9.82-30.28,2.33-6.45,1.96-10.95-4.46-15.2-10.8-7.15-20.8-15.48-31.36-23-6.61-4.71-7.92-10.03-3.8-17.02,11.64-19.74,23.22-39.49,36.68-58.1,5.15-7.12,10.27-8.11,17.65-3.53,11.82,7.34,23.91,14.25,36.04,21.07,7.09,3.99,7.59,8.15,2.06,14.06-8.19,8.74-15.62,18.2-24.02,26.73-5.23,5.31-4.13,8.76,.94,12.93,6.41,5.28,12.52,10.94,18.74,16.46,3.68,3.27,4.04,6.56,.24,10.13-17.7,16.64-35.35,33.33-53.04,49.98-.94,.89-2.12,1.53-3.08,2.21Z\"/>","fairy":"<circle fill=\"#e18ce1\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M168.54,132.61c3.77,6.74,7.72,12.55,9.17,19.5,2.22,10.62-1.21,14.8-11.95,15.74-7.15,.63-10.23,.58-23.99-6.3-.72,12.68,10.42,26.54,7.56,40.13-.3,1.42-2.11,1.88-3.1,.81-10.72-11.57-11.42-26.96-18.23-40.53-6.59,13.45-7.73,28.65-17.98,40.71-.94,1.1-2.77,.71-3.11-.7-3.31-13.62,7.93-26.82,7.68-39.39-4.82,3.96-16,5.77-22.74,5.34-12.59-.8-15.97-5-13.2-17.17,1.5-6.62,5.97-11.71,8.57-18.3-7.97-5.14-16.04-9.4-21.66-17.39-10.4-14.76-10.88-31.08-9.17-47.77,.67-6.56,6.56-8.82,12.68-9,22.43-.65,42.31,4.56,55.63,24.61q.69,1.04,3.11,5.35,2.46-3.75,3.18-4.86c13.12-20.16,32.89-25.76,55.37-25.1,9.84,.29,13.27,4.35,13.86,14.36,.99,16.72-1.38,32.29-12.39,45.93-5.05,6.25-12.22,8.98-19.28,14.02Z\"/><path fill=\"#e291e2\" d=\"M128.01,97.38c3.43,10.49,11.99,18.83,23.75,18.89-4.1,10.72-12.19,14.1-21.2,14.91-10.89,.98-20.09-2.8-26.74-14.02,11.02-1.56,20.04-8.95,24.18-19.79Z\"/>","fighting":"<circle fill=\"#e49021\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M187.37,155.46c.55,.18,.95,.71,1.01,1.29,1.74,16.71-.12,19.56-15.05,25.28-18.32,7.01-37.09,12.47-56.28,16.61-6.49,1.4-12.82,1.23-18.55-1.56-9.55-4.66-18.43-10.58-26.79-17.18-2.9-2.29-4.35-5.25-4.45-8.92-.16-5.96,.32-11.94,0-17.9-.29-5.3,1.7-8.26,7.01-8.25,13.98,.02,27.96,0,41.94,.07,2.73,.01,5.69,.39,6.17,3.76,.85,6.07,5.16,6,9.64,6,14.98-.02,29.96-.02,44.94,.04,3.34,.01,6.74-.4,10.4,.77Z\"/><path fill=\"#fff\" d=\"M66.79,97c0-7.65-.17-15.31,.05-22.96,.23-8.25,1.29-9.16,9.29-9.49,12.35-.52,13.55,.62,13.57,13.24,.03,14.31,.11,28.62-.05,42.92-.1,8.6-2.14,10.41-10.71,10.59-9.27,.18-11.82-1.83-12.08-10.34-.24-7.98-.05-15.97-.05-23.96,0,0-.01,0-.02,0Z\"/><path fill=\"#fff\" d=\"M162.9,146.55c-6.65,0-13.31-.04-19.96,.01-6.12,.05-9.28-2.95-9.44-9.04-.09-3.32-.23-6.66,0-9.97,.36-5.39,3.15-8.73,8.81-8.76,13.64-.08,27.28,.01,40.91-.04,4.22-.02,5.58,2.08,6.03,6.1,2.32,20.72,1.48,21.77-19.36,21.77-2.33,0-4.66,0-6.99,0,0-.02,0-.05,0-.07Z\"/><path fill=\"#fff\" d=\"M122.79,98.15c0,7.98,.25,15.96-.07,23.93-.3,7.37-2.74,9.14-11.13,9.21-8.7,.07-11.35-1.5-11.5-8.78-.36-16.61-.09-33.23-.15-49.85-.02-5.98,3.01-8.41,8.72-8.11,1.33,.07,2.66-.04,3.99,0,8.85,.21,9.91,1.08,10.13,9.67,.2,7.97,.04,15.95,.04,23.93,0,0-.02,0-.03,0Z\"/><path fill=\"#fff\" d=\"M189.2,87.77c0,5.64,0,11.27,0,16.91,0,4.05-1.9,6.18-6.11,5.93-.66-.04-1.33,0-1.99,.03q-14.85,.61-14.86-14.08c0-7.3-.1-14.6,.04-21.89,.17-9.07,1.26-10.04,10.57-10.2,1.66-.03,3.32,.07,4.97,.05,4.94-.05,7.33,2.49,7.37,7.32,.04,5.31,0,10.61,0,15.92Z\"/><path fill=\"#fff\" d=\"M156.1,88.09c0,5.33-.1,10.66,.03,15.99,.12,4.68-2.05,6.48-6.64,6.51-19.31,.12-16.06,.62-16.34-14.77-.14-7.66,.11-15.33,.03-22.99-.06-5.9,2.76-8.56,8.59-8.29,2.33,.11,4.66,.06,6.99,.05,5.03-.01,7.23,2.72,7.26,7.5,.03,5.33,0,10.66,0,15.99h.06Z\"/>","fire":"<circle fill=\"#e4613e\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M101.14,196.71c-18.04-4.97-32.15-33.23-26.12-56.44,2.47-9.5,6.73-18.04,13.15-25.42,5.67-6.52,11.56-12.86,17.44-19.19,16.45-17.72,16.84-21.84,3.67-40.92,16.66-6.33,35.79,6.81,36.26,24.87,.23,8.92-3.12,16.84-6.55,24.78-2.86,6.61-3.94,13.22,1.46,21.46,.78-7.78,.25-13.98,5.16-19.12,5.44-5.7,9.99-7.61,18.26-5.74-8,6.58-6.97,10.9,6.52,29.92,12.34,17.41,15.7,32.35,6.6,48.54-9.75,17.35-30.86,27.88-50.31,24.97,1.32-2.15,5-3.89,7.7-5.48,12.95-7.61,14.91-19.54,4.94-30.71-3.31-3.71-7.06-7.04-10.68-10.47-14.71-13.95-16.33-16.83-20.12-36.25-20.01,10.96-23.87,46.75-7.38,75.23Z\"/>","flying":"<circle fill=\"#74aad0\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M151.78,148.43c-15.72,18.66-36.72,18.54-56.82,20.49-.88,.09-1.72,.46-2.36,1.09-10.27,10.09-15.84,24.13-28,33.64-.55,.43-1.39,.2-1.63-.45-2.25-6.09-1.57-11.4-.81-16.39,4.26-28.02,11.13-55.4,21.88-81.66,5.83-14.23,15.13-24.51,31.59-27.2,24.36-3.98,47.33-13.03,70.58-20.97,2.96-1.01,6.05-1.96,9.13-.76,.97,.38,1.74,1.18,2.02,2.18,.91,3.25-.92,5.89-2.54,8.68-13.5,23.36-34.25,37.51-58.92,46.81-3.54,1.33-7.9,2.81-10.91,5.61-.32,.3-.08,.86,.35,.88,17.48,.74,32.76-5.7,48.82-9.24,.55-.12,1.04,.45,.84,.98-7.05,17.94-23.79,26.99-39.9,32.15-6.3,2.02-9.35,2.46-20.33,3.46-.37,.03-.41,.49-.11,.57,15.87,4,21.78-.55,36.34-1.55,.83-.06,1.3,1.02,.77,1.66Z\"/>","ghost":"<circle fill=\"#6f4570\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M181.32,129.18c17.5-2.25,26.94,4.31,29.63,19.92,.35,2.02,.89,4.09-.95,5.51-1.82,1.4-3.97,.9-5.49-.53-3.43-3.21-6.15-2.85-9.23,.65-11.43,13.03-11.49,12.97-25.61,3.67-7.23,9.3-13.4,19.53-22.16,27.76-15.24,14.32-23.93,14.36-39.14-.12-8.5-8.1-14.85-17.81-21.86-27.6-1.34,.61-2.63,.92-3.57,1.67-11.08,8.95-12.51,8.86-20.73-3.02-3.01-4.34-5.61-7.7-10.89-2.9-1.55,1.41-3.7,1.79-5.46,.27-1.77-1.53-1.11-3.56-.73-5.56,2.91-15.53,11.6-21.56,29.88-19.95-1.56-21.61,3.65-40.79,21.04-55.13,10.2-8.4,21.88-12.33,35.08-11.62,30.09,1.6,48.84,26.36,50.2,66.98Z\"/><path fill=\"#785279\" d=\"M97.2,100.05c-.05-3.76,.1-7.72,4.2-9.25,4.1-1.54,6.94,1.39,9.36,4.16,5.03,5.76,7.53,12.61,6.59,20.2-.85,6.86-5.98,8.61-11.33,4.15-5.97-4.98-8.66-11.56-8.82-19.25Z\"/><path fill=\"#785279\" d=\"M158.77,100.6c-.26,7.31-2.96,13.47-8.42,18.46-2.1,1.92-4.32,3.3-7.12,2.5-3.33-.96-4.53-3.86-4.71-6.94-.42-7.24,1.69-13.82,6.43-19.33,2.59-3.02,5.62-6.37,10.14-4.27,3.89,1.81,3.8,5.86,3.69,9.59Z\"/>","grass":"<circle fill=\"#439837\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M194.3,86.12c2.2-2.13,1.76,4.2,1.52,6.15-4.07,32.61-8.97,65.08-16.15,97.16-1.92,8.61-3.33,9.71-12.1,9.84-9.68,.14-19.35,.06-28.95,.04-1.7,0-2.85-1.73-2.2-3.3,15.94-38.11,37.34-90.03,57.88-109.89Z\"/><path fill=\"#fff\" d=\"M121.47,180.64c-.83-23.74,2.05-37.16,5.01-68.66,.12-1.32,.59-2.57,1.15-3.77,3.53-7.48,17.34-36.24,25.36-46.17,1.68-2.08,5.01-.95,5.18,1.71,.11,1.78,.04,3.44-.03,5.22-.89,20.31-3.29,40.49-6.19,60.6-.56,3.86-2.22,7.68-3.97,11.23-5.73,11.62,1.08-2.28-17.76,34.57-1.19,2.34-2.12,5.3-4.33,6.98-1.8,1.37-4.34,.55-4.42-1.7Z\"/><path fill=\"#fff\" d=\"M116.82,86.12c2.2-2.13,1.76,4.2,1.52,6.15-4.07,32.61-8.97,65.08-16.15,97.16-1.92,8.61-3.33,9.71-12.1,9.84-9.68,.14-19.35,.06-28.95,.04-1.7,0-2.85-1.73-2.2-3.3,15.94-38.11,37.34-90.03,57.88-109.89Z\"/>","ground":"<circle fill=\"#a4733c\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M126.23,184.84c-2.52-.77-6.4-1.66-10.06-3.12-16.93-6.77-33.8-13.68-50.68-20.59-1.52-.62-2.94-1.54-4.37-2.37-7.42-4.3-7.7-9.21-.2-12.86,20.58-10.01,41.94-18.12,63.61-25.43,2.66-.9,5.15-.6,7.77,.29,21.03,7.14,41.73,15.08,61.78,24.65,.9,.43,1.91,.68,2.71,1.23,4.81,3.35,4.98,8.12-.08,11.12-4.54,2.69-9.52,4.66-14.4,6.73-16.16,6.86-32.34,13.7-49,19.3-1.91,.64-3.72,1.37-7.09,1.04Z\"/><path fill=\"#fff\" d=\"M127.56,209.93c-4.2,0-16.12-4.16-23.83-7.01-14.62-5.41-29.03-11.48-43.23-17.96-.67-.3-3.56-1.99-5.19-2.94-5.04-2.9-5.41-3.74-2.57-9.25,1.9-3.68,2.7-3.31,7.75-.99,16.01,7.32,32.38,13.67,48.71,20.15s21.09,6.87,37.52,.04c15.91-6.61,31.68-13.54,47.8-19.73,4.87-1.87,6.88-3.86,9.14,1.33,1.81,4.15,3.83,5.53-3.76,8.84-16.74,7.31-33.07,15.45-50.36,21.36-7.2,2.46-17.23,6.15-21.98,6.15Z\"/><path fill=\"#fff\" d=\"M93.59,71.19q0,14.24-14.1,14.23c-1.33,0-2.65,.02-3.98-.02-8.78-.28-9.26-.78-9.52-9.97q-.51-18.04,17.68-17.63c9.44,.22,9.76,.54,9.92,10.4,.02,.99,0,1.99,0,2.98Z\"/><path fill=\"#fff\" d=\"M185.3,87.72c-.14,10.17-.34,10.34-11.99,10.25-10-.08-10.24-.37-10.14-12.06,.09-10.18,.35-10.41,11.95-10.24,10.14,.15,10.34,.38,10.18,12.05Z\"/><path fill=\"#fff\" d=\"M119.38,99.54c.04,8.09-1.04,9.17-9.13,9.18-8.19,0-9.46-1.21-9.42-8.99,.04-7.6,.99-8.41,9.78-8.36,8.16,.05,8.74,.59,8.78,8.16Z\"/>","ice":"<circle fill=\"#47c8c8\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fbfdfd\" d=\"M110.36,60.61c6.05-5.88,11.4-11.09,17.77-17.29,5.97,6.13,11.17,11.47,17.14,17.59-4.92,5.79-9.31,10.96-14.74,17.36,12.8,7.44,26.4,16.32,40.07,24.27v-23.26h24.01c0,7.81,.09,16.68,.09,25.33-21.7,0-5.65,.26-22.24,.26,0,15.36,.44,31.53,.44,47.51h21.79v24.18h-23.94v-21.88c-13.22,7.56-27.06,15.34-40.38,22.95,5.13,5.9,9.4,10.79,14.9,17.11-5.37,5.66-10.66,11.23-17.36,18.29-5.96-6.39-11.21-12.02-17.12-18.36,4.98-5.7,9.44-10.8,14.84-16.97-13.25-7.61-27-15.35-40.37-23.03v22.22h-24.05v-24.46h22.03c0-15.56-.08-32.89-.08-48.86l-22.05-.08v-24.22h24.22c0,21.72,0,2.88,0,21.24,13.09-7.41,26.69-14.32,40.16-21.95-5.03-5.96-9.38-11.12-15.15-17.95Z\"/><path fill=\"#64cfcf\" d=\"M96.46,140.79v-32.06c12.55-7.16,12.55-6.81,27.27-15.03l6.03,7.93c-22.64,12.82,.71-.29-22.64,12.82v26.34h-10.66Z\"/>","normal":"<circle fill=\"#828282\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M129.76,204.09c-52.17,.13-86.62-49.01-69.05-96.43,1.58-4.26,2.06-8.18,.3-12.54-4.35-10.76-2.11-20.35,6.4-28.13,8.6-7.86,18.65-8.56,28.73-3.56,4.11,2.04,7.65,1.76,11.48,.67,13.45-3.84,26.89-3.86,40.31-.09,5.01,1.41,9.29,.9,14.31-1.24,9.79-4.16,19.59-3.35,27.74,4.64,8.34,8.17,9.92,17.82,5.48,28.33-1.7,4.02-1.86,7.6-.29,11.52,13.45,33.52-1.47,71.64-33.35,88.74-10.47,5.62-21.72,8.21-32.05,8.08Z\"/><path fill=\"#828282\" d=\"M77.28,133.16c-1.34-26.26,21.93-51.19,50.24-51.09,28.36,.09,50.55,22.02,51.35,50.13,.68,24.05-19.28,50.72-50.39,51.16-27.94,.4-51.07-22.27-51.2-50.2Z\"/>","poison":"<circle fill=\"#9354cb\" cx=\"128\" cy=\"128\" r=\"128\"/><circle fill=\"#fff\" cx=\"159.37\" cy=\"123.2\" r=\"16.8\"/><circle fill=\"#fff\" cx=\"102.45\" cy=\"86.6\" r=\"28.2\"/><path fill=\"#fff\" d=\"M197.45,191.55c2.36-1.5,3.12-3.08,3.28-4.91,.05-.38,.08-.77,.08-1.18,0-.27-.03-.52-.06-.76-.16-2.7-1.26-4.54-8.23-6.81-1.21-.39-2.54-.78-3.97-1.17-7.9-2.37-15.56-3.78-24.24-4.53-3.43-.44-6.99-.84-10.63-1.18-1.71-.52-2.31-1.28-2.72-2.44-.55-2.95-1.65-5.7-3.19-8.15-3.79-6.49-9.84-10.25-17.82-10.82-.49-.04-.98-.07-1.48-.08-.04,0-.08,0-.12,0-.03,0-.05,0-.08,0-.09,0-.18,0-.27,0-.27,0-.53,.01-.8,.02-9.24,.17-16.18,4.64-19.99,12.7-.62,1.22-1.15,2.49-1.55,3.82-.93,2.47-1.59,3.97-3.63,4.86-4.92,.42-9.65,.95-14.1,1.57-4.28,.46-8.51,1.21-12.7,2.17-5.5,1.14-10.17,2.43-13.73,3.8-.53,.19-1.04,.4-1.54,.63-4.26,1.9-4.63,3.67-4.66,5.88-.02,.26-.05,.52-.04,.8,0,.16,.03,.31,.04,.47,.06,2.53,.72,4.56,5.71,6.64,.94,.41,1.93,.76,2.94,1.08,1.65,.55,3.48,1.08,5.48,1.59,8.46,2.29,17.02,3.57,25.62,4.37,10.22,1.13,21.52,1.79,32.87,1.8,0,0,0,0,.01,0,0,0,0,0,0,0,.03,0,.06,0,.09,0,10.47,0,20.99-.59,30.65-1.59,10.15-.84,20.2-2.3,30.08-5.18,.46-.13,.91-.26,1.35-.39,.09-.03,.17-.05,.26-.08,2.29-.71,4.79-1.49,6.76-2.73,.08-.05,.16-.1,.25-.15,.02-.02,.05-.03,.07-.05Z\"/>","psychic":"<circle fill=\"#e96c8c\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M197.45,99.74c.29,5.25-2.01,9.75-4.39,14.13-5,9.21-4.92,18.19-.37,27.66,10.23,21.3,3.62,33.41-19.59,35.57-11.16,1.04-19.22,5.65-25.41,15.11-11.71,17.9-27.71,17.77-39.56-.25-5.98-9.09-13.76-13.73-24.55-14.79-24.07-2.36-30.54-13.99-20.14-35.92,4.32-9.12,4.22-17.7-.14-26.79-10.21-21.31-3.62-33.41,19.59-35.57,11.15-1.04,19.23-5.65,25.41-15.11,11.49-17.58,27.83-17.94,38.95-.54,7.09,11.09,16.73,15.07,29.13,16.03,13.9,1.08,21.17,8.75,21.06,20.48Z\"/><path fill=\"#e96c8d\" d=\"M174.57,154.66c-20.78,1.82-35.45,9.96-46.37,26.9-11.55-16.67-26-25.21-45.7-26.81,6.99-17.87,8.75-34.96-.85-53,19.9-2.33,34.97-10.36,46.4-26.96,11.3,16.3,25.74,24.84,45.44,26.44-6.94,17.88-8.77,34.96,1.08,53.42Z\"/>","rock":"<circle fill=\"#a9a481\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M199.67,98.23l-19.62-19.62,3.55,23.38c.03,.19-.2,.31-.34,.17l-29.18-29.18c-.14-.14-.02-.37,.17-.34l23.38,3.55-19.87-19.87s-.09-.06-.14-.06h-59.26c-.05,0-.1,.02-.14,.06l-41.9,41.9s-.06,.09-.06,.14v59.26c0,.05,.02,.1,.06,.14l19.53,19.53-9.71-45.05c-.04-.19,.2-.32,.34-.18l57.77,57.77c.14,.14,.01,.38-.18,.34l-45.05-9.71,19.21,19.21s.09,.06,.14,.06h59.26c.05,0,.1-.02,.14-.06l19.24-19.24-45.14,9.75c-.19,.04-.32-.2-.18-.34l57.76-57.76c.14-.14,.38-.01,.34,.18l-9.75,45.14,19.64-19.64s.06-.09,.06-.14v-59.26c0-.05-.02-.1-.06-.14Z\"/>","steel":"<circle fill=\"#74b0cb\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M117.24,93.22c2.6,13.41,4.78,24.66,7.26,37.43-22.73,6.49-44.68,12.75-69.68,19.88,9.84-30.35,18.66-57.52,27.59-85.05h89.4c.95,2.01,2.13,4.49,3.84,8.09-19.64,6.61-38.27,12.88-58.41,19.65Z\"/><path fill=\"#fff\" d=\"M200.8,150.53c-14.91,10.77-28.49,20.58-44.8,32.36-7.75-27.52-14.82-52.63-22.38-79.5,16.5-5.26,30.78-9.82,46.8-14.93,6.96,21.21,13.5,41.12,20.38,62.07Z\"/><path fill=\"#fff\" d=\"M143.47,191.59c-5.22,3.98-10.06,7.68-15.77,12.03-19.71-14.37-38.84-28.32-61.19-44.61,22.17-6.41,40.89-11.82,61.12-17.66,5.46,17.32,10.48,33.22,15.85,50.24Z\"/><circle fill=\"#77b2cb\" cx=\"97.05\" cy=\"80.81\" r=\"7.64\"/><circle fill=\"#77b2cb\" cx=\"161.67\" cy=\"116.95\" r=\"10.41\"/>","water":"<circle fill=\"#3099e1\" cx=\"128\" cy=\"128\" r=\"128\"/><path fill=\"#fff\" d=\"M128.35,206.24c-34.24,.13-56.14-32.39-43.8-64.78,4.18-10.98,10.78-20.6,16.8-30.49,9.43-15.5,15.71-32.11,19.91-49.63,.54-2.25,.94-4.58,1.88-6.66,.93-2.07,2.13-4.29,5.02-4.17,2.83,.12,3.84,2.41,4.87,4.44,.74,1.45,1.09,3.12,1.41,4.73,4.46,22.12,13.91,42.06,26.04,60.93,7.77,12.08,14.46,24.58,14.13,39.75-.57,26.48-19.82,45.79-46.27,45.89Z\"/><path fill=\"#3a9de2\" d=\"M129.16,193.51c-13.8-1.05-25.57-4.53-32.92-16.53-1.35-2.2-3.13-5.02-1.71-7.44,1.88-3.21,4.73-.71,7.03,.08,17.88,6.19,35.7,6.17,53.52-.27,2.06-.75,4.33-2.73,6.36-.43,1.92,2.18,.05,4.41-.92,6.39-6.52,13.39-18.86,16.49-31.35,18.19Z\"/>"};
+  const ICON_PX = 64;
+  let typeIcons = load('typeIcons', true);
+  const typeImgs = {};
+  const iconCache = new Map(); // key -> { canvas, url, pix }
+
+  // Item sprites of the main games (32 px pixel art from PokéSprite,
+  // msikma.github.io/pokesprite; the images are © Nintendo, Creatures and
+  // GAME FREAK) for the held items and the level-up stats: Potencia (X
+  // Attack), Reflejos (Metronome), Aprendizaje (Exp. Share), Carrera
+  // (Bicycle), Coraza (Protective Pads), Vigor (HP Up), Síntesis (Energy
+  // Root), Imán (Magnet) and Baya Zidra (Sitrus Berry). Their cards use icons
+  // that the menus use too ('book', 'fist'...), so those stats get keys of
+  // their own, 'psmod-<stat>', drawn as the game's icon whenever these
+  // sprites are off.
+  const ITEM_PNG = {"psmod-xp":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABQ0lEQVRYw+1Vuw2DMBRkFFZhhYxBmzKlV6BMSckKlJRZgZI1Xjiks06WA8HOp/GTngS2eHc+7j1XVYkSJTKirmtD/gUA62adzfP1OyRQFMVfARztZ6tEgObSGItoDuPgn9tbazGgbJVYdJpmc+6+kQGw65yNj9E/I0GCRM6qdEhiWcyDqyIKzOeYWlkewccA1eIqK9axj9zUWJUCYaj2EXPypHoalVUV2UisBADe96PfywKH7Hr68BeEJtX30BPZp8caAGBAgqtZvQrijWQVWIzG02J6+j3PqHeSCbDdCK4GDAmoIffmwynp2fPImAE1dSaEqiX1vv5TJUFisdSBRBI8zCkC7GMtRBI6ATXDjkCN2IR8i4D2sbZVCB6bdnyHiskE9MO9PLpDsnyQOsv5DVXMnoiptyhv0J+CxxSsSpQosRNPBzpNvwWvu1wAAAAASUVORK5CYII=","psmod-mag":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA10lEQVRYw+2VMQ6GIAxGPUqvwRUYGbmGV2Fk/MeOroye6/unKjTiYiUx4Us6YfoeWGVZZmZmvhwigq6hYC6M9EtNvS7SA1+JDINz4e5pvAr30Tel17mwjQQRATkB+dythmsJee6xQA2X6sHNBa7gq3MNsP4ENVzWn733EIBSDngtIM3v5sNEQKoWkMbOrUgZSBmHhD4hc4EruJSeCXOBO7hzqx28lvDRg0NoGhIRYtyw7ye8FjD/CemGIiBVCwy5lHoCQ29ELTAMrucjxm08/G4+ZmZmPpU/ubLZMafRC4UAAAAASUVORK5CYII=","psmod-atk":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFElEQVRYw+2WvQ2DMBCFGcUrsAZjZIWUKVmBkjJl1sgItCldZgWSZ+WhxwklSD5cRH7SCcc4fO/OP9A0VVVVDgohzBrF4eMwrKKYEcLjNC3wpPhYjBSBx/6SQqXVOBR+P51TqGjI1YAuMgCf4y0BLBy/1YCLCULxUIAR166b+7ZN803xHsbiPk1mGcCfAUKoCYBxxX20WRVXA98ytyYwhmBOQWq/10mWAX2ghWrGNKvjs+Bafl63TLAPcI7JznyrAsyW5dfMtfzod4Pb0v/KnCZc9r5CCKcB9Fso264Hz1b2qxX+adPEYQYYCud2pAGeE64G9Fi1cM413wXcLe4vHQXaANS99HtNFP0KsrDin11VVX+tF/3loDmoEh3fAAAAAElFTkSuQmCC","psmod-def":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABWElEQVRYw+2XsQ2DQAxFGYUVWIMyJSUlK1CyAiUlJSVtypSUtBkhKxD9Uz5yLiB8hiiKBJKVo+G9sw/HREmSRL+M6BQ4Bf5OII7jaS2+KkDIcH+46K7jVDW9i7xoXVgk1HCCCSvKykXdtC54HyqhhvtgXOM4TF3fu/v0ks0RIhEM5wUwghIyE4cI4CGosw8nEL+8ZCZCS6HePaHYpQTvLYNagOn1wUy99TCqS4BdEcJMcM17mYVDBPwsUAIg/wASHNoTNt8CNJolCe5agqv69tagNBIqgTSrPyTyvHwDs1FhHZIFdR+ghASsgWVsSag6IdIKAUq4NL/gTTe4tS8wi22UQv1fwLpKEcClgMzInKUjBORbgQciAwRLiblcoiFtlcE0DxDEXUNgCa7pB2a4fxB9uHZIMQnIA0e4dToyl4ASWFvHMfNQKiekPfBdU/GeQfT8LjgFZDwBMKWRJcPe8hQAAAAASUVORK5CYII=","psmod-spd":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABSklEQVRYw+2XzRGCMBCFUxIlUEpKsKwcc/RoSXQQZxmePp8LmgRGDxx2wAQ2X/bnBUMpJfzSwglwAqxN5JzDMAzFLMZY7HevVQFg4XRNBSAwOLR5Hdsd4CUKi2FBjEca2x1gmqY5CpdxLFNKDwA2AABmDagKIMpCBoB7AwKYWXSgvNRUFyGbOVuLwJYdAmDRQET0ma3CbAbw0oGC5NR8KsZmgHn3S841BQzCkeHC7ALQVkMquBUZhiOiQtakhF6FZyfUDJBp91wP1QAqRC6MLA5TCLtW6wC/zPmHPHO4tQYAccvPZ5qFCIKDYtSOYDHi97QgmwD0QOJ7rRPMaWd0A7BzD4DHD4mAthvyinE9srkzumuAheTteKaF9GDCFQBNXeC1IDtUHdAo8e67dcBz6Flc+V7oBvAcfgPRfRaoAvZ8oJ7/C06AvwS4AyD4HAuKbZ+SAAAAAElFTkSuQmCC","luckyegg":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAjUlEQVRYw+2WMQrAIAwAfYqPd3T0Gxmz5gkdu7ZTRERLBZPQkoPMdxW0CcFxnC8TY7zaURfTcdYBJJ2IXqwa8SQXj2jlzCzCPCDlsjfizdH/N2BVDki2ASkXuwD+epOAVr49AJCW5CK3YBQBSPJyDki5VOFIyiP6FM+k4vL+NzwTq+0E/SKiuow4jrObG40di+/hxTMKAAAAAElFTkSuQmCC","leftovers":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA5ElEQVRYw+1WMQ7CMAzsU/Kejhk7duQLfUJXRp7AyDcY+UJHRlajs3qRyYpspOKTTmldqb4kzsXDkEgkvkQpRcCfJV/OgQI4W/KyVqWNuSbfapXXPOtIAYyTLiJs8mUc5TZNHwLwjribCPxQ1pOSInpyZXwFALsIS/ctaBW/L79NCHIL3IsQe37frk0IiRjrIeQYPuWhSclwM+pFhDvh/wqwNUABHEOsGLAztyJIVx+ACTG5FcNnfHcVgDPfHLFbDcR5R7gaEZLAfnk30JoRdzcjNiC9HasVRzUmfVMS0owkEofGG3HTovP6qiqPAAAAAElFTkSuQmCC","quickclaw":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAoElEQVRYw+2UwQ2AMAhFO0rXcA3HcAVXcQTX8OjRa1dRMaGBhqgHgcTwE9Jb34PDTykSifwlOecdxwVclqGOmQQF72Vjoy6BcAaGnK/6JRgcQ8Aw69TrCLyFqwg8wRE8j901nwrAZ/C5CxwFJLgE1jv9DVy1hNj2DVy9/dj2Atyk7bBozOFVoNnevOtd4PT85meXBMzhVMAFTiVSJBJRzAET3JI2RCR/5wAAAABJRU5ErkJggg==","shellbell":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABMUlEQVRYw+2VvQ2DMBCFGYV5WCkjsEJKRmCFlJS0lJSUaS95Rg8O7CTCHKnupBPItvzdv4vCxcXF5QK51bVUVSVlWQa9FEYIQYCnzpjDqPfuIeM4Bv3mccqww2BARAah9M8prDVtG9YRdvynjMBeNlyDAYB2b8+nvg+KPUQCEHxTRmSlQcMJJpCKKOCLc0wHz2totgG8bAvepoBpwBkYkYrCYQNW7+ew7/MPIVgbiDWmglBD72O43sMaokLvOQ+yiw+Xsdi0ATF8iLridO/jgrm95Adcwv8Cb5plJpgMHVY5DdF9r73m6GWtmBjAS2kEPF29j+H44lynCvB0CvSjonueikLj/myAiOns1x5+UuzTe9SA6QvIduSsT+kypq3h+4LUI1gLwX99+/dauLi4ZMoLMW7ROSvC2gcAAAAASUVORK5CYII=","assaultvest":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA2klEQVRYw+1Wyw3DIAzNKKzQY45ce2SEztRRukZnovLhRe6rjShQKZVsyULx9wEPyLaFhIScVVJKlfWXeR9FnqW86f2yNwvCJ3Gc+zUIr1DOud6upVqzFLv4PeBDqyDJGggAeKoBIHeouQbx2PNRTBp4IOBDrORNNbf4IEVbAMQ/vO+9hNQroZU5s2z2XBhbIiMU30vIZ3FgBMASDpwCABfvAQDb9BHU+6mbWQA4ZpqMDECPGhTbOC4ATPMAJ8Fq5tlwApbehvwu6JeQ7/9ljVs/Gz32kJCQv5AXZ1NM+W92GVIAAAAASUVORK5CYII=","amuletcoin":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA7ElEQVRYw+2WsQ2DMBBFGYPSLWVGyBpZI2NkjZQp02YEr5ARKNNedJhDx+VwLGPj5r50okDiv/9tneg6k8m0Q+NpAJom5hpME/PUd0XlnGsHgebgHeDz1ffTHAKAhjTXSwe8BQ5RBQDNnrcB3o+QHp+HQZA5Gk8znlWIqgDwuYdRILQWigEs6QlAQGwBFINY0nvWwpw+1kB5AIJAcxof2qkGsLp8PPkMEEtfBIIWzuribdSvmXOILJAfAJGe1x8DyG4DP06LR0Kk1F8EABeNBJDpUyGyjwEh+ArWzP+d9+7LKCel7qZ/TCaTKVVfv7+PZJ3HKiwAAAAASUVORK5CYII=","psmod-heal":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9klEQVRYw+2WsQ2DQAxFGeVWSEmZljJlRqBlhJRZJSWrsEJKVoD4JEfOlx1F0b+ksaUvQKD7774PuK7LysoiVyllE/3N+HQZqn4CoaaicTlXYznqeTMINd3W8SlMoBmANb7PxyoLoQnQzXWG16kPAWwSVABrvMzDi6EneUaep0Bgrz0ITEHui6gAXtye1kf/aQDvFlyUhppTWiADRLP2YhdTFQXC679NI4KjtQFbELUDr9X8Nh3aJBAlgrOnLUQZ9BMQNKcB6KKyIDZyNJboad8BhcCZoaGaUl/DKAnP3AI02ZTYFOy7jv1uuhGxfzpPuSHNyvqmdouowMYz8wheAAAAAElFTkSuQmCC","psmod-cd":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAw0lEQVRYw2NgGAWjYBSQARQUFP4jY7pbvubqOzCu3vvsf9ScLfRzBMgixyyv/1HdWWA8aBxAN0eALIFZDsZQy+niAGTf7333Ds6mWyggOwAEBo0DkKOBpo5Ajn8UB9AjFNBTPz4H0MQRg84ByLmALukAOf5BRTDIASCaLqEAthxoIMgyEIbVASAMEwNhmjoA5mtCmCa5AeaA7qPP8GLk2pFmDsDmEGQxmtSO6A7AhunmAEJRAKJpVhISi0cbrKNgFJAKAPh0MZETMb1dAAAAAElFTkSuQmCC","choiceband":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABRUlEQVRYw+2WMQ6DMAxFexTOxMjI2JVjcAXGHoErMDKyMnbMyJryLX1krAgqapAqEcmKAOH//OMEHo973ONfR5ZlUcfl4m3breIyCAhNU4whRBEuy+cSl7hCAARFOWuwU12hGAV4DVHOp0KwalSr+4HOaBfy/OUDodcWAhTHzCVgxQwXACvKytmAnIchLCDWqcMQVlhXymp1I+pl0TkOAbCx9DazAFY8BXEIYEuckbq/5cIh63VSmyR14PC9n7cfXkZTca/vJdON6tb5bRtj04Rlb9tjNrUtKe7iAMSR9F3XcRzD6pCxAbe0uIsDSArxqe8FgCBjUUjgOSCrqlsAXB2QHpjF6YIAVJXc1xAAQLg7gOogagEovAXhdvbLB2Z24VsAF/sthIiyB3aW4JTPL7eaNCBBEk14+r/h1jlw+U/pPe7hOT7sLwOyomHazQAAAABJRU5ErkJggg==","choicescarf":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVRYw+2WPY7CMBSEOUquQLnltpSUlFvSUm5JyRU4AiUtJSVX4AiU23oZiy+MLAcQtldaKZZGgjzF37wfJ5lMxjWu/766rguP1Bw8257DfPcTvo+XKP2XPlfLMJsv2hjRhtPVNoLXhxD1tT/38DSma9VMAL/uGTcXSAAZ0HWJ7BXDSBUDDle5gZO1pN+0Q0aimRoVAK5scv0mJsmgFOPXSiheZMDhDBw9B3663FtChaiITFQpOz0VXHK4GxD8Y3PoDRRnn/bc4YJigDjZ06q3DehGL+lQzwXve34byGpwhs7PuQzoWm7oeAZQjbcMONx7zhn3ocMAZVfvubfIwJDIPp36FF79CYix3NR7z4nJVJN3gLJKp54ZcHjRAD7KPj12lBsVD+Cz7N1ADtwEjgE/915uV/H5H4Lz+vVznwM3g/u7IC03qv71Q989Uwc2AwN/VVXB4xrXX69fWb9hvYtzOz8AAAAASUVORK5CYII=","lifeorb":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAnUlEQVRYw2NgGAWjYBSMAjKAgoLCf2yYbhbf2/INK6apQ5Atfub4DCtGdghNLP+299t/EADRIAuPGp6FY3SHUNURMAcgA2TL0R1CVQfALAcZjB4C/4uLwRg5NKgeCsgOgFkEsxxmKTZH0MQByBaiBz2y2PB3wIBHAbIjaJ4I8TmCLtkQV07AZjHNCqIBL4oHRWU0KKrjUTAKRsGwBAAm0ThrhmI/HgAAAABJRU5ErkJggg==","rockyhelmet":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA4klEQVRYw+1WwQ3DIBBjFNboGqzTVViHEfh2lVTX1MQ6QUvDNa+zZCWR0Nk4JkoIDofDcRIxxo15uXgppTHnfK0JNiDifzWhY9biTHMDOmoYYfGU0ovapEk3ZAAihoGaQxMVyrNwK/u1Z3rZAHYqIppsBs+m5ZQBTfxx30niXEQkAkNmBhAxG9A75ZTwWkxKKUNG0WvxZvRN290rfiojr1kuIQ++5YO1QxbHumUDEMNAHq5N9QyaJfArlxNA+XQCo/tRAqfLyO2vHbFvCZicBnzPe6dghmb/CvrnY5bB4XBM4Am5oGo7XIJpRwAAAABJRU5ErkJggg==","focussash":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA6klEQVRYw+2WwQ2DMAxFGSUrsEaPWaUjsAprdJUeOXaFVKH6kWMZ4iom7cGWfAHJ/+HE30yTh8c/RwghIX8i/rzf9tQCUOBu6G8AIJiWpcouCACkNZ4Wyu8e87wnh+gGyOJIqRgVB0DOV4wlzSB4IUkcz+0Btk9SEUncHKBAbDUEbznvipn40XgdjdlZZ4YY1jBx3onc7iHi3HDoZcOZXyouOV3rTpiJ4yupsGaETSAogKZgNbqrkRdoAbhvUAPrAoDBtBaTubjGYMp0YHlZirc2H9+aOPNLxlFyPPy04MdliP1qd4OHh4cm3rhutZSYmiSwAAAAAElFTkSuQmCC","psmod-rgn":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9ElEQVRYhe2Wyw2DMBBEKSEluKYcaSfHtMCRdjimBdogGktPGlngS5Y9RF5phUHCb/ZnmKZhw/7NSimHezr42Nfqn3WuniLCwfv2qv6eH1WArilwQXXVvdbAb88CAgTD2yzcLgAoZdC9nqf0gZcAEUSe0oTegB45JUibAtx7IG0MWzFpDXglgBKEZsE36R23CNiWZ3wZesct7tFLRLgAHzki9Amg/mHfA15u4aTYYVrzHHEhGWjHC6hgHmmbekSFCCB6be4N5uXwE9B7IwQOmKgE9MPnbO17/By5pxPQGeCWjr+a96v3wgT0apj+v5cGGzYs275rgfmBijbN2AAAAABJRU5ErkJggg==","psmod-hp":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9ElEQVRYw+2WsQ2DMBREGYU2I6RkDUZImzHSMgIlK1C6zAopKVPSOjlLH50QBgqfo0j+1smALd/Dxh9XVYkS/xZ1Xfs9yc3bsfX93G8KbTIIDNw8mqi5CX0kEAZwNANZAPYkA+BvYE9S8669LrMQq9EnOYSZj93Fe3cP10dKCsEArLUpP0sOMLhhmQFoDcH36JscwL2cn+Yp1AzAgjHapQDzt6COKQuAle7pgxgqG4CZm7IC8JvzfVYA1Lf+HWTPpAAYlJfAzE3yJcD+xuBb5gwBc2kmRA6w5VhvP2km5IwXS0QyAD4LnvkJSc+GPz2UliihiA+FStOaY/V6yQAAAABJRU5ErkJggg=="};
+  let itemIcons = load('itemIcons', true);
+  const itemImgs = {};
+  const statIcons = {}; // 'psmod-<stat>' -> the game's icon
+  const gameKey = (key) => statIcons[key] || key;
+
+  function itemIcon(key) {
+    if (!itemIcons || !itemImgs[key]) return null;
+    let c = iconCache.get(key);
+    if (c) return c;
+    const img = itemImgs[key];
+    if (!img.complete || !img.naturalWidth) return null;
+    // The sprites sit small in the middle of 32 px: crop the empty border so
+    // they fill the space the game gives its own icon, keeping them square.
+    const src = document.createElement('canvas');
+    src.width = img.naturalWidth;
+    src.height = img.naturalHeight;
+    const sctx = src.getContext('2d');
+    sctx.drawImage(img, 0, 0);
+    const { data } = sctx.getImageData(0, 0, src.width, src.height);
+    let x0 = src.width, y0 = src.height, x1 = -1, y1 = -1;
+    for (let y = 0; y < src.height; y++) {
+      for (let x = 0; x < src.width; x++) {
+        if (!data[(y * src.width + x) * 4 + 3]) continue;
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+      }
+    }
+    if (x1 < 0) return null;
+    const w = x1 - x0 + 1, h = y1 - y0 + 1, side = Math.max(w, h);
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = side;
+    cv.getContext('2d').drawImage(src, x0, y0, w, h, Math.floor((side - w) / 2), Math.floor((side - h) / 2), w, h);
+    c = { canvas: cv, url: cv.toDataURL(), pix: true };
+    iconCache.set(key, c);
+    return c;
+  }
+
+  function newIcon(key, orig) {
+    if (typeof key !== 'string') return null;
+    if (ITEM_PNG[key]) return itemIcon(key);
+    if (!typeIcons || !(key.startsWith('move:') || key.startsWith('type:'))) return null;
+    let c = iconCache.get(key);
+    if (c) return c;
+    const m = key.startsWith('move:') && NS.Moves.BY_ID[key.slice(5)];
+    const img = typeImgs[key.startsWith('type:') ? key.slice(5) : m ? m.type : 'normal'];
+    if (!img || !img.complete || !img.naturalWidth) return null;
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = ICON_PX;
+    const ctx = cv.getContext('2d');
+    ctx.drawImage(img, 0, 0, ICON_PX, ICON_PX);
+    if (m && orig && orig.width === 16) {
+      // The badge's dark frame starts at 9,9; without a badge that pixel is
+      // inside the coloured circle. (10,10 can be the glyph's own gold.)
+      const px = orig.getContext('2d').getImageData(9, 9, 1, 1).data;
+      if (px[0] === 0x1b && px[1] === 0x15 && px[2] === 0x28) {
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(orig, 9, 9, 7, 7, 36, 36, 28, 28);
+      }
+    }
+    c = { canvas: cv, url: cv.toDataURL() };
+    iconCache.set(key, c);
+    return c;
+  }
+
+  function setupTypeIcons() {
+    for (const [type, body] of Object.entries(TYPE_SVG)) {
+      const img = new Image();
+      img.onload = () => iconCache.clear();
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="${ICON_PX}" height="${ICON_PX}">${body}</svg>`);
+      typeImgs[type] = img;
+    }
+    for (const [key, src] of Object.entries(ITEM_PNG)) {
+      const img = new Image();
+      img.onload = () => iconCache.clear();
+      img.src = src;
+      itemImgs[key] = img;
+    }
+    for (const st of NS.LevelUp.STATS) {
+      const key = 'psmod-' + st.id;
+      if (ITEM_PNG[key]) { statIcons[key] = st.icon; st.icon = key; }
+    }
+    const I = NS.Icons;
+    const { canvas, url, html, draw } = I;
+    const mine = (key) => { try { return newIcon(key, key.startsWith('move:') ? canvas.call(I, key) : null); } catch { return null; } };
+    I.url = function (key, ...rest) {
+      const c = mine(key);
+      return c ? c.url : url.call(this, gameKey(key), ...rest);
+    };
+    I.html = function (key, size = 20, cls = '', ...rest) {
+      const c = mine(key);
+      return c ? `<img class="${c.pix ? 'pix ' : ''}${cls}" src="${c.url}" width="${size}" height="${size}" alt="" draggable="false">`
+        : html.call(this, gameKey(key), size, cls, ...rest);
+    };
+    I.draw = function (ctx, key, x, y, size, ...rest) {
+      const c = mine(key);
+      if (!c) return draw.call(this, ctx, gameKey(key), x, y, size, ...rest);
+      const smooth = ctx.imageSmoothingEnabled;
+      ctx.imageSmoothingEnabled = !c.pix;
+      ctx.drawImage(c.canvas, x, y, size, size);
+      ctx.imageSmoothingEnabled = smooth;
+    };
+  }
+
+  waitFor(() => NS && NS.Icons && NS.Icons.canvas && NS.Icons.html && NS.Icons.draw && NS.Moves && NS.LevelUp, setupTypeIcons);
+
   // ------------------------------------------------------- damage meter
   // Each player's own client already counts `player.dmgDealt` (never shown).
   // Clients with the mod piggyback that number on the state message they send
@@ -777,6 +1042,11 @@
       <div class="ps-foot">
         <span>Movedex</span>
         <button data-d="1" title="Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)">Abrir</button>
+      </div>
+      <div class="ps-foot">
+        <span>Auto mejoras</span>
+        <button data-a="on" title="Elegir solo las cartas al subir de nivel"></button>
+        <button data-a="edit" title="Orden en que se eligen las cartas (Alt + U)">Ajustar</button>
       </div>`;
     document.body.appendChild(panel);
     body = panel.querySelector('.ps-rows');
@@ -805,10 +1075,13 @@
         if (b.dataset.h != null) { const d = +b.dataset.h; setHudScale(d === 0 ? 1 : hudScale + d * 0.1); }
         if (b.dataset.k != null) toggleKeys();
         if (b.dataset.d != null) toggleDex();
+        if (b.dataset.a === 'on') { auto.on = !auto.on; saveAuto(); }
+        if (b.dataset.a === 'edit') showModTab('psmod-set-auto');
         b.blur(); // keep keyboard focus off the button so the game keeps its keys
       });
     }
     renderHud();
+    renderAutoBtns();
     panel.querySelector('.ps-ver').textContent = modVersion() ? 'v' + modVersion() : '';
     // Stop clicks reaching the game canvas underneath.
     for (const ev of ['pointerdown', 'mousedown', 'touchstart']) panel.addEventListener(ev, (e) => e.stopPropagation());
@@ -1397,6 +1670,465 @@
   }
 
   waitFor(() => NS && NS.Upgrades && NS.Upgrades.perks, setupRepertorio);
+
+  // ---------------------------------------------------------- auto-pick
+  // Level-up cards come from LevelUp.offer(player) and go to
+  // RunUI.showLevelUp(level, cards, onPick, coop). Each card has a type
+  // ('new', 'up', 'evo' or a stat), a key ('new:<move>', 'up:<move>',
+  // 'evo:<move>', '<prefix>:<stat>') and apply(). With auto-pick on, we walk
+  // the player's priority list and take the first card that matches a rule.
+  // Solo: we call onPick ourselves and the screen never shows. Co-op: the
+  // screen shows (it's where "waiting for..." goes) and we press the card with
+  // RunUI.pick once its anti-misclick guard (0.6 s) is over. With nothing
+  // matching, the cards show as usual, or first we spend card rerolls (same
+  // count as the game's button: 1 + rerollBonus - rerolls).
+  // Every stat card is on the default list, so a level-up always finds
+  // something; the order is the usual one for damage builds.
+  const AUTO_STATS = ['stat:atk', 'stat:cd', 'stat:xp', 'stat:spd', 'stat:def', 'stat:hp', 'stat:rgn', 'stat:mag'];
+  const AUTO_DEF = () => ({ v: 2, on: false, fallback: 'manual', tied: {}, rules: ['evo', 'stat-evo', 'heal-low', 'set', 'up', 'new-fit', ...AUTO_STATS, 'new', 'stat:heal'] });
+  const savedAuto = load('autoPick', null);
+  let auto = Object.assign(AUTO_DEF(), savedAuto);
+  // Lists saved before movesets existed get the moveset rule before 'up'.
+  if (savedAuto && !savedAuto.v && !auto.rules.includes('set')) { const i = auto.rules.indexOf('up'); auto.rules.splice(i < 0 ? 0 : i, 0, 'set'); }
+  // Lists saved before v2 only had Potencia and Reflejos: the other stats go at the end.
+  if (savedAuto && !(savedAuto.v >= 2)) for (const r of AUTO_STATS) if (!auto.rules.includes(r)) auto.rules.push(r);
+  auto.v = 2;
+  if (!auto.tied || typeof auto.tied !== 'object') auto.tied = {};
+  // Moveset of each Pokémon (dex -> move ids, in priority order), picked on
+  // its card in the Pokémon screen. With one, only its moves are learnt.
+  const movesets = load('movesets', {});
+  const movesetOf = (dex) => (Array.isArray(movesets[dex]) ? movesets[dex] : []);
+  const saveAuto = () => { save('autoPick', auto); renderModTab(); renderAutoBtns(); };
+  const AUTO_GENERAL = [
+    ['evo', tr('Evolucionar un ataque')],
+    ['stat-evo', tr('Mejora que deja evolucionar un ataque')],
+    ['heal-low', tr('Baya Zidra con menos de la mitad de vida')],
+    ['set', tr('Moveset de tu Pokémon, en su orden')],
+    ['up', tr('Subir de nivel un ataque que ya tienes')],
+    ['new-fit', tr('Ataque nuevo que pega bien con tu Pokémon')],
+    ['new', tr('Cualquier ataque nuevo')],
+  ];
+  const isStatCard = (c) => !['new', 'up', 'evo'].includes(c.type);
+  const cardId = (c) => String(c.key || '').slice(String(c.key || '').indexOf(':') + 1);
+
+  function autoMatch(rule, c, p) {
+    const [k, id] = rule.split(':');
+    const cid = cardId(c);
+    switch (k) {
+      case 'evo': return c.type === 'evo';
+      case 'stat-evo': return isStatCard(c) && c.color === '#ffd23f';
+      case 'heal-low': return isStatCard(c) && cid === 'heal' && p.hp < p.maxHp * 0.5;
+      case 'up': return c.type === 'up';
+      case 'new': return c.type === 'new' && inSet(cid, p);
+      case 'new-fit': {
+        const m = c.type === 'new' && inSet(cid, p) && NS.Moves.BY_ID[cid];
+        try { return !!m && NS.Stats.fit(p.mon, m.cat) >= 0.999; } catch { return false; }
+      }
+      case 'stat': return isStatCard(c) && cid === id;
+      case 'move': return !isStatCard(c) && cid === id;
+    }
+    return false;
+  }
+
+  const inSet = (id, p) => { const set = movesetOf(p.mon && p.mon.dex); return !set.length || set.includes(id); };
+
+  function ruleCardIn(r, cards, p) {
+    if (r !== 'set') return cards.find((x) => autoMatch(r, x, p)) || null;
+    for (const id of movesetOf(p.mon && p.mon.dex)) {
+      const c = cards.find((x) => !isStatCard(x) && cardId(x) === id);
+      if (c) return c;
+    }
+    return null;
+  }
+
+  // A rule can share its place with the one above (auto.tied[rule]): within
+  // such a group the rule taken the fewest times this run wins, so they take
+  // turns. Stats count with the game's own statsTaken; the rest, here.
+  const autoTaken = new Map();
+  let autoTakenFor = null;
+  const timesTaken = (r, p) => (r.startsWith('stat:') ? (p.statsTaken || {})[r.slice(5)] || 0 : autoTaken.get(r) || 0);
+
+  function autoGroups() {
+    const groups = [];
+    for (const r of auto.rules) {
+      if (auto.tied[r] && groups.length) groups[groups.length - 1].push(r);
+      else groups.push([r]);
+    }
+    return groups;
+  }
+
+  function autoChooseRule(cards, p) {
+    for (const g of autoGroups()) {
+      let best = null;
+      for (const r of g) {
+        const c = ruleCardIn(r, cards, p);
+        if (c && (!best || timesTaken(r, p) < timesTaken(best.rule, p))) best = { card: c, rule: r };
+      }
+      if (best) return best;
+    }
+    return null;
+  }
+
+  const autoChoose = (cards, p) => { const b = autoChooseRule(cards, p); return b ? b.card : null; };
+
+  function autoLabel(rule) {
+    const [k, id] = rule.split(':');
+    const g = AUTO_GENERAL.find(([r]) => r === rule);
+    if (g) return g[1];
+    if (k === 'stat') {
+      const s = NS.LevelUp && NS.LevelUp.STATS.find((x) => x.id === id);
+      return s ? gameText(s.title) : id;
+    }
+    const m = NS.Moves && NS.Moves.BY_ID[id];
+    return m ? `${gameText(m.name)} · ${typeName(m.type)}` : id;
+  }
+
+  // A rule drawn like the game's level-up cards: the icon on its colour, the
+  // name and a tag chip. The longer text goes in the tooltip.
+  const AUTO_CARDS = {
+    evo: ['star', '#ffd23f', tr('Evolución'), tr('Cualquier ataque')],
+    'stat-evo': ['star', '#ffd23f', tr('Mejora que evoluciona'), tr('Mejora')],
+    'heal-low': ['psmod-heal', '#5fe08a', 'Baya Zidra', tr('Con menos de media vida')],
+    set: ['cards', '#ffd23f', 'Moveset', tr('En su orden')],
+    up: ['up', '#8fa3c4', tr('Subir de nivel'), tr('Un ataque que tienes')],
+    'new-fit': ['fist', '#8fa3c4', tr('Ataque nuevo'), tr('Que pegue bien')],
+    new: ['cards', '#8fa3c4', tr('Ataque nuevo'), tr('Cualquiera')],
+  };
+  const iconHtml = (name, size) => { try { return NS.Icons.html(name, size); } catch { return ''; } };
+
+  function ruleCard(rule) {
+    const [k, id] = rule.split(':');
+    let icon = '', color = '#8fa3c4', title = id || rule, tag = '', tip = autoLabel(rule);
+    if (AUTO_CARDS[rule]) [icon, color, title, tag] = AUTO_CARDS[rule];
+    else if (k === 'stat') {
+      const st = NS.LevelUp && NS.LevelUp.STATS.find((x) => x.id === id);
+      if (st) { icon = st.icon; title = st.title; tag = tr('Mejora'); tip = gameText(st.desc); }
+    } else if (k === 'move') {
+      const m = NS.Moves && NS.Moves.BY_ID[id];
+      if (m) {
+        icon = 'move:' + id;
+        color = (NS.U && NS.U.TYPE_COLOR && NS.U.TYPE_COLOR[m.type]) || color;
+        title = m.name;
+        tag = typeName(m.type) + (m.cat ? ' · ' + catName(m.cat) : '');
+        tip = m.desc ? gameText(m.desc) : '';
+      }
+    } else if (k === 'item') {
+      const it = NS.Items && NS.Items.BY[id];
+      if (it) { icon = id; color = '#c9a0ff'; title = it.name; tag = tr('Objeto'); tip = gameText(it.desc); }
+    }
+    return `<span class="psa-card" title="${esc(tip)}"><i style="background:${esc(color)}33">${iconHtml(icon, 20)}</i>`
+      + `<span class="psa-t"><b>${esc(gameText(title))}</b><small style="background:${esc(color)}">${esc(tag)}</small></span></span>`;
+  }
+
+  let autoNote = null;
+
+  function setupAutoPick() {
+    const RunUI = NS.RunUI;
+    const show = RunUI.showLevelUp;
+    RunUI.showLevelUp = function (level, cards, onPick, coop) {
+      if (autoNote) autoNote.textContent = '';
+      const p = NS.Game.player || me();
+      if (!auto.on || !p || !Array.isArray(cards) || typeof onPick !== 'function') return show.apply(this, arguments);
+      if (autoTakenFor !== p) { autoTakenFor = p; autoTaken.clear(); }
+      let best = null;
+      try {
+        best = autoChooseRule(cards, p);
+        while (!best && auto.fallback === 'reroll' && 1 + (p.rerollBonus || 0) - (p.rerolls || 0) > 0) {
+          p.rerolls = (p.rerolls || 0) + 1;
+          cards = NS.LevelUp.offer(p);
+          best = autoChooseRule(cards, p);
+        }
+      } catch (err) { console.warn('[psmod] auto-pick', err); }
+      const pick = best && best.card;
+      if (best) autoTaken.set(best.rule, (autoTaken.get(best.rule) || 0) + 1);
+      if (!pick) {
+        const out = show.call(this, level, cards, onPick, coop);
+        if (autoNote) autoNote.textContent = tr('Auto mejoras: no ha salido nada de tu lista');
+        return out;
+      }
+      toast(`${tr('Auto:')} ${gameText(String(pick.title).replace(/<[^>]*>/g, ''))}`, pick.color);
+      if (!coop) { onPick(pick); return; }
+      const i = cards.indexOf(pick);
+      const out = show.call(this, level, cards, onPick, coop);
+      const t0 = performance.now();
+      const press = () => {
+        const box = document.getElementById('cards');
+        if (!box || box.classList.contains('done') || !NS.UI.isOpen('scr-levelup') || performance.now() - t0 > 5000) return;
+        RunUI.pick(i);
+        setTimeout(press, 100);
+      };
+      setTimeout(press, 100);
+      return out;
+    };
+
+    // A button on the level-up screen that opens the list in Settings.
+    const add = () => {
+      const reroll = document.getElementById('lvl-reroll');
+      if (reroll && !document.getElementById('psmod-auto-lvl')) {
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:8px';
+        wrap.innerHTML = '<button id="psmod-auto-lvl" class="btn small ghost" data-sfx="none"></button><p class="note" style="margin:0"></p>';
+        wrap.querySelector('button').addEventListener('click', () => showModTab('psmod-set-auto'));
+        autoNote = wrap.querySelector('p');
+        reroll.after(wrap);
+      }
+      renderAutoBtns();
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add);
+    else add();
+  }
+
+  waitFor(() => NS && NS.RunUI && NS.RunUI.showLevelUp && NS.RunUI.pick && NS.LevelUp && NS.Moves && NS.UI, setupAutoPick);
+
+  function renderAutoBtns() {
+    const b = document.getElementById('psmod-auto-lvl');
+    if (b) b.textContent = auto.on ? tr('Auto mejoras: sí') : tr('Auto mejoras: no');
+    if (panel) { const p = panel.querySelector('[data-a="on"]'); if (p) p.textContent = auto.on ? tr('Activas') : tr('Apagadas'); }
+  }
+
+  // The priority list, as shown in the mod's Settings tab.
+  function autoHtml() {
+    const opt = (v, label) => `<option value="${esc(v)}">${esc(label)}</option>`;
+    const free = (r) => !auto.rules.includes(r);
+    const byName = (a, b) => gameText(NS.Moves.BY_ID[a].name).localeCompare(gameText(NS.Moves.BY_ID[b].name), locale());
+    const allMoves = NS.Moves.ALL.map((d) => d.id).sort(byName);
+    const p = inRun() && me();
+    const mine = p && p.mon && NS.Moves.poolFor ? NS.Moves.poolFor(p.mon).sort(byName) : [];
+    const group = (label, rules) => (rules.length ? `<optgroup label="${esc(label)}">${rules.map((r) => opt(r, autoLabel(r))).join('')}</optgroup>` : '');
+    const addOpts = [
+      group(tr('General'), AUTO_GENERAL.map(([r]) => r).filter(free)),
+      group(tr('Mejoras'), NS.LevelUp.STATS.map((s) => 'stat:' + s.id).filter(free)),
+      group(tr('Ataques de tu Pokémon'), mine.map((id) => 'move:' + id).filter(free)),
+      group(tr('Todos los ataques'), allMoves.filter((id) => !mine.includes(id)).map((id) => 'move:' + id).filter(free)),
+    ].join('');
+    const fb = [['manual', tr('Elijo yo')], ['reroll', tr('Cambiar opciones y, si tampoco, elijo yo')]];
+    const n = auto.rules.length;
+    return tr`
+      <ol class="psa-list">${autoRows()}</ol>
+      ${n ? '' : tr('<p class="sub">La lista está vacía: añade algo.</p>')}
+      <div class="psa-add"><select data-auto="add" aria-label="Añadir">${addOpts}</select><button class="btn small" data-auto="add">Añadir</button></div>
+      <div class="psa-add psa-fb"><span>Si no sale nada de la lista:</span><select data-auto="fallback">${fb.map(([v, l]) => `<option value="${v}"${auto.fallback === v ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></div>
+      <p class="sub">Un ataque concreto vale para aprenderlo, subirlo de nivel o evolucionarlo. Con = una línea comparte puesto con la de arriba y se van turnando. En cooperativo verás las cartas un momento antes de que se elija. Lo que se elige sale en un aviso arriba.</p>
+      <div class="psa-add"><button class="btn small" data-auto="reset">Restablecer la lista</button></div>`;
+  }
+
+  // One row per rule. The number is its place; a rule tied with the one
+  // above shows "=" and shares it.
+  function autoRows() {
+    const n = auto.rules.length;
+    let place = 0;
+    return auto.rules.map((r, i) => {
+      const tied = i > 0 && !!auto.tied[r];
+      if (!tied) place++;
+      return `<li class="${tied ? 'tied' : ''}"><em class="psa-n">${tied ? '=' : place}</em>${ruleCard(r)}`
+        + (i ? `<button class="btn small psa-tie${tied ? ' on' : ''}" data-auto="tie" data-i="${i}" title="${tr('Misma prioridad que la de arriba: se van turnando')}">=</button>` : '')
+        + `<button class="btn small" data-auto="up" data-i="${i}"${i ? '' : ' disabled'}>↑</button><button class="btn small" data-auto="down" data-i="${i}"${i < n - 1 ? '' : ' disabled'}>↓</button><button class="btn small" data-auto="del" data-i="${i}">✕</button></li>`;
+    }).join('');
+  }
+
+  function autoAction(b) {
+    const i = +b.dataset.i;
+    const r = auto.rules;
+    const k = b.dataset.auto;
+    if (k === 'reset') auto = Object.assign(AUTO_DEF(), { on: auto.on });
+    else if (k === 'add') {
+      const v = document.querySelector('#set-body select[data-auto="add"]').value;
+      if (v && !r.includes(v)) r.push(v);
+    } else if (k === 'up' && i > 0) [r[i - 1], r[i]] = [r[i], r[i - 1]];
+    else if (k === 'down' && i < r.length - 1) [r[i + 1], r[i]] = [r[i], r[i + 1]];
+    else if (k === 'del') { delete auto.tied[r[i]]; r.splice(i, 1); }
+    else if (k === 'tie' && i > 0) { if (auto.tied[r[i]]) delete auto.tied[r[i]]; else auto.tied[r[i]] = true; }
+    else return;
+    saveAuto();
+  }
+
+  // Styles of the ordered lists (auto-pick, movesets) and the Mod tab rows.
+  let psaStyled = false;
+  function psaStyle() {
+    if (psaStyled) return;
+    psaStyled = true;
+    const style = document.createElement('style');
+    style.textContent = `
+.psa-list{margin:0 0 8px;padding:0;list-style:none;display:grid;gap:4px;counter-reset:psa}
+.psa-list li{display:flex;align-items:center;gap:4px;min-width:0;padding:4px 5px;border-radius:6px;background:rgba(255,255,255,.06);counter-increment:psa}
+.psa-list li::before{content:counter(psa);flex:0 0 auto;color:var(--gold,#ffd23f);font-weight:700;min-width:12px}
+.psa-list li:has(.psa-n)::before{content:none}
+.psa-n{flex:0 0 auto;min-width:12px;font-style:normal;font-weight:700;color:var(--gold,#ffd23f)}
+.psa-list li.tied{margin-top:-3px;border-top-left-radius:0;border-top-right-radius:0;box-shadow:inset 3px 0 0 var(--gold,#ffd23f)}
+.psa-list li>.psa-tie.on{border-color:var(--gold,#ffd23f)!important;color:var(--gold,#ffd23f)}
+.psa-card{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:6px}
+.psa-card i{flex:0 0 auto;width:28px;height:28px;border-radius:7px;display:grid;place-items:center}
+.psa-card i img,.psa-card i svg,.psa-card i canvas{display:block}
+.psa-t{display:grid;justify-items:start;gap:1px;min-width:0}
+.psa-t b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.15}
+.psa-t small{max-width:100%;overflow:hidden;text-overflow:ellipsis;font-size:11px;font-weight:700;line-height:1.35;color:#10131a;text-shadow:none;padding:0 6px;border-radius:4px;white-space:nowrap}
+.psa-list li>.btn.small{flex:0 0 28px!important;width:28px!important;min-width:0!important;height:28px!important;padding:0!important;margin:0!important;font-size:13px;line-height:1}
+.psa-add{display:flex;align-items:center;gap:6px;min-width:0;margin:6px 0}
+.psa-add>.btn.small{flex:0 0 auto;min-width:0;margin:0}
+.psa-add.psa-fb{display:grid;grid-template-columns:minmax(0,1fr);gap:4px}
+.psa-fb span{color:var(--muted)}
+.psa-add select{flex:1 1 auto;width:auto;min-width:0;font:inherit;color:#fff;background:#0b1838;border:2px solid var(--edge,#5b83d6);border-radius:6px;height:32px}
+.psa-step{display:flex;align-items:center;gap:6px}
+.psa-step b{min-width:42px;text-align:center}`;
+    document.head.appendChild(style);
+  }
+
+  // ------------------------------------------------------------- items
+  // Picking up an item while holding another opens "Quedarme con / Cambiar
+  // a" (RunUI.showItemChoice(cur, next, take)). With a list of favourite
+  // items, the one higher on it is taken at once: keep yours if it ranks
+  // higher, switch if the new one does. Items off the list still ask.
+  const itemPrefs = load('itemPrefs', []);
+  const itemRank = (id) => { const i = itemPrefs.indexOf(id); return i < 0 ? Infinity : i; };
+
+  function setupItemPrefs() {
+    const RunUI = NS.RunUI;
+    const show = RunUI.showItemChoice;
+    RunUI.showItemChoice = function (cur, next, take) {
+      const a = itemRank(cur), b = itemRank(next);
+      if ((a === Infinity && b === Infinity) || typeof take !== 'function') return show.apply(this, arguments);
+      const keep = a <= b;
+      const name = gameText((NS.Items.BY[keep ? cur : next] || {}).name || '');
+      toast(keep ? `${tr('Te quedas con')} ${name}` : `${tr('Cambias a')} ${name}`, '#c9a0ff');
+      take(keep ? cur : next);
+    };
+  }
+
+  waitFor(() => NS && NS.RunUI && NS.RunUI.showItemChoice && NS.Items && NS.Items.BY, setupItemPrefs);
+
+  function itemsHtml() {
+    const list = (NS.Items && NS.Items.LIST) || [];
+    const rest = list.filter((it) => !itemPrefs.includes(it.id));
+    const n = itemPrefs.length;
+    return `<ol class="psa-list">${itemPrefs.map((id, i) => `<li>${ruleCard('item:' + id)}
+        <button class="btn small" data-item="up" data-i="${i}"${i ? '' : ' disabled'}>↑</button><button class="btn small" data-item="down" data-i="${i}"${i < n - 1 ? '' : ' disabled'}>↓</button><button class="btn small" data-item="del" data-i="${i}">✕</button></li>`).join('')}</ol>
+      ${n ? '' : `<p class="sub">${tr('Sin objetos en la lista: el juego te pregunta siempre.')}</p>`}
+      ${rest.length ? `<div class="psa-add"><select data-item="pick" aria-label="${tr('Añadir')}">${rest.map((it) => `<option value="${esc(it.id)}">${esc(gameText(it.name))}</option>`).join('')}</select><button class="btn small" data-item="add">${tr('Añadir')}</button></div>` : ''}`;
+  }
+
+  function itemAction(b) {
+    const i = +b.dataset.i;
+    const r = itemPrefs;
+    const k = b.dataset.item;
+    if (k === 'add') {
+      const v = document.querySelector('#set-body select[data-item="pick"]').value;
+      if (v && !r.includes(v)) r.push(v);
+    } else if (k === 'up' && i > 0) [r[i - 1], r[i]] = [r[i], r[i - 1]];
+    else if (k === 'down' && i < r.length - 1) [r[i + 1], r[i]] = [r[i], r[i + 1]];
+    else if (k === 'del') r.splice(i, 1);
+    else return;
+    save('itemPrefs', r);
+    renderModTab();
+  }
+
+  // ------------------------------------------------------------ movesets
+  // Each Pokémon you own can have a moveset: the moves auto-pick goes for,
+  // in order (the 'set' rule), and the only new moves it takes. It's picked
+  // on the Pokémon's card in the Pokémon screen (#dex-detail) and, during a
+  // run, in the Mod tab. The card's move icons (.move-icons) are drawn from
+  // Moves.poolFor(mon), so the n-th icon is the n-th move of the pool;
+  // clicking one adds or removes it.
+  const learnable = (mon) => [...new Set([NS.startMoveOf ? NS.startMoveOf(mon.dex) : NS.Moves.startFor(mon), ...NS.Moves.poolFor(mon)])]
+    .filter((id) => NS.Moves.BY_ID[id]);
+
+  function setMoveset(dex, list) {
+    if (list.length) movesets[dex] = list; else delete movesets[dex];
+    save('movesets', movesets);
+    enhanceDetail();
+    renderModTab();
+  }
+
+  function movesetHtml(mon) {
+    const set = movesetOf(mon.dex);
+    const name = (id) => esc(gameText(NS.Moves.BY_ID[id].name));
+    const rest = learnable(mon).filter((id) => !set.includes(id));
+    return `<div class="psmod-set" data-dex="${mon.dex}">
+      <ol class="psa-list">${set.map((id, i) => `<li>${ruleCard('move:' + id)}
+        <button class="btn small" data-set="up" data-i="${i}"${i ? '' : ' disabled'}>↑</button><button class="btn small" data-set="down" data-i="${i}"${i < set.length - 1 ? '' : ' disabled'}>↓</button><button class="btn small" data-set="del" data-i="${i}">✕</button></li>`).join('')}</ol>
+      ${set.length ? '' : `<p class="sub">${tr('Sin moveset: las auto mejoras pueden coger cualquier ataque.')}</p>`}
+      ${rest.length ? `<div class="psa-add"><select data-set="pick" aria-label="${tr('Añadir')}">${rest.map((id) => `<option value="${id}">${name(id)}</option>`).join('')}</select><button class="btn small" data-set="add">${tr('Añadir')}</button></div>` : ''}
+    </div>`;
+  }
+
+  // The Pokémon on the card: its number sits right above the name.
+  function detailMon(detail) {
+    const h = detail.querySelector('h3');
+    if (!h || !detail.querySelector('.move-icons') || !NS || !NS.DEX) return null;
+    const name = h.textContent.trim();
+    const n = parseInt(((h.previousElementSibling || {}).textContent || '').replace(/^\D+/, ''), 10);
+    const byNo = NS.DEX.find((p) => p.dex === n);
+    return byNo && byNo.name === name ? byNo : NS.DEX.find((p) => p.name === name) || byNo || null;
+  }
+
+  function enhanceDetail() {
+    const detail = document.getElementById('dex-detail');
+    if (!detail || !NS || !NS.Moves) return;
+    const mon = detailMon(detail);
+    const old = detail.querySelector('.psmod-setwrap');
+    if (!mon) { if (old) old.remove(); return; }
+    const set = movesetOf(mon.dex);
+    const icons = [...detail.querySelectorAll('.move-icons > *')];
+    const pool = NS.Moves.poolFor(mon);
+    if (icons.length === pool.length) icons.forEach((el, i) => {
+      const n = set.indexOf(pool[i]) + 1;
+      el.classList.add('psmod-mi');
+      el.classList.toggle('on', n > 0);
+      el.dataset.psmodId = pool[i];
+      el.dataset.psmodN = n || '';
+    });
+    const wrap = old || document.createElement('div');
+    wrap.className = 'psmod-setwrap';
+    wrap.innerHTML = `<b>${tr('Moveset para las auto mejoras')}</b><small>${tr('Pulsa los iconos de arriba o añádelos aquí. El orden es la prioridad.')}</small>${movesetHtml(mon)}`;
+    if (!old) detail.querySelector('.move-icons').after(wrap);
+  }
+
+  function setupMovesets() {
+    psaStyle();
+    const style = document.createElement('style');
+    style.textContent = `
+#dex-detail .psmod-mi{cursor:pointer;position:relative;border-radius:4px;outline:2px solid transparent}
+#dex-detail .psmod-mi:hover{outline-color:rgba(255,210,63,.5)}
+#dex-detail .psmod-mi.on{outline-color:var(--gold,#ffd23f)}
+#dex-detail .psmod-mi.on::after{content:attr(data-psmod-n);position:absolute;right:-5px;top:-6px;font-size:10px;font-weight:700;line-height:12px;
+  color:#0b1838;background:var(--gold,#ffd23f);border-radius:6px;padding:0 3px}
+#dex-detail .psmod-setwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;align-self:stretch;width:100%;min-width:0;box-sizing:border-box;margin:4px 0 8px;text-align:left}
+#dex-detail .psmod-setwrap>small{color:var(--muted);font-size:11px;white-space:normal;overflow-wrap:anywhere}
+#dex-detail .psa-list li{font-size:12px}
+#dex-detail .psa-add select{height:28px;font-size:12px}`;
+    document.head.appendChild(style);
+    const detail = document.getElementById('dex-detail');
+    detail.addEventListener('click', (e) => {
+      const mi = e.target.closest('.psmod-mi');
+      const mon = mi && detailMon(detail);
+      if (!mon) return;
+      const id = mi.dataset.psmodId;
+      const set = movesetOf(mon.dex);
+      setMoveset(mon.dex, set.includes(id) ? set.filter((x) => x !== id) : [...set, id]);
+    });
+    new MutationObserver(enhanceDetail).observe(detail, { childList: true });
+    enhanceDetail();
+  }
+
+  waitFor(() => NS && NS.Moves && NS.Moves.poolFor && NS.DEX && document.getElementById('dex-detail'), setupMovesets);
+
+  // Buttons of a moveset, wherever it is shown (card or Mod tab).
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('.psmod-set button[data-set]');
+    if (!b) return;
+    const box = b.closest('.psmod-set');
+    const dex = +box.dataset.dex;
+    const set = movesetOf(dex).slice();
+    const i = +b.dataset.i;
+    const k = b.dataset.set;
+    if (k === 'add') { const v = box.querySelector('select[data-set="pick"]').value; if (v && !set.includes(v)) set.push(v); }
+    else if (k === 'up' && i > 0) [set[i - 1], set[i]] = [set[i], set[i - 1]];
+    else if (k === 'down' && i < set.length - 1) [set[i + 1], set[i]] = [set[i], set[i + 1]];
+    else if (k === 'del') set.splice(i, 1);
+    else return;
+    setMoveset(dex, set);
+  });
+  // Keys pressed on its select are not for the game.
+  for (const ev of ['keydown', 'keyup']) document.addEventListener(ev, (e) => { if (e.target.closest && e.target.closest('.psmod-set select')) e.stopPropagation(); });
 
   // --------------------------------------------------------- connection
   // In co-op the game talks over a direct WebRTC link. When that link drops,
@@ -2220,36 +2952,24 @@
 
   setTimeout(checkUpdate, 3000);
 
-  // --------------------------------------- Pokédex: Nacional, Favoritos
+  // ------------------------------------------------- Pokédex: Nacional
   // The Pokémon screen shows one region at a time: MenuUI rebuilds the region
   // tabs (#dex-gens) and the grid (#dex-grid) for the chosen one, with the
   // filters applied, and keeps the choice private. For "Nacional" we click
   // through every region tab ourselves, keep each grid's cells (with their
   // own click handlers, which only touch #dex-grid and the detail panel), go
   // back to the region that was chosen and show all the cells together.
-  // "Favoritos" does the same and keeps only the starred ones. Whenever the
-  // game redraws the screen (a filter, a new partner) we do it again; picking
-  // a region tab goes back to the game's own view.
-  let dexView = load('dexView', load('dexNational', false) ? 'nat' : ''); // '' | 'nat' | 'fav'
-  const favs = new Set(load('favs', []));
+  // Whenever the game redraws the screen (a filter, a new partner) we do it
+  // again; picking a region tab goes back to the game's own view.
+  let dexView = load('dexView', load('dexNational', false) ? 'nat' : '') === 'nat' ? 'nat' : ''; // '' | 'nat'
 
   function setupDex() {
     const gens = document.getElementById('dex-gens'), grid = document.getElementById('dex-grid');
     if (!gens || !grid) return;
     let busy = false;
-    const OURS = ['psmod-nat', 'psmod-fav', 'psmod-mdex'];
-    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat):not(#psmod-fav):not(#psmod-mdex)')];
+    const OURS = ['psmod-nat', 'psmod-mdex'];
+    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat):not(#psmod-mdex)')];
     const setView = (v) => { dexView = v; save('dexView', v); };
-
-    const style = document.createElement('style');
-    style.textContent = `
-#dex-grid .psmod-star{position:absolute;bottom:2px;right:4px;font-size:15px;line-height:1;padding:2px;
-  color:rgba(244,248,255,.45);text-shadow:0 0 3px rgba(0,0,0,.8);cursor:pointer;transition:color .1s,transform .1s}
-#dex-grid .cell:hover .psmod-star{color:rgba(244,248,255,.8)}
-#dex-grid .psmod-star.on{color:#ffd23f}
-#dex-grid .psmod-star:hover{transform:scale(1.25)}
-#dex-grid .psmod-empty{grid-column:1/-1;color:var(--muted);font-size:14px;padding:16px 4px;text-align:center}`;
-    document.head.appendChild(style);
 
     function makeTab(id, view) {
       let tab = document.getElementById(id);
@@ -2263,8 +2983,8 @@
     }
 
     function addTabs() {
-      const nat = makeTab('psmod-nat', 'nat'), fav = makeTab('psmod-fav', 'fav');
-      if (gens.children[0] !== nat || gens.children[1] !== fav) gens.prepend(nat, fav);
+      const nat = makeTab('psmod-nat', 'nat');
+      if (gens.children[0] !== nat) gens.prepend(nat);
       // Opens the Movedex; it's not a view of this grid.
       let mdex = document.getElementById('psmod-mdex');
       if (!mdex) {
@@ -2280,34 +3000,7 @@
       const owned = sv.owned || {};
       const all = (NS && NS.DEX) || [];
       nat.innerHTML = tr`<b>Nacional</b><small>${all.filter((p) => owned[p.dex]).length}/${all.length}</small>`;
-      fav.innerHTML = tr`<b>★ Favoritos</b><small>${favs.size}</small>`;
       nat.classList.toggle('on', dexView === 'nat');
-      fav.classList.toggle('on', dexView === 'fav');
-    }
-
-    const cellDex = (c) => parseInt((c.querySelector('.no') || {}).textContent, 10);
-
-    // A star on every Pokémon you own; clicking it doesn't pick the cell.
-    function addStars(cells) {
-      for (const c of cells) {
-        if (c.classList.contains('locked') || c.querySelector('.psmod-star')) continue;
-        const dex = cellDex(c);
-        if (!dex) continue;
-        const s = document.createElement('span');
-        s.className = 'psmod-star' + (favs.has(dex) ? ' on' : '');
-        s.textContent = '★';
-        s.title = favs.has(dex) ? tr('Quitar de favoritos') : tr('Añadir a favoritos');
-        s.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (favs.has(dex)) favs.delete(dex); else favs.add(dex);
-          save('favs', [...favs]);
-          s.classList.toggle('on', favs.has(dex));
-          s.title = favs.has(dex) ? tr('Quitar de favoritos') : tr('Añadir a favoritos');
-          busy = true;
-          try { addTabs(); } finally { obs.takeRecords(); busy = false; }
-        });
-        c.appendChild(s);
-      }
     }
 
     function redraw() {
@@ -2329,22 +3022,10 @@
           }
           const back = gameTabs()[orig];
           if (back) { if (back.onclick) back.onclick(); else back.click(); }
-          if (dexView === 'fav') {
-            cells = cells.filter((c) => favs.has(cellDex(c)) && !c.classList.contains('locked'));
-            if (cells.length) grid.replaceChildren(...cells);
-            else {
-              const p = document.createElement('div');
-              p.className = 'psmod-empty';
-              p.textContent = favs.size
-                ? tr('Ninguno de tus favoritos pasa los filtros.')
-                : tr('Aún no tienes favoritos. Pasa el ratón por un Pokémon y pulsa la ★ de su esquina.');
-              grid.replaceChildren(p);
-            }
-          } else if (cells.length) grid.replaceChildren(...cells);
+          if (cells.length) grid.replaceChildren(...cells);
           for (const t of gameTabs()) t.classList.remove('on');
           addTabs();
         }
-        addStars(grid.querySelectorAll('.cell'));
       } finally {
         obs.takeRecords();
         busy = false;
@@ -2359,8 +3040,6 @@
     }, true);
     const obs = new MutationObserver(() => { if (!busy) redraw(); });
     obs.observe(gens, { childList: true });
-    // In case the game redraws only the grid, put the stars back.
-    new MutationObserver(() => { if (!busy) addStars(grid.querySelectorAll('.cell')); }).observe(grid, { childList: true });
     if (gens.children.length) redraw();
   }
 
@@ -3003,6 +3682,126 @@
       <div><button data-act="keys-reset">Restablecer</button></div>`;
   }
 
+  // ------------------------------------------------------- settings tab
+  // A "Mod" tab in the game's Settings with every option that also has a
+  // hotkey, and the auto-pick list. The game wires its own tabs once and
+  // renders #set-body for the chosen one (by data-t); ours has no data-t, so
+  // the game switches it off whenever one of its own tabs is picked, and we
+  // only touch #set-body while ours is on.
+  let modTab = null;
+  const modTabOpen = () => !!modTab && modTab.classList.contains('on') && !!NS && !!NS.SettingsUI && NS.SettingsUI.isOpen;
+
+  function setupSettingsTab() {
+    const tabs = document.getElementById('set-tabs');
+    const body = document.getElementById('set-body');
+    if (!tabs || !body || modTab) return;
+    psaStyle();
+    modTab = document.createElement('button');
+    modTab.className = 'gen-tab';
+    modTab.textContent = 'Mod';
+    modTab.addEventListener('click', () => showModTab());
+    tabs.appendChild(modTab);
+
+    body.addEventListener('click', (e) => {
+      if (!modTabOpen()) return;
+      const b = e.target.closest('button');
+      if (!b) return;
+      b.blur();
+      if (b.dataset.auto) { autoAction(b); return; }
+      if (b.dataset.item) { itemAction(b); return; }
+      const [k, d] = String(b.dataset.pm || '').split(':');
+      switch (k) {
+        case 'shown': shown = !shown; save('shown', shown); if (panel) render(); break;
+        case 'buffs': showBuffs = !showBuffs; save('showBuffs', showBuffs); if (panel) render(); break;
+        case 'map': mapShown = !mapShown; save('mapShown', mapShown); break;
+        case 'sound': setAlertSound(!alertSound); break;
+        case 'chest': chestArea = !chestArea; save('chestArea', chestArea); break;
+        case 'types': typeIcons = !typeIcons; save('typeIcons', typeIcons); iconCache.clear(); break;
+        case 'items': itemIcons = !itemIcons; save('itemIcons', itemIcons); iconCache.clear(); break;
+        case 'fov': setFov(+d === 0 ? 1 : fov + +d * FOV_STEP); break;
+        case 'hud': setHudScale(+d === 0 ? 1 : hudScale + +d * 0.1); break;
+        case 'auto': auto.on = !auto.on; saveAuto(); return;
+        case 'keys': toggleKeys(); return;
+        case 'dex': toggleDex(true); return;
+        case 'hist': toggleHistory(); return;
+        case 'log': toggleNetLog(); return;
+        default: return;
+      }
+      renderModTab();
+    });
+    body.addEventListener('change', (e) => {
+      if (!modTabOpen() || e.target.dataset.auto !== 'fallback') return;
+      auto.fallback = e.target.value;
+      saveAuto();
+    });
+    // Keys pressed on the selects are not for the game.
+    for (const ev of ['keydown', 'keyup']) body.addEventListener(ev, (e) => { if (modTabOpen() && e.target.tagName === 'SELECT') e.stopPropagation(); });
+  }
+
+  // After the game has wired its own tabs, so it leaves ours alone.
+  waitFor(() => { const t = document.querySelector('#set-tabs .gen-tab'); return !!(t && t.onclick); }, setupSettingsTab);
+
+  // Opens Settings on the Mod tab, scrolled to `section` if given.
+  function showModTab(section) {
+    if (!modTab || !NS || !NS.SettingsUI) return;
+    if (!NS.SettingsUI.isOpen) NS.SettingsUI.open();
+    for (const t of document.querySelectorAll('#set-tabs .gen-tab')) t.classList.toggle('on', t === modTab);
+    const body = document.getElementById('set-body');
+    body.scrollTop = 0;
+    renderModTab();
+    const el = section && document.getElementById(section);
+    if (el) el.scrollIntoView({ block: 'start' });
+  }
+
+  function toggleModTab(section) {
+    if (modTabOpen()) NS.SettingsUI.close();
+    else showModTab(section);
+  }
+
+  // During a run, the moveset of the Pokémon you play with.
+  function movesetSection() {
+    const p = inRun() && me();
+    if (!p || !p.mon || !p.mon.dex || !NS.Moves.poolFor) return `<p class="sub">${tr('El moveset de cada Pokémon se elige en su ficha, en la pantalla Pokémon.')}</p>`;
+    return `<h3 class="set-h">${tr`Moveset de ${esc(gameText(p.mon.name))}`}</h3><p class="sub">${tr('Los ataques que buscan las auto mejoras con este Pokémon, en orden. Solo aprende ataques nuevos de aquí.')}</p>` + movesetHtml(p.mon);
+  }
+
+  function renderModTab() {
+    if (!modTabOpen()) return;
+    const body = document.getElementById('set-body');
+    const head = (title, id) => `<h3 class="set-h"${id ? ` id="${id}"` : ''}>${title}</h3>`;
+    const text = (label, hint) => `<div class="grow"><b>${label}</b><small>${hint}</small></div>`;
+    const sw = (k, on, label, hint) => `<div class="set-row">${text(label, hint)}<button class="btn small switch${on ? ' gold' : ''}" data-pm="${k}">${esc(gameText(on ? 'Sí' : 'No'))}</button></div>`;
+    const step = (k, value, label, hint) => `<div class="set-row">${text(label, hint)}<div class="psa-step">
+      <button class="btn small" data-pm="${k}:-1">-</button><b>${value.toFixed(1)}x</b><button class="btn small" data-pm="${k}:1">+</button><button class="btn small" data-pm="${k}:0">1x</button></div></div>`;
+    const open = (k, label, hint) => `<div class="set-row">${text(label, hint)}<button class="btn small" data-pm="${k}">${tr('Abrir')}</button></div>`;
+    const top = body.scrollTop;
+    body.innerHTML =
+      head(tr('Panel del mod')) +
+      sw('shown', shown, tr('Panel de daño'), tr('Daño de cada jugador, tiempos y ritmo durante la partida. Alt + M')) +
+      sw('buffs', showBuffs, tr('Mejoras en el panel'), tr('Tus multiplicadores y lo que compartís en cooperativo. Alt + J')) +
+      sw('map', mapShown, tr('Minimapa'), tr('Terreno, amigos, enemigos, cofres y objetos. Alt + N')) +
+      sw('sound', alertSound, tr('Avisos con sonido'), tr('Shiny, jefes, legendarios, grietas y amigos con poca vida. Alt + B')) +
+      sw('chest', chestArea, tr('Área de los cofres con candado'), tr('Un círculo en el suelo marca dónde tienes que quedarte para abrirlos.')) +
+      head(tr('Cámara y HUD')) +
+      step('fov', fov, tr('Visión'), tr('Aleja la cámara para ver más mapa. Alt + + / Alt + - / Alt + 0')) +
+      step('hud', hudScale, tr('Tamaño del HUD'), tr('Nombre, vida, mejoras y ataques del juego.')) +
+      sw('types', typeIcons, tr('Iconos de tipo de los juegos recientes'), tr('Los de Escarlata y Púrpura en los ataques, en vez de los pixelados del juego.')) +
+      sw('items', itemIcons, tr('Iconos de objetos de los juegos'), tr('En los objetos y en las cartas de mejora.')) +
+      head(tr('Auto mejoras'), 'psmod-set-auto') +
+      sw('auto', auto.on, tr('Elegir las cartas por mí'), tr('Al subir de nivel, el mod coge la carta del primer punto de la lista que haya salido. Alt + U')) +
+      autoHtml() +
+      movesetSection() +
+      head(tr('Objetos preferidos'), 'psmod-set-items') +
+      `<p class="sub">${tr('Al coger un objeto llevando otro, te quedas con el que esté más arriba sin que el juego pregunte.')}</p>` +
+      itemsHtml() +
+      head(tr('Más')) +
+      open('keys', tr('Controles'), tr('Teclas, rueda y botones del ratón. Alt + K')) +
+      open('dex', 'Movedex', tr('Todos los movimientos, quién los aprende y cómo funcionan. Alt + P')) +
+      open('hist', tr('Historial de partidas'), tr('Tus últimas partidas. Alt + H')) +
+      open('log', tr('Registro de conexión'), tr('Cortes de conexión en cooperativo. Alt + L'));
+    body.scrollTop = top;
+  }
+
   // ------------------------------------------------------------ hotkeys
   addEventListener('keydown', (e) => {
     if (!e.altKey || e.ctrlKey || e.metaKey) return;
@@ -3018,9 +3817,10 @@
       case 'KeyL': toggleNetLog(); break;
       case 'KeyK': toggleKeys(); break;
       case 'KeyP': toggleDex(); break;
+      case 'KeyU': toggleModTab('psmod-set-auto'); break;
       case 'KeyB': setAlertSound(!alertSound); toast(alertSound ? tr('Avisos con sonido') : tr('Avisos sin sonido')); break;
       default: hit = false;
     }
-    if (hit) { e.preventDefault(); e.stopPropagation(); }
+    if (hit) { e.preventDefault(); e.stopPropagation(); renderModTab(); }
   }, true);
 })();
