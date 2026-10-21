@@ -14,7 +14,6 @@
 - **Todo en Ajustes**: una pestaña "Mod" en los Ajustes del juego con todas las opciones.
 - **Controles a tu gusto**, también con la rueda y los botones del ratón.
 - **Minimapa** con tus amigos, los enemigos, los cofres y los objetos.
-- **Pokédex**: pestaña "Nacional" con todos juntos.
 - **Gacha más rápido**: saltar la animación, "Tirar todo" y un banner "Nacional" que solo tira en las regiones que te faltan.
 
 La lista completa y cómo se usa cada cosa, en el [README](https://github.com/aparmor2/pokesurvivor-mod#readme).

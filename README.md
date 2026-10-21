@@ -17,7 +17,7 @@ Si el navegador te avisa de que tienes extensiones en modo de desarrollador, es 
 
 ## Idioma
 
-El mod sigue el idioma del juego (español o inglés). Para cambiarlo, cámbialo en los Ajustes de PokéSurvivor y recarga la página. Los nombres de ataques, objetos y regiones salen con la traducción del juego; los de los jugadores no se traducen.
+El mod sigue el idioma del juego (español o inglés; con el juego en francés, italiano, portugués o chino, sale en inglés). Para cambiarlo, cámbialo en los Ajustes de PokéSurvivor y recarga la página. Los nombres de ataques, objetos y regiones salen con la traducción del juego; los de los jugadores no se traducen.
 
 *English speakers: see [English](#english) at the end.*
 
@@ -32,11 +32,11 @@ Cuando salga una versión nueva, el juego te lo dirá con una tarjeta amarilla e
 - **Ritmo y tiempos**: cuánto te falta para subir de nivel al ritmo actual, cuánto queda para los legendarios del minuto 30, cuánto sigue abierta una grieta y cuándo puede salir la siguiente.
 - **Mejoras**: tus multiplicadores (daño, recarga, velocidad, defensa, regeneración, críticos, imán, experiencia, mejoras activas y objeto) y, en cooperativo, lo que compartís: el Aprendizaje de cada uno, la experiencia que recibe el equipo y cuánto suben los enemigos por jugador.
 - **Menos expulsiones en cooperativo**: si se corta la conexión entre vosotros, el mod espera hasta 30 s a que vuelva en vez de echar al jugador al instante, y evita que Chrome cierre la pestaña del juego para ahorrar memoria. Todo queda apuntado en un registro.
-- **Resumen e historial**: al acabar la partida, un resumen con tiempo, nivel, derrotados, daño, daño por segundo y tus mejores ataques, comparado con tus amigos. Se guardan tus últimas 30 partidas.
+- **Resumen e historial**: al acabar la partida, un resumen con tiempo, nivel, derrotados, daño, daño por segundo y tus mejores ataques, comparado con tus amigos. Se abre con el botón "Resumen del mod" de la pantalla final (o `Alt` + `H`), así no tapa los botones del juego; si lo prefieres, en Ajustes → "Mod" puedes hacer que se abra solo. Se guardan tus últimas 30 partidas.
 - **Más campo de visión**: aleja la cámara para ver más mapa (de 1.0x a 2.5x, viene en 1.4x).
 - **HUD más grande**: agranda el HUD del juego (nombre, vida, mejoras, ataques, flechas) de 1x a 2x, viene en 1.4x. Además pone el nivel de cada ataque encima de su icono, también en los ataques fusionados (en dorado si está al máximo, ★ si ha evolucionado).
 - **Cuánto le queda a cada mejora**: debajo de cada mejora activa del HUD (Danza Espada, Maquinación, Agilidad, Fortaleza, Danza Dragón, Acua Aro) sale una barrita que se vacía con el tiempo que le queda, y parpadea en los 2 últimos segundos. Cuando se acaba se pierden todas las acumulaciones a la vez.
-- **Movedex**: una Pokédex con todos los movimientos del juego. De cada uno, sus números a nivel 1, a nivel 5 y evolucionado, si es físico o especial, sus mejoras, qué pide para evolucionar y qué Pokémon lo aprenden. Escribe tu Pokémon para ver solo lo que puede aprender y con qué tipo de ataque pega más. Trae también una guía de cómo funcionan los efectos (quemadura, veneno, tipos, defensa…). Los datos salen del propio juego, así que se actualiza solo.
+- **Movedex**: una Pokédex con todos los movimientos del juego. De cada uno, sus números a nivel 1, a nivel 5 y evolucionado, si es físico o especial, sus mejoras, qué pide para evolucionar, qué Pokémon lo aprenden y cuáles pueden aprenderlo con una MT de la Tienda Kecleon (y su precio). Escribe tu Pokémon para ver solo lo que puede aprender (marcando con MT lo que necesita una MT), su naturaleza y habilidad, y con qué tipo de ataque pega más, ya con la naturaleza y el bonus de monotipo. Trae también una guía de cómo funcionan los efectos (quemadura, veneno, tipos, defensa…). Los datos salen del propio juego, así que se actualiza solo.
 - **Auto mejoras**: si lo activas, al subir de nivel el mod elige la carta por ti siguiendo tu lista de prioridades: evolucionar, la mejora que desbloquea una evolución, Baya Zidra con poca vida, subir de nivel lo que ya tienes, ataques nuevos que pegan bien con tu Pokémon, ataques concretos o mejoras concretas (Potencia, Reflejos…), en el orden que quieras. Si no sale nada de tu lista, eliges tú (o primero gasta los cambios de opciones). Con el botón = una línea comparte puesto con la de arriba y se van turnando (por ejemplo, una de Potencia y una de Carrera). Se ajusta en Ajustes → pestaña "Mod". Además, cada Pokémon puede tener su **moveset**: en su ficha de la pantalla Pokémon pulsa los iconos de sus movimientos (o "Añadir") y ordénalos. Con moveset, las auto mejoras van a por esos ataques en ese orden y solo aprenden ataques nuevos de ahí. En partida también se cambia en Ajustes → "Mod".
 - **Controles a tu gusto**: cambia la tecla de cada acción (moverse, cambiar de ataque, elegir ataque, pausa…) y usa la rueda del ratón o sus botones central y laterales. Viene con la rueda para ir cambiando de ataque.
 - **Objetos preferidos**: ordena en Ajustes → "Mod" los objetos que quieres llevar. Al coger un objeto llevando otro, te quedas con el que esté más arriba de tu lista sin que salga la pregunta de "Quedarme con / Cambiar a". Si ninguno de los dos está en la lista, el juego pregunta como siempre.
@@ -44,7 +44,6 @@ Cuando salga una versión nueva, el juego te lo dirá con una tarjeta amarilla e
 - **Sprites de objetos**: los objetos y las cartas de mejora (Potencia, Reflejos, Aprendizaje, Carrera, Coraza, Vigor, Síntesis, Imán y Baya Zidra) usan los sprites de los juegos principales. Sprites de [PokéSprite](https://msikma.github.io/pokesprite/) (© Nintendo, Creatures y GAME FREAK). Se puede volver a los del juego en Ajustes → "Mod".
 - **Área de los cofres con candado**: un círculo dorado en el suelo alrededor de cada cofre con candado marca dónde tienes que quedarte (3,5 s) para abrirlo; se ilumina cuando estás dentro. Se apaga en Ajustes → "Mod".
 - **Minimapa**: el terreno, tus amigos, los enemigos, los cofres y los objetos del suelo que hay a tu alrededor.
-- **Pokédex Nacional**: en la pantalla de Pokémon, una pestaña "Nacional" al principio de las regiones para verlos todos juntos (los filtros siguen funcionando).
 - **Gacha más rápido**: botón para saltar la animación de la tragaperras, opción para saltarla siempre y botón "Tirar todo" para gastar todos los tickets de una vez.
 
 ## Uso
@@ -146,7 +145,7 @@ El juego conecta a los jugadores directamente entre sí. Cuando esa conexión se
 
 ## English
 
-Browser extension for [pokesurvivor.com](https://pokesurvivor.com/): damage meter, minimap, shiny and boss alerts, wider field of view, run summaries and more. Free and open source. It follows the game's language: with PokéSurvivor in English, the whole mod is in English.
+Browser extension for [pokesurvivor.com](https://pokesurvivor.com/): damage meter, minimap, shiny and boss alerts, wider field of view, run summaries and more. Free and open source. It follows the game's language: with PokéSurvivor in English (or French, Italian, Portuguese or Chinese), the whole mod is in English.
 
 **How to install (2 minutes, desktop Chrome, Edge, Brave or Opera)**
 

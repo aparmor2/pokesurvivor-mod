@@ -273,7 +273,7 @@
     "Danza Espada, Maquinación, Agilidad, Fortaleza, Danza Dragón y Acua Aro se lanzan solas. Cada vez suman una acumulación y reinician la duración; si se acaba, se pierden todas a la vez. La barrita bajo cada mejora del HUD te dice cuánto le queda.": "Swords Dance, Nasty Plot, Agility, Harden, Dragon Dance and Aqua Ring cast themselves. Each cast adds a stack and restarts the timer; when it runs out, all stacks go at once. The small bar under each buff on the HUD shows how long it has left.",
     "Un movimiento evoluciona cuando está a nivel 5 y además tienes la mejora pasiva que pide (Vigor, Potencia, Carrera, Reflejos, Coraza, Síntesis o Imán).": "A move evolves when it is at level 5 and you also have the passive upgrade it asks for.",
     "Movimiento inicial por tipo": "Starting move by type",
-    "Con qué movimiento empieza tu Pokémon según su tipo, salvo que tenga uno propio. Al subir de nivel te pueden salir los de sus tipos y los de tipo Normal, que los aprende cualquiera.": "The move your Pokémon starts with for its type, unless it has its own. On level up you can get moves of its types and Normal moves, which anyone can learn.",
+    "Con qué movimiento empieza tu Pokémon según su tipo, salvo que tenga uno propio. Al subir de nivel te pueden salir los de sus tipos, los de tipo Normal, que los aprende cualquiera, y los que le hayas enseñado con MT.": "The move your Pokémon starts with for its type, unless it has its own. On level up you can get moves of its types, Normal moves, which anyone can learn, and the ones you taught it with TMs.",
     "Empieza con": "Starts with",
     "Puede aprender además": "Can also learn",
     "Reparto entre ": "Sharing across ",
@@ -349,9 +349,20 @@
     "Moveset para las auto mejoras": "Auto-pick moveset",
     "Pulsa los iconos de arriba o añádelos aquí. El orden es la prioridad.": "Click the icons above or add moves here. The order is the priority.",
     "El moveset de cada Pokémon se elige en su ficha, en la pantalla Pokémon.": "Each Pokémon's moveset is set on its card in the Pokémon screen.",
-    "Los ataques que buscan las auto mejoras con este Pokémon, en orden. Solo aprende ataques nuevos de aquí.": "The moves auto-pick goes for with this Pokémon, in order. New moves only come from this list."
+    "Los ataques que buscan las auto mejoras con este Pokémon, en orden. Solo aprende ataques nuevos de aquí.": "The moves auto-pick goes for with this Pokémon, in order. New moves only come from this list.",
+    "Resumen del mod (Alt + H)": "Mod summary (Alt + H)",
+    "Abrir el resumen al acabar la partida": "Open the summary when a run ends",
+    "Si no, se abre con su botón de la pantalla final o con Alt + H.": "Otherwise, open it with its button on the end screen or with Alt + H.",
+    "Lo puede aprender con una MT de la Tienda Kecleon": "It can learn it with a TM from the Kecleon Shop",
+    "Naturaleza, habilidad y monotipo": "Nature, ability and single type",
+    "La naturaleza sube un 10 % una estadística y baja otra; la habilidad tiene su efecto en la partida (se cambian con Mentas y Cápsulas de la Tienda Kecleon). Los Pokémon de un solo tipo pegan un 20 % más con los ataques de su tipo. Los números de tu Pokémon arriba ya lo tienen en cuenta.": "The nature raises one stat by 10% and lowers another; the ability has its own effect in the run (Mints and Capsules from the Kecleon Shop change them). Single-type Pokémon deal 20% more with moves of their type. Your Pokémon's numbers above already include all of this.",
+    "Las MT de la Tienda Kecleon enseñan para siempre ataques de fuera de sus tipos, solo a los Pokémon que los aprenden en los juegos. Con tu Pokémon elegido, la lista marca con MT los que puede aprender así.": "TMs from the Kecleon Shop permanently teach moves outside its types, only to Pokémon that learn them in the main games. With your Pokémon picked, the list marks the ones it can learn this way with TM.",
+    "MT": "TM"
   };
   const TEMPLATES = {
+    " (+{x} con MT)": " (+{x} with TMs)",
+    "Con MT: <b>{x} Pokémon</b> más": "With a TM: <b>{x} more Pokémon</b>",
+    "{x} Pokémonedas en la Tienda Kecleon": "{x} PokéCoins in the Kecleon Shop",
     "{x} a {x} casillas": "{x} {x} tiles away",
     "¡{x} legendarios!": "{x} legendaries!",
     "En amarillo, tu mejor partida por daño por segundo. Se guardan las últimas {x} en este navegador. Alt + H abre esto cuando quieras.": "Your highest-DPS run is highlighted in yellow. Your last {x} runs are saved in this browser. Open with Alt + H.",
@@ -389,11 +400,14 @@
   const phrases = new RegExp(Object.keys(EN).sort((a, b) => b.length - a.length)
     .map(s => `(?<![\\p{L}\\p{N}_])${escape(s)}(?![\\p{L}\\p{N}_])`).join('|'), 'gu');
 
+  // The mod speaks Spanish and English: the game's other languages (French,
+  // Italian, Portuguese, Chinese) get English.
   function language() {
-    if (game && game.I18n && ['es', 'en'].includes(game.I18n.lang)) return game.I18n.lang;
+    const lang = (game && game.I18n && game.I18n.lang) || (window.PS_LOCALES && window.PS_LOCALES.lang);
+    if (lang) return lang === 'es' ? 'es' : 'en';
     let saved;
     try { saved = localStorage.getItem('ps.lang'); } catch {}
-    if (saved === 'es' || saved === 'en') return saved;
+    if (/^(es|en|fr|it|pt|zh)\b/i.test(saved || '')) return /^es/i.test(saved) ? 'es' : 'en';
     if (/\/en(\/|$)/.test(location.pathname)) return 'en';
     const nav = ((navigator.languages && navigator.languages[0]) || navigator.language || 'es').toLowerCase();
     return nav.startsWith('es') ? 'es' : 'en';
@@ -1493,14 +1507,19 @@
 
   // ------------------------------------------------ run summary, history
   // When a run ends (game over, or leaving a run that lasted over a minute) we
-  // save a summary in this browser and show it next to the game's own screen.
+  // save a summary in this browser. On the game-over screen a button under
+  // the game's own stats opens it (or Alt + H), so it doesn't cover the
+  // game's buttons; with sumAuto it opens by itself, as it used to.
   const HISTORY_MAX = 30;
-  let runEnded = false, sumEl = null, lastState = null;
+  let runEnded = false, sumEl = null, lastState = null, lastSum = null, overBtn = null;
+  let sumAuto = load('sumAuto', false);
 
   function checkRunEnd() {
     const st = NS.Game.state;
     const was = lastState;
     lastState = st;
+    // Leaving the game-over screen takes its summary along.
+    if (was === 'over' && st !== 'over' && sumEl && sumEl.dataset.view === 'run') sumEl.hidden = true;
     if (runEnded || !runPlayer) return;
     if (st === 'over' || (st === 'ui' && was && was !== 'ui' && runTime > 60)) {
       runEnded = true;
@@ -1508,8 +1527,26 @@
       const hist = load('history', []);
       hist.unshift(s);
       save('history', hist.slice(0, HISTORY_MAX));
-      if (st === 'over') showSummary(s);
+      if (st === 'over') {
+        lastSum = s;
+        addOverButton();
+        if (sumAuto) showSummary(s);
+      }
     }
+  }
+
+  function addOverButton() {
+    const again = document.getElementById('btn-again');
+    if (!again) return;
+    if (!overBtn) {
+      overBtn = document.createElement('button');
+      overBtn.id = 'psmod-sum-btn';
+      overBtn.className = 'btn small ghost';
+      overBtn.style.cssText = 'display:block;margin:0 auto 10px';
+      overBtn.addEventListener('click', () => { overBtn.blur(); toggleHistory(); });
+    }
+    overBtn.textContent = tr('Resumen del mod (Alt + H)');
+    if (overBtn.nextElementSibling !== again) again.before(overBtn);
   }
 
   function buildRunSummary(p) {
@@ -1620,22 +1657,25 @@
       const date = `${d.getDate()}/${d.getMonth() + 1} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
       return `<tr${h === best ? tr(' class="best" title="Tu mejor daño por segundo"') : ''}><td>${date}</td><td>${esc(h.mon)}${h.coop > 1 ? ` (${h.coop})` : ''}</td><td class="n">${clock(h.time)}</td><td class="n">${h.level}</td><td class="n">${fmt(h.dps)}</td></tr>`;
     }).join('');
+    // Once per run, however many times the summary is opened.
+    if (s && s.star == null) s.star = starNote();
     sumEl.innerHTML = tr`
       <div class="top"><h3>${s ? tr('Resumen de la partida') : tr('Historial')}</h3><button data-act="close">Cerrar</button></div>
-      ${s ? starNote() : ''}
+      ${s ? s.star : ''}
       ${head}
       <h3>${s ? tr('Tus últimas partidas') : tr('Tus últimas partidas')}</h3>
       ${rowsHtml ? tr`<table><thead><tr><th>Fecha</th><th>Pokémon</th><th class="n">Tiempo</th><th class="n">Nv.</th><th class="n">Daño/s</th></tr></thead><tbody>${rowsHtml}</tbody></table>
       <p class="sub">En amarillo, tu mejor partida por daño por segundo. Se guardan las últimas ${HISTORY_MAX} en este navegador. Alt + H abre esto cuando quieras.</p>
       <div><button data-act="clear">Borrar historial</button></div>` : tr('<p class="sub">Todavía no hay partidas guardadas. Se guardan al acabar cada partida.</p>')}`;
-    sumEl.dataset.view = 'sum';
+    sumEl.dataset.view = s ? 'run' : 'sum';
     sumEl.hidden = false;
   }
 
+  // On the game-over screen, the summary of that run; elsewhere, the history.
   function toggleHistory() {
     if (!sumEl) return;
     if (!sumEl.hidden) { sumEl.hidden = true; return; }
-    showSummary(null);
+    showSummary(NS && NS.Game && NS.Game.state === 'over' ? lastSum : null);
   }
 
   // ----------------------------------------------------- Repertorio off
@@ -2025,10 +2065,12 @@
   // Each Pokémon you own can have a moveset: the moves auto-pick goes for,
   // in order (the 'set' rule), and the only new moves it takes. It's picked
   // on the Pokémon's card in the Pokémon screen (#dex-detail) and, during a
-  // run, in the Mod tab. The card's move icons (.move-icons) are drawn from
+  // run, in the Mod tab. The card's move icons (p.move-icons) are drawn from
   // Moves.poolFor(mon), so the n-th icon is the n-th move of the pool;
-  // clicking one adds or removes it.
-  const learnable = (mon) => [...new Set([NS.startMoveOf ? NS.startMoveOf(mon.dex) : NS.Moves.startFor(mon), ...NS.Moves.poolFor(mon)])]
+  // clicking one adds or removes it. The pool includes the TMs it was taught,
+  // which the nature panel above lists again in a .move-icons of its own.
+  const poolRow = (detail) => detail.querySelector('p.move-icons') || [...detail.querySelectorAll('.move-icons')].pop();
+  const learnable =(mon) => [...new Set([NS.startMoveOf ? NS.startMoveOf(mon.dex) : NS.Moves.startFor(mon), ...NS.Moves.poolFor(mon)])]
     .filter((id) => NS.Moves.BY_ID[id]);
 
   function setMoveset(dex, list) {
@@ -2067,7 +2109,8 @@
     const old = detail.querySelector('.psmod-setwrap');
     if (!mon) { if (old) old.remove(); return; }
     const set = movesetOf(mon.dex);
-    const icons = [...detail.querySelectorAll('.move-icons > *')];
+    const row = poolRow(detail);
+    const icons = [...row.children];
     const pool = NS.Moves.poolFor(mon);
     if (icons.length === pool.length) icons.forEach((el, i) => {
       const n = set.indexOf(pool[i]) + 1;
@@ -2079,7 +2122,7 @@
     const wrap = old || document.createElement('div');
     wrap.className = 'psmod-setwrap';
     wrap.innerHTML = `<b>${tr('Moveset para las auto mejoras')}</b><small>${tr('Pulsa los iconos de arriba o añádelos aquí. El orden es la prioridad.')}</small>${movesetHtml(mon)}`;
-    if (!old) detail.querySelector('.move-icons').after(wrap);
+    if (wrap.previousElementSibling !== row) row.after(wrap);
   }
 
   function setupMovesets() {
@@ -2888,7 +2931,7 @@
 #psmod-mdx i{flex:none;width:16px;height:18px;border-radius:3px 3px 3px 7px;background:#c8141f;border:2px solid #2a0408;position:relative}
 #psmod-mdx i::after{content:'';position:absolute;left:2px;top:2px;width:6px;height:6px;border-radius:50%;background:#4fc3ff;border:1px solid #fff}
 #psmod-mdx:hover,#psmod-mdx:focus-visible{filter:brightness(1.12)}
-@media (max-width:1100px){#psmod-mdx span{display:none}}`;
+#topbar.psmod-bar1 #psmod-mdx span,#topbar.psmod-bar2 #psmod-mdx{display:none}`;
     document.head.appendChild(style);
     const b = document.createElement('button');
     b.id = 'psmod-mdx';
@@ -2901,7 +2944,26 @@
     if (pp) pp.after(b); else bar.prepend(b);
   }
 
-  const addBarPills = () => { addPuzzlesCard(); addDexPill(); };
+  // The game's bar sits on the right and never wraps: when it runs out of
+  // room (a narrow window, or its Save button once you're signed in) it
+  // squeezes its own pills and then runs off the left edge. The Movedex pill
+  // gives way first: its text goes, then the pill (Alt + P and the Pokémon
+  // screen still open it). PokéPuzzles always stays as it is.
+  function fitBar() {
+    const bar = document.getElementById('topbar');
+    if (!bar) return;
+    const tight = () => bar.getBoundingClientRect().left < 8 || bar.offsetHeight > 46;
+    const fit = () => {
+      if (bar.classList.contains('hidden')) return;
+      bar.classList.remove('psmod-bar1', 'psmod-bar2');
+      if (tight()) bar.classList.add('psmod-bar1');
+      if (tight()) bar.classList.add('psmod-bar2');
+    };
+    new ResizeObserver(fit).observe(bar);
+    addEventListener('resize', fit);
+  }
+
+  const addBarPills = () => { addPuzzlesCard(); addDexPill(); fitBar(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addBarPills);
   else addBarPills();
 
@@ -2952,95 +3014,23 @@
 
   setTimeout(checkUpdate, 3000);
 
-  // ------------------------------------------------- Pokédex: Nacional
-  // The Pokémon screen shows one region at a time: MenuUI rebuilds the region
-  // tabs (#dex-gens) and the grid (#dex-grid) for the chosen one, with the
-  // filters applied, and keeps the choice private. For "Nacional" we click
-  // through every region tab ourselves, keep each grid's cells (with their
-  // own click handlers, which only touch #dex-grid and the detail panel), go
-  // back to the region that was chosen and show all the cells together.
-  // Whenever the game redraws the screen (a filter, a new partner) we do it
-  // again; picking a region tab goes back to the game's own view.
-  let dexView = load('dexView', load('dexNational', false) ? 'nat' : '') === 'nat' ? 'nat' : ''; // '' | 'nat'
-
+  // ------------------------------------------------ Pokémon screen: Movedex
+  // A tab after the regions (#dex-gens) that opens the Movedex; it's not a
+  // view of the grid. The game rebuilds the tabs every time it redraws the
+  // screen, so it goes back in each time. (The mod's old "Nacional" tab is
+  // gone: the game's own "Todas" shows every region together.)
   function setupDex() {
-    const gens = document.getElementById('dex-gens'), grid = document.getElementById('dex-grid');
-    if (!gens || !grid) return;
-    let busy = false;
-    const OURS = ['psmod-nat', 'psmod-mdex'];
-    const gameTabs = () => [...gens.querySelectorAll('.gen-tab:not(#psmod-nat):not(#psmod-mdex)')];
-    const setView = (v) => { dexView = v; save('dexView', v); };
-
-    function makeTab(id, view) {
-      let tab = document.getElementById(id);
-      if (!tab) {
-        tab = document.createElement('button');
-        tab.id = id;
-        tab.className = 'gen-tab';
-        tab.addEventListener('click', () => { setView(view); redraw(); });
-      }
-      return tab;
-    }
-
-    function addTabs() {
-      const nat = makeTab('psmod-nat', 'nat');
-      if (gens.children[0] !== nat) gens.prepend(nat);
-      // Opens the Movedex; it's not a view of this grid.
-      let mdex = document.getElementById('psmod-mdex');
-      if (!mdex) {
-        mdex = document.createElement('button');
-        mdex.id = 'psmod-mdex';
-        mdex.className = 'gen-tab';
-        mdex.title = tr('Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)');
-        mdex.innerHTML = tr('<b>Movedex</b><small>movimientos</small>');
-        mdex.addEventListener('click', (e) => { e.stopPropagation(); mdex.blur(); toggleDex(true); });
-      }
-      if (gens.lastElementChild !== mdex) gens.appendChild(mdex);
-      const sv = (NS && NS.DB && NS.DB.save) || {};
-      const owned = sv.owned || {};
-      const all = (NS && NS.DEX) || [];
-      nat.innerHTML = tr`<b>Nacional</b><small>${all.filter((p) => owned[p.dex]).length}/${all.length}</small>`;
-      nat.classList.toggle('on', dexView === 'nat');
-    }
-
-    function redraw() {
-      if (busy) return;
-      busy = true;
-      try {
-        addTabs();
-        if (dexView) {
-          const tabs = gameTabs();
-          const orig = Math.max(0, tabs.findIndex((t) => t.classList.contains('on')));
-          let cells = [];
-          for (let i = 0; i < tabs.length; i++) {
-            const t = gameTabs()[i]; // the game rebuilds the tabs on every click
-            if (!t) break;
-            // Its own handler, not click(): the game plays a click sound for
-            // every click that reaches the document, one per region at once.
-            if (t.onclick) t.onclick(); else t.click();
-            cells.push(...grid.querySelectorAll('.cell'));
-          }
-          const back = gameTabs()[orig];
-          if (back) { if (back.onclick) back.onclick(); else back.click(); }
-          if (cells.length) grid.replaceChildren(...cells);
-          for (const t of gameTabs()) t.classList.remove('on');
-          addTabs();
-        }
-      } finally {
-        obs.takeRecords();
-        busy = false;
-      }
-    }
-
-    // Leave our views when a region tab is picked (before the game redraws).
-    gens.addEventListener('click', (e) => {
-      if (busy) return;
-      const t = e.target.closest('.gen-tab');
-      if (t && !OURS.includes(t.id) && dexView) setView('');
-    }, true);
-    const obs = new MutationObserver(() => { if (!busy) redraw(); });
-    obs.observe(gens, { childList: true });
-    if (gens.children.length) redraw();
+    const gens = document.getElementById('dex-gens');
+    if (!gens) return;
+    const mdex = document.createElement('button');
+    mdex.id = 'psmod-mdex';
+    mdex.className = 'gen-tab';
+    mdex.title = tr('Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)');
+    mdex.innerHTML = tr('<b>Movedex</b><small>movimientos</small>');
+    mdex.addEventListener('click', (e) => { e.stopPropagation(); mdex.blur(); toggleDex(true); });
+    const add = () => { if (gens.lastElementChild !== mdex) gens.appendChild(mdex); };
+    new MutationObserver(add).observe(gens, { childList: true });
+    add();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupDex);
@@ -3094,7 +3084,10 @@
         evo = { name: info.name, need: info.needName, text: info.text, stats: e };
       }
       const pools = Object.keys(M.POOL).filter((t) => M.POOL[t].includes(d.id));
-      return { no: i + 1, id: d.id, d, pools, all: pools.includes('normal'), base: M.instance(d.id, 1), max, evo };
+      // Pokémon that can be taught it with a TM from the Kecleon Shop.
+      const tm = new Set((NS.TM_MOVES && NS.TM_MOVES[d.id]) || []);
+      const price = tm.size && NS.Shop && NS.Shop.tmPrice ? NS.Shop.tmPrice(d.id) : 0;
+      return { no: i + 1, id: d.id, d, pools, all: pools.includes('normal'), tm, price, base: M.instance(d.id, 1), max, evo };
     });
     return {
       moves, playable, start,
@@ -3103,7 +3096,14 @@
     };
   }
 
-  const canLearn = (m, p) => m.all || p.types.some((t) => m.pools.includes(t)) || dexData.start.get(p.dex) === m.id;
+  const natural = (m, p) => m.all || p.types.some((t) => m.pools.includes(t)) || dexData.start.get(p.dex) === m.id;
+  // TMs are taught for good: once taught, the move is one more of its own.
+  const taught = (m, p) => !!(NS.Mons && NS.Mons.taught && NS.Mons.taught(p.dex).includes(m.id));
+  const canLearn = (m, p) => natural(m, p) || taught(m, p);
+  const viaTm = (m, p) => m.tm.has(p.dex) && !canLearn(m, p);
+  // The Pokémon as it plays for you: its nature changes two stats by 10 %.
+  const withNature = (p) => (NS.Mons && NS.Mons.monFor && NS.Mons.monFor(p.dex)) || p;
+  const monoBonus = (p, type) => (p.types.length === 1 && p.types[0] === type ? 1.2 : 1);
 
   function statsFor(m, s) {
     const out = [];
@@ -3188,6 +3188,11 @@
 .dx-list .no{font-size:11px;opacity:.7;font-variant-numeric:tabular-nums}
 .dx-list b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dx-list li.no-learn{opacity:.38}
+.dx-list li>span:last-child{display:flex;gap:4px;align-items:center}
+.dx-mt{font-size:10px;font-weight:700;font-style:normal;padding:2px 4px;border-radius:3px;background:#33442f;color:#e9f6e2}
+.dx-list li.on .dx-mt{background:#e9f6e2;color:#33442f}
+.dx-mon .dx-nat{grid-column:1/-1}
+.dx-nat small{color:#33442f}
 .dx-ty{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 6px;border-radius:3px;
   background:var(--c);color:#111;border:1px solid rgba(0,0,0,.35);white-space:nowrap}
 .dx-mon[hidden]{display:none}
@@ -3360,7 +3365,7 @@
       if (dx.type && d.type !== dx.type) return false;
       if (dx.kind && d.kind !== dx.kind) return false;
       if (dx.cat && (d.cat || 'none') !== dx.cat) return false;
-      if (dx.mon && !canLearn(m, dx.mon)) return false;
+      if (dx.mon && !canLearn(m, dx.mon) && !viaTm(m, dx.mon)) return false;
       if (!q) return true;
       const hay = [gameText(d.name), m.evo && gameText(m.evo.name), gameText(d.desc), typeName(d.type), kindName(d.kind), catName(d.cat),
         ...effects(m.max).map((e) => e[1]), ...d.ups.map((u) => gameText(u.t))].join(' ').toLowerCase();
@@ -3376,7 +3381,7 @@
     const icon = (id) => { try { return NS.Icons.html('move:' + id, 18); } catch { return ''; } };
     dexEl.querySelector('.dx-list').innerHTML = list.map((m) => `<li data-id="${m.id}" class="${m.id === dx.sel ? 'on' : ''}">
       <span class="no">${String(m.no).padStart(3, '0')}</span>${icon(m.id)}<b>${esc(gameText(m.d.name))}</b>
-      <i class="dx-ty" style="--c:${typeColor(m.d.type)}">${esc(typeName(m.d.type))}</i></li>`).join('')
+      <span>${dx.mon && viaTm(m, dx.mon) ? `<i class="dx-mt" title="${tr('Lo puede aprender con una MT de la Tienda Kecleon')}">${tr('MT')}</i>` : ''}<i class="dx-ty" style="--c:${typeColor(m.d.type)}">${esc(typeName(m.d.type))}</i></span></li>`).join('')
       || `<li class="no-learn">${tr('Ningún movimiento coincide.')}</li>`;
     dexEl.querySelector('.dx-count').innerHTML = tr`<span>${list.length} de ${dexData.moves.length}</span><span>↑ ↓ para moverte</span>`;
     renderMon();
@@ -3390,19 +3395,41 @@
     if (!p) return;
     const start = dexData.byId.get(dexData.start.get(p.dex));
     const n = dexData.moves.filter((m) => canLearn(m, p)).length;
+    const nTm = dexData.moves.filter((m) => viaTm(m, p)).length;
     const S = NS.Stats;
-    const atkP = S ? S.fit(p, 'physical') * (p.atk || 1) : 1, atkS = S ? S.fit(p, 'special') * (p.atk || 1) : 1;
-    const red = (c) => { const v = Math.round((S ? 1 - S.taken(p, c) : 0) * 100); return (v > 0 ? '-' : v < 0 ? '+' : '') + Math.abs(v) + ' %'; };
+    const q = withNature(p);
+    const atkP = S ? S.fit(q, 'physical') * (q.atk || 1) : 1, atkS = S ? S.fit(q, 'special') * (q.atk || 1) : 1;
+    const red = (c) => { const v = Math.round((S ? 1 - S.taken(q, c) : 0) * 100); return (v > 0 ? '-' : v < 0 ? '+' : '') + Math.abs(v) + ' %'; };
     const best = (a, b) => `<span class="${a > b ? 'best' : ''}">×${num(a, 2)}</span>`;
     box.innerHTML = `<span class="spr"></span>
       <b>${esc(p.name)} <small>#${p.dex}</small></b>
-      <span>${p.types.map((t) => `<i class="dx-ty" style="--c:${typeColor(t)}">${esc(typeName(t))}</i>`).join(' ')} · ${tr`${n} movimientos`}</span>
+      <span>${p.types.map((t) => `<i class="dx-ty" style="--c:${typeColor(t)}">${esc(typeName(t))}</i>`).join(' ')} · ${tr`${n} movimientos`}${nTm ? tr` (+${nTm} con MT)` : ''}</span>
       <span>${tr`Daño físico ${best(atkP, atkS)} · especial ${best(atkS, atkP)}`}</span>
-      <span>${tr`Empieza con ${`<b>${esc(start ? gameText(start.d.name) : '-')}</b>`} · recibe físico ${red('physical')}, especial ${red('special')}`}</span>`;
+      <span>${tr`Empieza con ${`<b>${esc(start ? gameText(start.d.name) : '-')}</b>`} · recibe físico ${red('physical')}, especial ${red('special')}`}</span>
+      ${natureHtml(p)}`;
     try {
       const c = NS.UI.spriteCanvas(p.dex, 92, 80, { scale: 2, shadow: true });
       box.querySelector('.spr').replaceWith(c);
     } catch { box.querySelector('.spr').remove(); }
+  }
+
+  // Its nature and ability as the game gives them to you (a Mint or an
+  // Ability Capsule from the Kecleon Shop changes them).
+  const STAT_LABEL = { hp: 'Vida', pa: 'Ataque', sa: 'At. Esp.', df: 'Defensa', sd: 'Def. Esp.', spd: 'Velocidad' };
+  function natureHtml(p) {
+    const Mo = NS.Mons;
+    if (!Mo || !Mo.natureOf || !Mo.name) return '';
+    const nat = Mo.natureOf(p.dex);
+    const ab = Mo.abilityOf ? Mo.abilityOf(p.dex) : null;
+    const stat = (k) => esc(gameText(STAT_LABEL[k] || k));
+    const mods = nat.up ? ` <small>+${stat(nat.up)} −${stat(nat.down)}</small>` : '';
+    let abil = '';
+    if (ab && ab.id && Mo.abilityName) {
+      const fx = NS.AbilityFX && NS.AbilityFX.of ? NS.AbilityFX.of(ab.id, p) : null;
+      const tip = fx ? [fx.d, fx.d2].filter(Boolean).map(gameText).join(' ') : '';
+      abil = ` · ${esc(gameText('Habilidad'))} <b title="${esc(tip)}">${esc(Mo.abilityName(ab.id))}</b>`;
+    }
+    return `<span class="dx-nat">${esc(gameText('Naturaleza'))} <b>${esc(Mo.name(nat.n))}</b>${mods}${abil}</span>`;
   }
 
   function renderView() {
@@ -3424,7 +3451,8 @@
     const sub = lvl === 'evo' && m.evo ? tr`Evoluciona de ${esc(gameText(d.name))}` : m.evo ? tr`Evoluciona a ${esc(gameText(m.evo.name))}` : tr('No evoluciona');
     const p = dx.mon;
     const S = NS.Stats;
-    const monMul = p && d.cat && S ? tr` · ×${num(S.fit(p, d.cat) * (p.atk || 1), 2)} con ${esc(p.name)}` : '';
+    const q = p && withNature(p);
+    const monMul = p && d.cat && S ? tr` · ×${num(S.fit(q, d.cat) * (q.atk || 1) * monoBonus(p, d.type), 2)} con ${esc(p.name)}` : '';
     let ico = '';
     try { ico = NS.Icons.html('move:' + d.id, 40); } catch {}
     const seg = (v, label) => `<button data-lvl="${v}" aria-pressed="${lvl === v}">${tr(label)}</button>`;
@@ -3457,9 +3485,13 @@
       ? `<details class="dx-learn"><summary>${tr`Empiezan la partida con él: <b>${starts.length} Pokémon</b>`}</summary><p class="dx-names">${starts.map(tag).join('')}</p></details>`
       : '';
     if (m.all) return `<p class="dx-note">${tr`Lo puede aprender <b>cualquier Pokémon</b> (los ${P.length}).`}</p>${startList}`;
-    const list = P.filter((r) => canLearn(m, r));
+    const list = P.filter((r) => natural(m, r));
     const types = m.pools.map(typeName).join(', ');
-    return `<details class="dx-learn"${p ? ' open' : ''}><summary>${tr`Lo aprenden <b>${list.length} Pokémon</b>: los de tipo ${types}`}</summary><p class="dx-names">${list.map(tag).join('')}</p></details>${startList}`;
+    const tms = P.filter((r) => m.tm.has(r.dex) && !natural(m, r));
+    const tmList = tms.length
+      ? `<details class="dx-learn"${p && m.tm.has(p.dex) ? ' open' : ''}><summary>${tr`Con MT: <b>${tms.length} Pokémon</b> más`}${m.price ? ` · ${tr`${fmt(m.price)} Pokémonedas en la Tienda Kecleon`}` : ''}</summary><p class="dx-names">${tms.map(tag).join('')}</p></details>`
+      : '';
+    return `<details class="dx-learn"${p ? ' open' : ''}><summary>${tr`Lo aprenden <b>${list.length} Pokémon</b>: los de tipo ${types}`}</summary><p class="dx-names">${list.map(tag).join('')}</p></details>${tmList}${startList}`;
   }
 
   function guideHtml() {
@@ -3476,6 +3508,8 @@
       <div class="dx-gl">
         ${card('Daño', 'Cada golpe hace el daño del movimiento × tu ataque × la eficacia de tipo. Un crítico multiplica por 1,5; la probabilidad viene de objetos y mejoras.')}
         ${card('Físico y especial', 'Los movimientos físicos usan el Ataque de tu Pokémon y los especiales su Ataque Especial. Elige tu Pokémon arriba para ver con cuáles pega más.')}
+        ${card('Naturaleza, habilidad y monotipo', 'La naturaleza sube un 10 % una estadística y baja otra; la habilidad tiene su efecto en la partida (se cambian con Mentas y Cápsulas de la Tienda Kecleon). Los Pokémon de un solo tipo pegan un 20 % más con los ataques de su tipo. Los números de tu Pokémon arriba ya lo tienen en cuenta.')}
+        ${card('MT', 'Las MT de la Tienda Kecleon enseñan para siempre ataques de fuera de sus tipos, solo a los Pokémon que los aprenden en los juegos. Con tu Pokémon elegido, la lista marca con MT los que puede aprender así.')}
         ${card('Eficacia de tipos', 'Cada tipo del enemigo débil al movimiento multiplica por 1,6, cada uno que lo resiste por 0,6 y uno inmune por 0,3 (nunca es cero). El total queda entre ×0,3 y ×2,4.')}
         ${card('Tu defensa', 'El daño que recibes baja con la Defensa de tu Pokémon si el golpe es físico y con su Defensa Especial si es especial: de un 25 % más a un 22 % menos.')}
         ${card('Quemadura', 'Cada golpe suma 1 acumulación (máximo 8) y la renueva a 3 s. Cada 0,5 s hace 1,6 × acumulaciones × (1 + 0,06 × tu nivel).')}
@@ -3489,7 +3523,7 @@
         ${card('Evolución', 'Un movimiento evoluciona cuando está a nivel 5 y además tienes la mejora pasiva que pide (Vigor, Potencia, Carrera, Reflejos, Coraza, Síntesis o Imán).')}
       </div>
       <div><h4>${tr('Movimiento inicial por tipo')}</h4>
-      <p class="dx-note">${tr('Con qué movimiento empieza tu Pokémon según su tipo, salvo que tenga uno propio. Al subir de nivel te pueden salir los de sus tipos y los de tipo Normal, que los aprende cualquiera.')}</p></div>
+      <p class="dx-note">${tr('Con qué movimiento empieza tu Pokémon según su tipo, salvo que tenga uno propio. Al subir de nivel te pueden salir los de sus tipos, los de tipo Normal, que los aprende cualquiera, y los que le hayas enseñado con MT.')}</p></div>
       <table><thead><tr><th>${tr('Tipo')}</th><th>${tr('Empieza con')}</th><th>${tr('Puede aprender además')}</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
 
@@ -3716,6 +3750,7 @@
         case 'map': mapShown = !mapShown; save('mapShown', mapShown); break;
         case 'sound': setAlertSound(!alertSound); break;
         case 'chest': chestArea = !chestArea; save('chestArea', chestArea); break;
+        case 'sumAuto': sumAuto = !sumAuto; save('sumAuto', sumAuto); break;
         case 'types': typeIcons = !typeIcons; save('typeIcons', typeIcons); iconCache.clear(); break;
         case 'items': itemIcons = !itemIcons; save('itemIcons', itemIcons); iconCache.clear(); break;
         case 'fov': setFov(+d === 0 ? 1 : fov + +d * FOV_STEP); break;
@@ -3782,6 +3817,7 @@
       sw('map', mapShown, tr('Minimapa'), tr('Terreno, amigos, enemigos, cofres y objetos. Alt + N')) +
       sw('sound', alertSound, tr('Avisos con sonido'), tr('Shiny, jefes, legendarios, grietas y amigos con poca vida. Alt + B')) +
       sw('chest', chestArea, tr('Área de los cofres con candado'), tr('Un círculo en el suelo marca dónde tienes que quedarte para abrirlos.')) +
+      sw('sumAuto', sumAuto, tr('Abrir el resumen al acabar la partida'), tr('Si no, se abre con su botón de la pantalla final o con Alt + H.')) +
       head(tr('Cámara y HUD')) +
       step('fov', fov, tr('Visión'), tr('Aleja la cámara para ver más mapa. Alt + + / Alt + - / Alt + 0')) +
       step('hud', hudScale, tr('Tamaño del HUD'), tr('Nombre, vida, mejoras y ataques del juego.')) +

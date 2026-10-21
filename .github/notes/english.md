@@ -1,6 +1,6 @@
 ## English
 
-Browser extension for [pokesurvivor.com](https://pokesurvivor.com/): damage meter, minimap, shiny and boss alerts, wider field of view, run summaries and more. Free and open source. It follows the game's language: with PokéSurvivor in English, the whole mod is in English.
+Browser extension for [pokesurvivor.com](https://pokesurvivor.com/): damage meter, minimap, shiny and boss alerts, wider field of view, run summaries and more. Free and open source. It follows the game's language: with PokéSurvivor in English (or French, Italian, Portuguese or Chinese), the whole mod is in English.
 
 **How to install (2 minutes, desktop Chrome, Edge, Brave or Opera)**
 
