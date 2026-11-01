@@ -9,7 +9,7 @@ const localization = injection.slice(0, injection.indexOf('// PokéSurvivor Mod:
 
 function runtime({ saved = null, nav = 'en-US', pathname = '/', storageError = false } = {}) {
   const context = vm.createContext({
-    window: {}, navigator: { language: nav, languages: [nav] }, location: { pathname },
+    window: { addEventListener() {} }, navigator: { language: nav, languages: [nav] }, location: { pathname },
     localStorage: { getItem() { if (storageError) throw Error('Storage blocked'); return saved; }, setItem() {} },
     document: { readyState: 'loading', documentElement: { dataset: {} }, addEventListener() {} },
     addEventListener() {}, setTimeout() {}, setInterval() {}, clearTimeout() {}, clearInterval() {}, console,
@@ -51,14 +51,14 @@ test('language selection follows the game, saved preference, path, and browser',
     [{ nav: 'fr-FR' }, 'en'],
     [{ saved: 'invalid', nav: 'es' }, 'es'],
     [{ storageError: true, nav: 'en' }, 'en'],
-  ]) assert.equal(runtime(options).window.__psmodI18n.language(), expected);
-  const i18n = runtime({ saved: 'en' }).window.__psmodI18n;
+  ]) assert.equal(runtime(options).window.__psvmodI18n.language(), expected);
+  const i18n = runtime({ saved: 'en' }).window.__psvmodI18n;
   i18n.setGame(game('es'));
   assert.equal(i18n.language(), 'es');
 });
 
 test('English templates preserve names, interpolated HTML, and literal boundaries', () => {
-  const { t } = runtime().window.__psmodI18n;
+  const { t } = runtime().window.__psvmodI18n;
   assert.equal(t('DAÑO'), 'DAMAGE');
   assert.equal(t('MiDAÑOtest'), 'MiDAÑOtest');
   assert.equal(t`${'Daño'} tiene poca vida`, 'Daño has low HP');
@@ -69,7 +69,7 @@ test('English templates preserve names, interpolated HTML, and literal boundarie
 });
 
 test('Spanish labels and templates remain unchanged', () => {
-  const { t } = runtime({ saved: 'es' }).window.__psmodI18n;
+  const { t } = runtime({ saved: 'es' }).window.__psvmodI18n;
   assert.equal(t('DAÑO'), 'DAÑO');
   assert.equal(t`¡${3} legendarios!`, '¡3 legendarios!');
   assert.equal(t`${'→'} a ${12} casillas`, '→ a 12 casillas');
@@ -125,10 +125,34 @@ test('co-op stats translate labels without touching teammate names', () => {
 test('localization is bundled in the existing extension entry point', () => {
   const manifest = JSON.parse(readFileSync(path.join(root, 'manifest.json'), 'utf8'));
   assert.deepEqual(manifest.content_scripts[0].js, ['inject.js']);
-  assert.ok(localization.includes('window.__psmodI18n ='));
-  assert.ok(injection.indexOf('window.__psmodI18n =') < injection.indexOf('const { t: tr'));
+  assert.ok(localization.includes('window.__psvmodI18n ='));
+  assert.ok(injection.indexOf('window.__psvmodI18n =') < injection.indexOf('const { t: tr'));
   for (const entry of manifest.content_scripts) for (const file of entry.js) assert.ok(existsSync(path.join(root, file)));
   assert.match(readFileSync(path.join(root, '.github/workflows/release.yml'), 'utf8'), /zip .*inject\.js/);
+});
+
+test('web userscript loads the shared mod and its sound resource', () => {
+  const userscript = readFileSync(path.join(root, 'pokesurvivor-mod.user.js'), 'utf8');
+  assert.match(userscript, /@match\s+https:\/\/pokesurvivor\.com\/\*/);
+  assert.match(userscript, /@noframes/);
+  assert.match(userscript, /@grant\s+none/);
+  assert.match(userscript, /@require\s+https:\/\/raw\.githubusercontent\.com\/aparmor2\/pokesurvivor-mod\/main\/inject\.js/);
+  assert.match(userscript, /@resource\s+shiny\s+https:\/\/raw\.githubusercontent\.com\/aparmor2\/pokesurvivor-mod\/main\/sounds\/shiny\.ogg/);
+  assert.match(userscript, /dataset\.psvmodShiny\s*=\s*'https:\/\/raw\.githubusercontent\.com\/aparmor2\/pokesurvivor-mod\/main\/sounds\/shiny\.ogg'/);
+});
+
+test('extension keepalive and background use the same message namespace', () => {
+  const background = readFileSync(path.join(root, 'background.js'), 'utf8');
+  const keepalive = readFileSync(path.join(root, 'keepalive.js'), 'utf8');
+  assert.match(background, /msg\.psvmod === 'nodiscard'/);
+  assert.match(keepalive, /sendMessage\(\{ psvmod: 'nodiscard' \}\)/);
+});
+
+test('settings migrate from the previous localStorage namespace', () => {
+  const source = readFileSync(path.join(root, 'inject.js'), 'utf8');
+  assert.match(source, /const OLD_LS = 'ps' \+ 'mod:'/);
+  assert.match(source, /localStorage\.getItem\(OLD_LS \+ k\)/);
+  assert.match(source, /localStorage\.setItem\(LS \+ k, value\)/);
 });
 
 test('auto-pick takes the first rule that matches a card', () => {

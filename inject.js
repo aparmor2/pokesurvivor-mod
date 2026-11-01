@@ -428,7 +428,7 @@
     return strings.reduce((out, part, i) => out + text(part) + (i < values.length ? values[i] : ''), '');
   }
 
-  window.__psmodI18n = {
+  window.__psvmodI18n = {
     t,
     language,
     setGame(ns) { game = ns; },
@@ -443,38 +443,74 @@
 // Runs in the page's own JS world at document_start, before the game's
 // deferred bundle. The game keeps all its modules (Camera, Net, Coop, Game...)
 // on a private object inside a closure, so we catch that object the moment the
-// bundle assigns `ns.Camera = {...}` through a one-shot setter on
-// Object.prototype.
+// bundle creates it (see Object.create below).
 (() => {
   'use strict';
-  if (window.__psmod) return;
-  window.__psmod = true;
+  if (window.top && window.top !== window) return;
+  if (window.__psvmod) return;
+  window.__psvmod = true;
 
-  const { t: tr, locale, gameText, setGame } = window.__psmodI18n;
+  const { t: tr, locale, gameText, setGame } = window.__psvmodI18n;
 
-  const LS = 'psmod:';
-  const load = (k, d) => { try { const v = localStorage.getItem(LS + k); return v == null ? d : JSON.parse(v); } catch { return d; } };
+  const LS = 'psvmod:';
+  const OLD_LS = 'ps' + 'mod:';
+  const load = (k, d) => {
+    try {
+      const current = localStorage.getItem(LS + k);
+      const value = current == null ? localStorage.getItem(OLD_LS + k) : current;
+      if (value == null) return d;
+      if (current == null) localStorage.setItem(LS + k, value);
+      return JSON.parse(value);
+    } catch { return d; }
+  };
   const save = (k, v) => { try { localStorage.setItem(LS + k, JSON.stringify(v)); } catch {} };
 
   let NS = null;
 
-  Object.defineProperty(Object.prototype, 'Camera', {
+  // The bundle creates that object with Object.create(null) and sets
+  // `ns.BUILT = true` first, so a setter on Object.prototype never sees it.
+  // Until we have it, null-prototype objects get a stand-in prototype whose
+  // one-shot BUILT setter hands us the object; then they all go back to a
+  // null prototype and Object.create to the native one.
+  const nativeCreate = Object.create;
+  const pending = [];
+  const bait = nativeCreate(null);
+  Object.defineProperty(bait, 'BUILT', {
     configurable: true,
     get() { return undefined; },
     set(v) {
-      Object.defineProperty(this, 'Camera', { value: v, writable: true, configurable: true, enumerable: true });
-      if (NS || !this || !('LIFT' in this) || !('U' in this)) return;
-      delete Object.prototype.Camera;
-      NS = this;
-      setGame(NS);
-      window.__psmodNS = NS; // handy for poking around from DevTools
+      Object.defineProperty(this, 'BUILT', { value: v, writable: true, configurable: true, enumerable: true });
+      const ns = this;
+      release();
+      if (!NS) capture(ns);
+    },
+  });
+  Object.create = function create(proto, props) {
+    if (proto !== null || NS) return nativeCreate.apply(Object, arguments);
+    const o = nativeCreate(bait, props);
+    pending.push(o);
+    return o;
+  };
+
+  function release() {
+    if (Object.create !== nativeCreate) Object.create = nativeCreate;
+    for (const o of pending) Object.setPrototypeOf(o, null);
+    pending.length = 0;
+  }
+  window.addEventListener('load', release, { once: true });
+
+  function capture(ns) {
+    NS = ns;
+    setGame(NS);
+    window.__psvmodNS = NS; // handy for poking around from DevTools
+    trapModule('Camera', (c) => {
       // Net is assigned later in this same script run, and Coop registers
       // its peer listener right after, so it has to be patched on arrival.
       trapModule('Net', patchNet);
-      setupFov(v);
+      setupFov(c);
       waitFor(() => NS.Net && NS.Coop && NS.Game, setupMeter);
-    },
-  });
+    });
+  }
 
   function trapModule(name, fn) {
     Object.defineProperty(NS, name, {
@@ -483,7 +519,7 @@
       get() { return undefined; },
       set(v) {
         Object.defineProperty(NS, name, { value: v, writable: true, configurable: true, enumerable: true });
-        try { fn(v); } catch (err) { console.warn('[psmod]', name, err); }
+        try { fn(v); } catch (err) { console.warn('[psvmod]', name, err); }
       },
     });
   }
@@ -749,12 +785,12 @@
   // (Bicycle), Coraza (Protective Pads), Vigor (HP Up), Síntesis (Energy
   // Root), Imán (Magnet) and Baya Zidra (Sitrus Berry). Their cards use icons
   // that the menus use too ('book', 'fist'...), so those stats get keys of
-  // their own, 'psmod-<stat>', drawn as the game's icon whenever these
+  // their own, 'psvmod-<stat>', drawn as the game's icon whenever these
   // sprites are off.
-  const ITEM_PNG = {"psmod-xp":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABQ0lEQVRYw+1Vuw2DMBRkFFZhhYxBmzKlV6BMSckKlJRZgZI1Xjiks06WA8HOp/GTngS2eHc+7j1XVYkSJTKirmtD/gUA62adzfP1OyRQFMVfARztZ6tEgObSGItoDuPgn9tbazGgbJVYdJpmc+6+kQGw65yNj9E/I0GCRM6qdEhiWcyDqyIKzOeYWlkewccA1eIqK9axj9zUWJUCYaj2EXPypHoalVUV2UisBADe96PfywKH7Hr68BeEJtX30BPZp8caAGBAgqtZvQrijWQVWIzG02J6+j3PqHeSCbDdCK4GDAmoIffmwynp2fPImAE1dSaEqiX1vv5TJUFisdSBRBI8zCkC7GMtRBI6ATXDjkCN2IR8i4D2sbZVCB6bdnyHiskE9MO9PLpDsnyQOsv5DVXMnoiptyhv0J+CxxSsSpQosRNPBzpNvwWvu1wAAAAASUVORK5CYII=","psmod-mag":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA10lEQVRYw+2VMQ6GIAxGPUqvwRUYGbmGV2Fk/MeOroye6/unKjTiYiUx4Us6YfoeWGVZZmZmvhwigq6hYC6M9EtNvS7SA1+JDINz4e5pvAr30Tel17mwjQQRATkB+dythmsJee6xQA2X6sHNBa7gq3MNsP4ENVzWn733EIBSDngtIM3v5sNEQKoWkMbOrUgZSBmHhD4hc4EruJSeCXOBO7hzqx28lvDRg0NoGhIRYtyw7ye8FjD/CemGIiBVCwy5lHoCQ29ELTAMrucjxm08/G4+ZmZmPpU/ubLZMafRC4UAAAAASUVORK5CYII=","psmod-atk":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFElEQVRYw+2WvQ2DMBCFGcUrsAZjZIWUKVmBkjJl1sgItCldZgWSZ+WhxwklSD5cRH7SCcc4fO/OP9A0VVVVDgohzBrF4eMwrKKYEcLjNC3wpPhYjBSBx/6SQqXVOBR+P51TqGjI1YAuMgCf4y0BLBy/1YCLCULxUIAR166b+7ZN803xHsbiPk1mGcCfAUKoCYBxxX20WRVXA98ytyYwhmBOQWq/10mWAX2ghWrGNKvjs+Bafl63TLAPcI7JznyrAsyW5dfMtfzod4Pb0v/KnCZc9r5CCKcB9Fso264Hz1b2qxX+adPEYQYYCud2pAGeE64G9Fi1cM413wXcLe4vHQXaANS99HtNFP0KsrDin11VVX+tF/3loDmoEh3fAAAAAElFTkSuQmCC","psmod-def":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABWElEQVRYw+2XsQ2DQAxFGYUVWIMyJSUlK1CyAiUlJSVtypSUtBkhKxD9Uz5yLiB8hiiKBJKVo+G9sw/HREmSRL+M6BQ4Bf5OII7jaS2+KkDIcH+46K7jVDW9i7xoXVgk1HCCCSvKykXdtC54HyqhhvtgXOM4TF3fu/v0ks0RIhEM5wUwghIyE4cI4CGosw8nEL+8ZCZCS6HePaHYpQTvLYNagOn1wUy99TCqS4BdEcJMcM17mYVDBPwsUAIg/wASHNoTNt8CNJolCe5agqv69tagNBIqgTSrPyTyvHwDs1FhHZIFdR+ghASsgWVsSag6IdIKAUq4NL/gTTe4tS8wi22UQv1fwLpKEcClgMzInKUjBORbgQciAwRLiblcoiFtlcE0DxDEXUNgCa7pB2a4fxB9uHZIMQnIA0e4dToyl4ASWFvHMfNQKiekPfBdU/GeQfT8LjgFZDwBMKWRJcPe8hQAAAAASUVORK5CYII=","psmod-spd":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABSklEQVRYw+2XzRGCMBCFUxIlUEpKsKwcc/RoSXQQZxmePp8LmgRGDxx2wAQ2X/bnBUMpJfzSwglwAqxN5JzDMAzFLMZY7HevVQFg4XRNBSAwOLR5Hdsd4CUKi2FBjEca2x1gmqY5CpdxLFNKDwA2AABmDagKIMpCBoB7AwKYWXSgvNRUFyGbOVuLwJYdAmDRQET0ma3CbAbw0oGC5NR8KsZmgHn3S841BQzCkeHC7ALQVkMquBUZhiOiQtakhF6FZyfUDJBp91wP1QAqRC6MLA5TCLtW6wC/zPmHPHO4tQYAccvPZ5qFCIKDYtSOYDHi97QgmwD0QOJ7rRPMaWd0A7BzD4DHD4mAthvyinE9srkzumuAheTteKaF9GDCFQBNXeC1IDtUHdAo8e67dcBz6Flc+V7oBvAcfgPRfRaoAvZ8oJ7/C06AvwS4AyD4HAuKbZ+SAAAAAElFTkSuQmCC","luckyegg":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAjUlEQVRYw+2WMQrAIAwAfYqPd3T0Gxmz5gkdu7ZTRERLBZPQkoPMdxW0CcFxnC8TY7zaURfTcdYBJJ2IXqwa8SQXj2jlzCzCPCDlsjfizdH/N2BVDki2ASkXuwD+epOAVr49AJCW5CK3YBQBSPJyDki5VOFIyiP6FM+k4vL+NzwTq+0E/SKiuow4jrObG40di+/hxTMKAAAAAElFTkSuQmCC","leftovers":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA5ElEQVRYw+1WMQ7CMAzsU/Kejhk7duQLfUJXRp7AyDcY+UJHRlajs3qRyYpspOKTTmldqb4kzsXDkEgkvkQpRcCfJV/OgQI4W/KyVqWNuSbfapXXPOtIAYyTLiJs8mUc5TZNHwLwjribCPxQ1pOSInpyZXwFALsIS/ctaBW/L79NCHIL3IsQe37frk0IiRjrIeQYPuWhSclwM+pFhDvh/wqwNUABHEOsGLAztyJIVx+ACTG5FcNnfHcVgDPfHLFbDcR5R7gaEZLAfnk30JoRdzcjNiC9HasVRzUmfVMS0owkEofGG3HTovP6qiqPAAAAAElFTkSuQmCC","quickclaw":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAoElEQVRYw+2UwQ2AMAhFO0rXcA3HcAVXcQTX8OjRa1dRMaGBhqgHgcTwE9Jb34PDTykSifwlOecdxwVclqGOmQQF72Vjoy6BcAaGnK/6JRgcQ8Aw69TrCLyFqwg8wRE8j901nwrAZ/C5CxwFJLgE1jv9DVy1hNj2DVy9/dj2Atyk7bBozOFVoNnevOtd4PT85meXBMzhVMAFTiVSJBJRzAET3JI2RCR/5wAAAABJRU5ErkJggg==","shellbell":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABMUlEQVRYw+2VvQ2DMBCFGYV5WCkjsEJKRmCFlJS0lJSUaS95Rg8O7CTCHKnupBPItvzdv4vCxcXF5QK51bVUVSVlWQa9FEYIQYCnzpjDqPfuIeM4Bv3mccqww2BARAah9M8prDVtG9YRdvynjMBeNlyDAYB2b8+nvg+KPUQCEHxTRmSlQcMJJpCKKOCLc0wHz2totgG8bAvepoBpwBkYkYrCYQNW7+ew7/MPIVgbiDWmglBD72O43sMaokLvOQ+yiw+Xsdi0ATF8iLridO/jgrm95Adcwv8Cb5plJpgMHVY5DdF9r73m6GWtmBjAS2kEPF29j+H44lynCvB0CvSjonueikLj/myAiOns1x5+UuzTe9SA6QvIduSsT+kypq3h+4LUI1gLwX99+/dauLi4ZMoLMW7ROSvC2gcAAAAASUVORK5CYII=","assaultvest":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA2klEQVRYw+1Wyw3DIAzNKKzQY45ce2SEztRRukZnovLhRe6rjShQKZVsyULx9wEPyLaFhIScVVJKlfWXeR9FnqW86f2yNwvCJ3Gc+zUIr1DOud6upVqzFLv4PeBDqyDJGggAeKoBIHeouQbx2PNRTBp4IOBDrORNNbf4IEVbAMQ/vO+9hNQroZU5s2z2XBhbIiMU30vIZ3FgBMASDpwCABfvAQDb9BHU+6mbWQA4ZpqMDECPGhTbOC4ATPMAJ8Fq5tlwApbehvwu6JeQ7/9ljVs/Gz32kJCQv5AXZ1NM+W92GVIAAAAASUVORK5CYII=","amuletcoin":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA7ElEQVRYw+2WsQ2DMBBFGYPSLWVGyBpZI2NkjZQp02YEr5ARKNNedJhDx+VwLGPj5r50okDiv/9tneg6k8m0Q+NpAJom5hpME/PUd0XlnGsHgebgHeDz1ffTHAKAhjTXSwe8BQ5RBQDNnrcB3o+QHp+HQZA5Gk8znlWIqgDwuYdRILQWigEs6QlAQGwBFINY0nvWwpw+1kB5AIJAcxof2qkGsLp8PPkMEEtfBIIWzuribdSvmXOILJAfAJGe1x8DyG4DP06LR0Kk1F8EABeNBJDpUyGyjwEh+ArWzP+d9+7LKCel7qZ/TCaTKVVfv7+PZJ3HKiwAAAAASUVORK5CYII=","psmod-heal":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9klEQVRYw+2WsQ2DQAxFGeVWSEmZljJlRqBlhJRZJSWrsEJKVoD4JEfOlx1F0b+ksaUvQKD7774PuK7LysoiVyllE/3N+HQZqn4CoaaicTlXYznqeTMINd3W8SlMoBmANb7PxyoLoQnQzXWG16kPAWwSVABrvMzDi6EneUaep0Bgrz0ITEHui6gAXtye1kf/aQDvFlyUhppTWiADRLP2YhdTFQXC679NI4KjtQFbELUDr9X8Nh3aJBAlgrOnLUQZ9BMQNKcB6KKyIDZyNJboad8BhcCZoaGaUl/DKAnP3AI02ZTYFOy7jv1uuhGxfzpPuSHNyvqmdouowMYz8wheAAAAAElFTkSuQmCC","psmod-cd":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAw0lEQVRYw2NgGAWjYBSQARQUFP4jY7pbvubqOzCu3vvsf9ScLfRzBMgixyyv/1HdWWA8aBxAN0eALIFZDsZQy+niAGTf7333Ds6mWyggOwAEBo0DkKOBpo5Ajn8UB9AjFNBTPz4H0MQRg84ByLmALukAOf5BRTDIASCaLqEAthxoIMgyEIbVASAMEwNhmjoA5mtCmCa5AeaA7qPP8GLk2pFmDsDmEGQxmtSO6A7AhunmAEJRAKJpVhISi0cbrKNgFJAKAPh0MZETMb1dAAAAAElFTkSuQmCC","choiceband":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABRUlEQVRYw+2WMQ6DMAxFexTOxMjI2JVjcAXGHoErMDKyMnbMyJryLX1krAgqapAqEcmKAOH//OMEHo973ONfR5ZlUcfl4m3breIyCAhNU4whRBEuy+cSl7hCAARFOWuwU12hGAV4DVHOp0KwalSr+4HOaBfy/OUDodcWAhTHzCVgxQwXACvKytmAnIchLCDWqcMQVlhXymp1I+pl0TkOAbCx9DazAFY8BXEIYEuckbq/5cIh63VSmyR14PC9n7cfXkZTca/vJdON6tb5bRtj04Rlb9tjNrUtKe7iAMSR9F3XcRzD6pCxAbe0uIsDSArxqe8FgCBjUUjgOSCrqlsAXB2QHpjF6YIAVJXc1xAAQLg7gOogagEovAXhdvbLB2Z24VsAF/sthIiyB3aW4JTPL7eaNCBBEk14+r/h1jlw+U/pPe7hOT7sLwOyomHazQAAAABJRU5ErkJggg==","choicescarf":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVRYw+2WPY7CMBSEOUquQLnltpSUlFvSUm5JyRU4AiUtJSVX4AiU23oZiy+MLAcQtldaKZZGgjzF37wfJ5lMxjWu/766rguP1Bw8257DfPcTvo+XKP2XPlfLMJsv2hjRhtPVNoLXhxD1tT/38DSma9VMAL/uGTcXSAAZ0HWJ7BXDSBUDDle5gZO1pN+0Q0aimRoVAK5scv0mJsmgFOPXSiheZMDhDBw9B3663FtChaiITFQpOz0VXHK4GxD8Y3PoDRRnn/bc4YJigDjZ06q3DehGL+lQzwXve34byGpwhs7PuQzoWm7oeAZQjbcMONx7zhn3ocMAZVfvubfIwJDIPp36FF79CYix3NR7z4nJVJN3gLJKp54ZcHjRAD7KPj12lBsVD+Cz7N1ADtwEjgE/915uV/H5H4Lz+vVznwM3g/u7IC03qv71Q989Uwc2AwN/VVXB4xrXX69fWb9hvYtzOz8AAAAASUVORK5CYII=","lifeorb":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAnUlEQVRYw2NgGAWjYBSMAjKAgoLCf2yYbhbf2/INK6apQ5Atfub4DCtGdghNLP+299t/EADRIAuPGp6FY3SHUNURMAcgA2TL0R1CVQfALAcZjB4C/4uLwRg5NKgeCsgOgFkEsxxmKTZH0MQByBaiBz2y2PB3wIBHAbIjaJ4I8TmCLtkQV07AZjHNCqIBL4oHRWU0KKrjUTAKRsGwBAAm0ThrhmI/HgAAAABJRU5ErkJggg==","rockyhelmet":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA4klEQVRYw+1WwQ3DIBBjFNboGqzTVViHEfh2lVTX1MQ6QUvDNa+zZCWR0Nk4JkoIDofDcRIxxo15uXgppTHnfK0JNiDifzWhY9biTHMDOmoYYfGU0ovapEk3ZAAihoGaQxMVyrNwK/u1Z3rZAHYqIppsBs+m5ZQBTfxx30niXEQkAkNmBhAxG9A75ZTwWkxKKUNG0WvxZvRN290rfiojr1kuIQ++5YO1QxbHumUDEMNAHq5N9QyaJfArlxNA+XQCo/tRAqfLyO2vHbFvCZicBnzPe6dghmb/CvrnY5bB4XBM4Am5oGo7XIJpRwAAAABJRU5ErkJggg==","focussash":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA6klEQVRYw+2WwQ2DMAxFGSUrsEaPWaUjsAprdJUeOXaFVKH6kWMZ4iom7cGWfAHJ/+HE30yTh8c/RwghIX8i/rzf9tQCUOBu6G8AIJiWpcouCACkNZ4Wyu8e87wnh+gGyOJIqRgVB0DOV4wlzSB4IUkcz+0Btk9SEUncHKBAbDUEbznvipn40XgdjdlZZ4YY1jBx3onc7iHi3HDoZcOZXyouOV3rTpiJ4yupsGaETSAogKZgNbqrkRdoAbhvUAPrAoDBtBaTubjGYMp0YHlZirc2H9+aOPNLxlFyPPy04MdliP1qd4OHh4cm3rhutZSYmiSwAAAAAElFTkSuQmCC","psmod-rgn":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9ElEQVRYhe2Wyw2DMBBEKSEluKYcaSfHtMCRdjimBdogGktPGlngS5Y9RF5phUHCb/ZnmKZhw/7NSimHezr42Nfqn3WuniLCwfv2qv6eH1WArilwQXXVvdbAb88CAgTD2yzcLgAoZdC9nqf0gZcAEUSe0oTegB45JUibAtx7IG0MWzFpDXglgBKEZsE36R23CNiWZ3wZesct7tFLRLgAHzki9Amg/mHfA15u4aTYYVrzHHEhGWjHC6hgHmmbekSFCCB6be4N5uXwE9B7IwQOmKgE9MPnbO17/By5pxPQGeCWjr+a96v3wgT0apj+v5cGGzYs275rgfmBijbN2AAAAABJRU5ErkJggg==","psmod-hp":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9ElEQVRYw+2WsQ2DMBREGYU2I6RkDUZImzHSMgIlK1C6zAopKVPSOjlLH50QBgqfo0j+1smALd/Dxh9XVYkS/xZ1Xfs9yc3bsfX93G8KbTIIDNw8mqi5CX0kEAZwNANZAPYkA+BvYE9S8669LrMQq9EnOYSZj93Fe3cP10dKCsEArLUpP0sOMLhhmQFoDcH36JscwL2cn+Yp1AzAgjHapQDzt6COKQuAle7pgxgqG4CZm7IC8JvzfVYA1Lf+HWTPpAAYlJfAzE3yJcD+xuBb5gwBc2kmRA6w5VhvP2km5IwXS0QyAD4LnvkJSc+GPz2UliihiA+FStOaY/V6yQAAAABJRU5ErkJggg=="};
+  const ITEM_PNG = {"psvmod-xp":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABQ0lEQVRYw+1Vuw2DMBRkFFZhhYxBmzKlV6BMSckKlJRZgZI1Xjiks06WA8HOp/GTngS2eHc+7j1XVYkSJTKirmtD/gUA62adzfP1OyRQFMVfARztZ6tEgObSGItoDuPgn9tbazGgbJVYdJpmc+6+kQGw65yNj9E/I0GCRM6qdEhiWcyDqyIKzOeYWlkewccA1eIqK9axj9zUWJUCYaj2EXPypHoalVUV2UisBADe96PfywKH7Hr68BeEJtX30BPZp8caAGBAgqtZvQrijWQVWIzG02J6+j3PqHeSCbDdCK4GDAmoIffmwynp2fPImAE1dSaEqiX1vv5TJUFisdSBRBI8zCkC7GMtRBI6ATXDjkCN2IR8i4D2sbZVCB6bdnyHiskE9MO9PLpDsnyQOsv5DVXMnoiptyhv0J+CxxSsSpQosRNPBzpNvwWvu1wAAAAASUVORK5CYII=","psvmod-mag":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA10lEQVRYw+2VMQ6GIAxGPUqvwRUYGbmGV2Fk/MeOroye6/unKjTiYiUx4Us6YfoeWGVZZmZmvhwigq6hYC6M9EtNvS7SA1+JDINz4e5pvAr30Tel17mwjQQRATkB+dythmsJee6xQA2X6sHNBa7gq3MNsP4ENVzWn733EIBSDngtIM3v5sNEQKoWkMbOrUgZSBmHhD4hc4EruJSeCXOBO7hzqx28lvDRg0NoGhIRYtyw7ye8FjD/CemGIiBVCwy5lHoCQ29ELTAMrucjxm08/G4+ZmZmPpU/ubLZMafRC4UAAAAASUVORK5CYII=","psvmod-atk":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFElEQVRYw+2WvQ2DMBCFGcUrsAZjZIWUKVmBkjJl1sgItCldZgWSZ+WhxwklSD5cRH7SCcc4fO/OP9A0VVVVDgohzBrF4eMwrKKYEcLjNC3wpPhYjBSBx/6SQqXVOBR+P51TqGjI1YAuMgCf4y0BLBy/1YCLCULxUIAR166b+7ZN803xHsbiPk1mGcCfAUKoCYBxxX20WRVXA98ytyYwhmBOQWq/10mWAX2ghWrGNKvjs+Bafl63TLAPcI7JznyrAsyW5dfMtfzod4Pb0v/KnCZc9r5CCKcB9Fso264Hz1b2qxX+adPEYQYYCud2pAGeE64G9Fi1cM413wXcLe4vHQXaANS99HtNFP0KsrDin11VVX+tF/3loDmoEh3fAAAAAElFTkSuQmCC","psvmod-def":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABWElEQVRYw+2XsQ2DQAxFGYUVWIMyJSUlK1CyAiUlJSVtypSUtBkhKxD9Uz5yLiB8hiiKBJKVo+G9sw/HREmSRL+M6BQ4Bf5OII7jaS2+KkDIcH+46K7jVDW9i7xoXVgk1HCCCSvKykXdtC54HyqhhvtgXOM4TF3fu/v0ks0RIhEM5wUwghIyE4cI4CGosw8nEL+8ZCZCS6HePaHYpQTvLYNagOn1wUy99TCqS4BdEcJMcM17mYVDBPwsUAIg/wASHNoTNt8CNJolCe5agqv69tagNBIqgTSrPyTyvHwDs1FhHZIFdR+ghASsgWVsSag6IdIKAUq4NL/gTTe4tS8wi22UQv1fwLpKEcClgMzInKUjBORbgQciAwRLiblcoiFtlcE0DxDEXUNgCa7pB2a4fxB9uHZIMQnIA0e4dToyl4ASWFvHMfNQKiekPfBdU/GeQfT8LjgFZDwBMKWRJcPe8hQAAAAASUVORK5CYII=","psvmod-spd":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABSklEQVRYw+2XzRGCMBCFUxIlUEpKsKwcc/RoSXQQZxmePp8LmgRGDxx2wAQ2X/bnBUMpJfzSwglwAqxN5JzDMAzFLMZY7HevVQFg4XRNBSAwOLR5Hdsd4CUKi2FBjEca2x1gmqY5CpdxLFNKDwA2AABmDagKIMpCBoB7AwKYWXSgvNRUFyGbOVuLwJYdAmDRQET0ma3CbAbw0oGC5NR8KsZmgHn3S841BQzCkeHC7ALQVkMquBUZhiOiQtakhF6FZyfUDJBp91wP1QAqRC6MLA5TCLtW6wC/zPmHPHO4tQYAccvPZ5qFCIKDYtSOYDHi97QgmwD0QOJ7rRPMaWd0A7BzD4DHD4mAthvyinE9srkzumuAheTteKaF9GDCFQBNXeC1IDtUHdAo8e67dcBz6Flc+V7oBvAcfgPRfRaoAvZ8oJ7/C06AvwS4AyD4HAuKbZ+SAAAAAElFTkSuQmCC","luckyegg":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAjUlEQVRYw+2WMQrAIAwAfYqPd3T0Gxmz5gkdu7ZTRERLBZPQkoPMdxW0CcFxnC8TY7zaURfTcdYBJJ2IXqwa8SQXj2jlzCzCPCDlsjfizdH/N2BVDki2ASkXuwD+epOAVr49AJCW5CK3YBQBSPJyDki5VOFIyiP6FM+k4vL+NzwTq+0E/SKiuow4jrObG40di+/hxTMKAAAAAElFTkSuQmCC","leftovers":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA5ElEQVRYw+1WMQ7CMAzsU/Kejhk7duQLfUJXRp7AyDcY+UJHRlajs3qRyYpspOKTTmldqb4kzsXDkEgkvkQpRcCfJV/OgQI4W/KyVqWNuSbfapXXPOtIAYyTLiJs8mUc5TZNHwLwjribCPxQ1pOSInpyZXwFALsIS/ctaBW/L79NCHIL3IsQe37frk0IiRjrIeQYPuWhSclwM+pFhDvh/wqwNUABHEOsGLAztyJIVx+ACTG5FcNnfHcVgDPfHLFbDcR5R7gaEZLAfnk30JoRdzcjNiC9HasVRzUmfVMS0owkEofGG3HTovP6qiqPAAAAAElFTkSuQmCC","quickclaw":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAoElEQVRYw+2UwQ2AMAhFO0rXcA3HcAVXcQTX8OjRa1dRMaGBhqgHgcTwE9Jb34PDTykSifwlOecdxwVclqGOmQQF72Vjoy6BcAaGnK/6JRgcQ8Aw69TrCLyFqwg8wRE8j901nwrAZ/C5CxwFJLgE1jv9DVy1hNj2DVy9/dj2Atyk7bBozOFVoNnevOtd4PT85meXBMzhVMAFTiVSJBJRzAET3JI2RCR/5wAAAABJRU5ErkJggg==","shellbell":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABMUlEQVRYw+2VvQ2DMBCFGYV5WCkjsEJKRmCFlJS0lJSUaS95Rg8O7CTCHKnupBPItvzdv4vCxcXF5QK51bVUVSVlWQa9FEYIQYCnzpjDqPfuIeM4Bv3mccqww2BARAah9M8prDVtG9YRdvynjMBeNlyDAYB2b8+nvg+KPUQCEHxTRmSlQcMJJpCKKOCLc0wHz2totgG8bAvepoBpwBkYkYrCYQNW7+ew7/MPIVgbiDWmglBD72O43sMaokLvOQ+yiw+Xsdi0ATF8iLridO/jgrm95Adcwv8Cb5plJpgMHVY5DdF9r73m6GWtmBjAS2kEPF29j+H44lynCvB0CvSjonueikLj/myAiOns1x5+UuzTe9SA6QvIduSsT+kypq3h+4LUI1gLwX99+/dauLi4ZMoLMW7ROSvC2gcAAAAASUVORK5CYII=","assaultvest":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA2klEQVRYw+1Wyw3DIAzNKKzQY45ce2SEztRRukZnovLhRe6rjShQKZVsyULx9wEPyLaFhIScVVJKlfWXeR9FnqW86f2yNwvCJ3Gc+zUIr1DOud6upVqzFLv4PeBDqyDJGggAeKoBIHeouQbx2PNRTBp4IOBDrORNNbf4IEVbAMQ/vO+9hNQroZU5s2z2XBhbIiMU30vIZ3FgBMASDpwCABfvAQDb9BHU+6mbWQA4ZpqMDECPGhTbOC4ATPMAJ8Fq5tlwApbehvwu6JeQ7/9ljVs/Gz32kJCQv5AXZ1NM+W92GVIAAAAASUVORK5CYII=","amuletcoin":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA7ElEQVRYw+2WsQ2DMBBFGYPSLWVGyBpZI2NkjZQp02YEr5ARKNNedJhDx+VwLGPj5r50okDiv/9tneg6k8m0Q+NpAJom5hpME/PUd0XlnGsHgebgHeDz1ffTHAKAhjTXSwe8BQ5RBQDNnrcB3o+QHp+HQZA5Gk8znlWIqgDwuYdRILQWigEs6QlAQGwBFINY0nvWwpw+1kB5AIJAcxof2qkGsLp8PPkMEEtfBIIWzuribdSvmXOILJAfAJGe1x8DyG4DP06LR0Kk1F8EABeNBJDpUyGyjwEh+ArWzP+d9+7LKCel7qZ/TCaTKVVfv7+PZJ3HKiwAAAAASUVORK5CYII=","psvmod-heal":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9klEQVRYw+2WsQ2DQAxFGeVWSEmZljJlRqBlhJRZJSWrsEJKVoD4JEfOlx1F0b+ksaUvQKD7774PuK7LysoiVyllE/3N+HQZqn4CoaaicTlXYznqeTMINd3W8SlMoBmANb7PxyoLoQnQzXWG16kPAWwSVABrvMzDi6EneUaep0Bgrz0ITEHui6gAXtye1kf/aQDvFlyUhppTWiADRLP2YhdTFQXC679NI4KjtQFbELUDr9X8Nh3aJBAlgrOnLUQZ9BMQNKcB6KKyIDZyNJboad8BhcCZoaGaUl/DKAnP3AI02ZTYFOy7jv1uuhGxfzpPuSHNyvqmdouowMYz8wheAAAAAElFTkSuQmCC","psvmod-cd":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAw0lEQVRYw2NgGAWjYBSQARQUFP4jY7pbvubqOzCu3vvsf9ScLfRzBMgixyyv/1HdWWA8aBxAN0eALIFZDsZQy+niAGTf7333Ds6mWyggOwAEBo0DkKOBpo5Ajn8UB9AjFNBTPz4H0MQRg84ByLmALukAOf5BRTDIASCaLqEAthxoIMgyEIbVASAMEwNhmjoA5mtCmCa5AeaA7qPP8GLk2pFmDsDmEGQxmtSO6A7AhunmAEJRAKJpVhISi0cbrKNgFJAKAPh0MZETMb1dAAAAAElFTkSuQmCC","choiceband":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABRUlEQVRYw+2WMQ6DMAxFexTOxMjI2JVjcAXGHoErMDKyMnbMyJryLX1krAgqapAqEcmKAOH//OMEHo973ONfR5ZlUcfl4m3breIyCAhNU4whRBEuy+cSl7hCAARFOWuwU12hGAV4DVHOp0KwalSr+4HOaBfy/OUDodcWAhTHzCVgxQwXACvKytmAnIchLCDWqcMQVlhXymp1I+pl0TkOAbCx9DazAFY8BXEIYEuckbq/5cIh63VSmyR14PC9n7cfXkZTca/vJdON6tb5bRtj04Rlb9tjNrUtKe7iAMSR9F3XcRzD6pCxAbe0uIsDSArxqe8FgCBjUUjgOSCrqlsAXB2QHpjF6YIAVJXc1xAAQLg7gOogagEovAXhdvbLB2Z24VsAF/sthIiyB3aW4JTPL7eaNCBBEk14+r/h1jlw+U/pPe7hOT7sLwOyomHazQAAAABJRU5ErkJggg==","choicescarf":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVRYw+2WPY7CMBSEOUquQLnltpSUlFvSUm5JyRU4AiUtJSVX4AiU23oZiy+MLAcQtldaKZZGgjzF37wfJ5lMxjWu/766rguP1Bw8257DfPcTvo+XKP2XPlfLMJsv2hjRhtPVNoLXhxD1tT/38DSma9VMAL/uGTcXSAAZ0HWJ7BXDSBUDDle5gZO1pN+0Q0aimRoVAK5scv0mJsmgFOPXSiheZMDhDBw9B3663FtChaiITFQpOz0VXHK4GxD8Y3PoDRRnn/bc4YJigDjZ06q3DehGL+lQzwXve34byGpwhs7PuQzoWm7oeAZQjbcMONx7zhn3ocMAZVfvubfIwJDIPp36FF79CYix3NR7z4nJVJN3gLJKp54ZcHjRAD7KPj12lBsVD+Cz7N1ADtwEjgE/915uV/H5H4Lz+vVznwM3g/u7IC03qv71Q989Uwc2AwN/VVXB4xrXX69fWb9hvYtzOz8AAAAASUVORK5CYII=","lifeorb":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAnUlEQVRYw2NgGAWjYBSMAjKAgoLCf2yYbhbf2/INK6apQ5Atfub4DCtGdghNLP+299t/EADRIAuPGp6FY3SHUNURMAcgA2TL0R1CVQfALAcZjB4C/4uLwRg5NKgeCsgOgFkEsxxmKTZH0MQByBaiBz2y2PB3wIBHAbIjaJ4I8TmCLtkQV07AZjHNCqIBL4oHRWU0KKrjUTAKRsGwBAAm0ThrhmI/HgAAAABJRU5ErkJggg==","rockyhelmet":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA4klEQVRYw+1WwQ3DIBBjFNboGqzTVViHEfh2lVTX1MQ6QUvDNa+zZCWR0Nk4JkoIDofDcRIxxo15uXgppTHnfK0JNiDifzWhY9biTHMDOmoYYfGU0ovapEk3ZAAihoGaQxMVyrNwK/u1Z3rZAHYqIppsBs+m5ZQBTfxx30niXEQkAkNmBhAxG9A75ZTwWkxKKUNG0WvxZvRN290rfiojr1kuIQ++5YO1QxbHumUDEMNAHq5N9QyaJfArlxNA+XQCo/tRAqfLyO2vHbFvCZicBnzPe6dghmb/CvrnY5bB4XBM4Am5oGo7XIJpRwAAAABJRU5ErkJggg==","focussash":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA6klEQVRYw+2WwQ2DMAxFGSUrsEaPWaUjsAprdJUeOXaFVKH6kWMZ4iom7cGWfAHJ/+HE30yTh8c/RwghIX8i/rzf9tQCUOBu6G8AIJiWpcouCACkNZ4Wyu8e87wnh+gGyOJIqRgVB0DOV4wlzSB4IUkcz+0Btk9SEUncHKBAbDUEbznvipn40XgdjdlZZ4YY1jBx3onc7iHi3HDoZcOZXyouOV3rTpiJ4yupsGaETSAogKZgNbqrkRdoAbhvUAPrAoDBtBaTubjGYMp0YHlZirc2H9+aOPNLxlFyPPy04MdliP1qd4OHh4cm3rhutZSYmiSwAAAAAElFTkSuQmCC","psvmod-rgn":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9ElEQVRYhe2Wyw2DMBBEKSEluKYcaSfHtMCRdjimBdogGktPGlngS5Y9RF5phUHCb/ZnmKZhw/7NSimHezr42Nfqn3WuniLCwfv2qv6eH1WArilwQXXVvdbAb88CAgTD2yzcLgAoZdC9nqf0gZcAEUSe0oTegB45JUibAtx7IG0MWzFpDXglgBKEZsE36R23CNiWZ3wZesct7tFLRLgAHzki9Amg/mHfA15u4aTYYVrzHHEhGWjHC6hgHmmbekSFCCB6be4N5uXwE9B7IwQOmKgE9MPnbO17/By5pxPQGeCWjr+a96v3wgT0apj+v5cGGzYs275rgfmBijbN2AAAAABJRU5ErkJggg==","psvmod-hp":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA9ElEQVRYw+2WsQ2DMBREGYU2I6RkDUZImzHSMgIlK1C6zAopKVPSOjlLH50QBgqfo0j+1smALd/Dxh9XVYkS/xZ1Xfs9yc3bsfX93G8KbTIIDNw8mqi5CX0kEAZwNANZAPYkA+BvYE9S8669LrMQq9EnOYSZj93Fe3cP10dKCsEArLUpP0sOMLhhmQFoDcH36JscwL2cn+Yp1AzAgjHapQDzt6COKQuAle7pgxgqG4CZm7IC8JvzfVYA1Lf+HWTPpAAYlJfAzE3yJcD+xuBb5gwBc2kmRA6w5VhvP2km5IwXS0QyAD4LnvkJSc+GPz2UliihiA+FStOaY/V6yQAAAABJRU5ErkJggg=="};
   let itemIcons = load('itemIcons', true);
   const itemImgs = {};
-  const statIcons = {}; // 'psmod-<stat>' -> the game's icon
+  const statIcons = {}; // 'psvmod-<stat>' -> the game's icon
   const gameKey = (key) => statIcons[key] || key;
 
   function itemIcon(key) {
@@ -832,7 +868,7 @@
       itemImgs[key] = img;
     }
     for (const st of NS.LevelUp.STATS) {
-      const key = 'psmod-' + st.id;
+      const key = 'psvmod-' + st.id;
       if (ITEM_PNG[key]) { statIcons[key] = st.icon; st.icon = key; }
     }
     const I = NS.Icons;
@@ -982,47 +1018,47 @@
   let shown = load('shown', true);
 
   const CSS = `
-#psmod{position:fixed;z-index:99999;width:236px;font:13px/1.25 var(--font,'Pixelify',system-ui,sans-serif);color:#fff;
+#psvmod{position:fixed;z-index:99999;width:236px;font:13px/1.25 var(--font,'Pixelify',system-ui,sans-serif);color:#fff;
   background:linear-gradient(#2c519f,#1a3170);border:2px solid #f4f8ff;outline:2px solid #0b1838;border-radius:8px;
   box-shadow:inset 0 0 0 2px #5b83d6,0 4px 0 #0a1430;user-select:none;-webkit-user-select:none}
-#psmod.psmod-hidden{display:none}
-#psmod .ps-head{display:flex;align-items:center;gap:6px;padding:6px 8px 4px;cursor:move;font-weight:700;letter-spacing:.06em}
-#psmod .ps-head b{flex:1;color:#ffd23f}
-#psmod .ps-time{font-weight:600;color:#b9cbf0}
-#psmod .ps-rows{padding:0 6px 4px}
-#psmod .ps-row{position:relative;margin:3px 0;padding:3px 6px;border-radius:4px;background:#0b1838;overflow:hidden}
-#psmod .ps-bar{position:absolute;inset:0 auto 0 0;opacity:.35}
-#psmod .ps-line{position:relative;display:flex;gap:6px;align-items:baseline}
-#psmod .ps-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
-#psmod .ps-dmg{font-weight:700}
-#psmod .ps-sub{position:relative;display:flex;justify-content:space-between;font-size:11px;color:#b9cbf0}
-#psmod .ps-empty{padding:6px;font-size:12px;color:#b9cbf0}
-#psmod .ps-foot{display:flex;align-items:center;gap:6px;padding:4px 8px 7px;border-top:2px solid #0b1838}
-#psmod .ps-foot span{flex:1;font-weight:700}
-#psmod .ps-ver{font-size:11px;color:#b9cbf0}
-#psmod button{font:inherit;font-weight:700;color:#fff;background:#0b1838;border:2px solid #5b83d6;border-radius:4px;
+#psvmod.psvmod-hidden{display:none}
+#psvmod .ps-head{display:flex;align-items:center;gap:6px;padding:6px 8px 4px;cursor:move;font-weight:700;letter-spacing:.06em}
+#psvmod .ps-head b{flex:1;color:#ffd23f}
+#psvmod .ps-time{font-weight:600;color:#b9cbf0}
+#psvmod .ps-rows{padding:0 6px 4px}
+#psvmod .ps-row{position:relative;margin:3px 0;padding:3px 6px;border-radius:4px;background:#0b1838;overflow:hidden}
+#psvmod .ps-bar{position:absolute;inset:0 auto 0 0;opacity:.35}
+#psvmod .ps-line{position:relative;display:flex;gap:6px;align-items:baseline}
+#psvmod .ps-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+#psvmod .ps-dmg{font-weight:700}
+#psvmod .ps-sub{position:relative;display:flex;justify-content:space-between;font-size:11px;color:#b9cbf0}
+#psvmod .ps-empty{padding:6px;font-size:12px;color:#b9cbf0}
+#psvmod .ps-foot{display:flex;align-items:center;gap:6px;padding:4px 8px 7px;border-top:2px solid #0b1838}
+#psvmod .ps-foot span{flex:1;font-weight:700}
+#psvmod .ps-ver{font-size:11px;color:#b9cbf0}
+#psvmod button{font:inherit;font-weight:700;color:#fff;background:#0b1838;border:2px solid #5b83d6;border-radius:4px;
   min-width:26px;height:24px;cursor:pointer;padding:0 6px}
-#psmod button:hover{border-color:#ffd23f}
-#psmod .ps-head button{height:20px;min-width:0;padding:0 5px;font-size:11px;letter-spacing:0}
-#psmod .ps-info{padding:0 8px 4px;font-size:11.5px;color:#b9cbf0;display:grid;gap:1px}
-#psmod .ps-info b{color:#fff}
-#psmod .ps-row.me{cursor:pointer}
-#psmod .ps-hp{position:relative;height:4px;margin-top:3px;border-radius:2px;background:#26304f;overflow:hidden}
-#psmod .ps-hp i{position:absolute;inset:0 auto 0 0;background:#5fe08a}
-#psmod .ps-hp.low i{background:#ffcb3d}
-#psmod .ps-hp.crit i{background:#ff5f6d}
-#psmod .ps-dead{color:#ff5f6d;font-weight:700}
-#psmod .ps-moves{position:relative;margin-top:4px;display:grid;gap:2px;font-size:11.5px}
-#psmod .ps-mv{display:flex;gap:6px}
-#psmod .ps-mv span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#psmod .ps-mv span:last-child{color:#b9cbf0;min-width:32px;text-align:right}
-#psmod .ps-hint{position:relative;font-size:10.5px;color:#b9cbf0}
-#psmod [hidden]{display:none!important}
-#psmod .ps-buffs{padding:4px 8px 6px;border-top:2px solid #0b1838;font-size:11.5px;display:grid;gap:2px;max-height:45vh;overflow:auto}
-#psmod .ps-buffs h4{margin:4px 0 1px;font-size:11px;letter-spacing:.06em;color:#ffd23f}
-#psmod .ps-buffs .kv{display:flex;gap:6px}
-#psmod .ps-buffs .kv span:first-child{flex:1;color:#b9cbf0}
-#psmod .ps-buffs .kv b{white-space:nowrap}
+#psvmod button:hover{border-color:#ffd23f}
+#psvmod .ps-head button{height:20px;min-width:0;padding:0 5px;font-size:11px;letter-spacing:0}
+#psvmod .ps-info{padding:0 8px 4px;font-size:11.5px;color:#b9cbf0;display:grid;gap:1px}
+#psvmod .ps-info b{color:#fff}
+#psvmod .ps-row.me{cursor:pointer}
+#psvmod .ps-hp{position:relative;height:4px;margin-top:3px;border-radius:2px;background:#26304f;overflow:hidden}
+#psvmod .ps-hp i{position:absolute;inset:0 auto 0 0;background:#5fe08a}
+#psvmod .ps-hp.low i{background:#ffcb3d}
+#psvmod .ps-hp.crit i{background:#ff5f6d}
+#psvmod .ps-dead{color:#ff5f6d;font-weight:700}
+#psvmod .ps-moves{position:relative;margin-top:4px;display:grid;gap:2px;font-size:11.5px}
+#psvmod .ps-mv{display:flex;gap:6px}
+#psvmod .ps-mv span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#psvmod .ps-mv span:last-child{color:#b9cbf0;min-width:32px;text-align:right}
+#psvmod .ps-hint{position:relative;font-size:10.5px;color:#b9cbf0}
+#psvmod [hidden]{display:none!important}
+#psvmod .ps-buffs{padding:4px 8px 6px;border-top:2px solid #0b1838;font-size:11.5px;display:grid;gap:2px;max-height:45vh;overflow:auto}
+#psvmod .ps-buffs h4{margin:4px 0 1px;font-size:11px;letter-spacing:.06em;color:#ffd23f}
+#psvmod .ps-buffs .kv{display:flex;gap:6px}
+#psvmod .ps-buffs .kv span:first-child{flex:1;color:#b9cbf0}
+#psvmod .ps-buffs .kv b{white-space:nowrap}
 `;
 
   function buildPanel() {
@@ -1031,7 +1067,7 @@
     document.head.appendChild(style);
 
     panel = document.createElement('div');
-    panel.id = 'psmod';
+    panel.id = 'psvmod';
     panel.innerHTML = tr`
       <div class="ps-head"><b>DAÑO</b><span class="ps-time">0:00</span><button class="ps-buffs-btn" title="Mejoras tuyas y del equipo (Alt + J)">Mejoras</button><button class="ps-alerts" title="Avisos con sonido (Alt + B)"></button></div>
       <div class="ps-info"></div>
@@ -1090,7 +1126,7 @@
         if (b.dataset.k != null) toggleKeys();
         if (b.dataset.d != null) toggleDex();
         if (b.dataset.a === 'on') { auto.on = !auto.on; saveAuto(); }
-        if (b.dataset.a === 'edit') showModTab('psmod-set-auto');
+        if (b.dataset.a === 'edit') showModTab('psvmod-set-auto');
         b.blur(); // keep keyboard focus off the button so the game keeps its keys
       });
     }
@@ -1146,7 +1182,7 @@
   }
 
   function render() {
-    panel.classList.toggle('psmod-hidden', !shown || !inRun());
+    panel.classList.toggle('psvmod-hidden', !shown || !inRun());
     if (!shown || !inRun()) return;
     timeLabel.textContent = clock(runTime);
     const list = entries();
@@ -1387,16 +1423,16 @@
   function buildToasts() {
     const style = document.createElement('style');
     style.textContent = `
-#psmod-toasts{position:fixed;z-index:100000;left:50%;top:72px;transform:translateX(-50%);display:grid;gap:6px;justify-items:center;pointer-events:none;
+#psvmod-toasts{position:fixed;z-index:100000;left:50%;top:72px;transform:translateX(-50%);display:grid;gap:6px;justify-items:center;pointer-events:none;
   font:14px/1.25 var(--font,'Pixelify',system-ui,sans-serif)}
-#psmod-toasts div{background:#0b1838;color:#fff;border:2px solid var(--c,#f4f8ff);border-radius:8px;padding:6px 12px;box-shadow:0 3px 0 #0a1430;
+#psvmod-toasts div{background:#0b1838;color:#fff;border:2px solid var(--c,#f4f8ff);border-radius:8px;padding:6px 12px;box-shadow:0 3px 0 #0a1430;
   font-weight:700;max-width:min(90vw,420px);text-align:center}
-#psmod-toasts small{display:block;font-weight:600;color:#b9cbf0;font-size:12px}
-@media (prefers-reduced-motion:no-preference){#psmod-toasts div{animation:psmod-in .18s ease-out}}
-@keyframes psmod-in{from{transform:translateY(-8px);opacity:0}to{transform:none;opacity:1}}`;
+#psvmod-toasts small{display:block;font-weight:600;color:#b9cbf0;font-size:12px}
+@media (prefers-reduced-motion:no-preference){#psvmod-toasts div{animation:psvmod-in .18s ease-out}}
+@keyframes psvmod-in{from{transform:translateY(-8px);opacity:0}to{transform:none;opacity:1}}`;
     document.head.appendChild(style);
     toastBox = document.createElement('div');
-    toastBox.id = 'psmod-toasts';
+    toastBox.id = 'psvmod-toasts';
     toastBox.setAttribute('role', 'status');
     document.body.appendChild(toastBox);
   }
@@ -1432,7 +1468,7 @@
     let vol = 0.7;
     try { const a = JSON.parse(localStorage.getItem('ps.audio') || '{}'); if (a.muted) return; if (typeof a.sfx === 'number') vol = a.sfx; } catch {}
     if (vol <= 0) return;
-    const url = document.documentElement.dataset.psmodShiny;
+    const url = document.documentElement.dataset.psvmodShiny;
     if (!url) return;
     try {
       if (!sparkleEl) sparkleEl = new Audio(url);
@@ -1540,7 +1576,7 @@
     if (!again) return;
     if (!overBtn) {
       overBtn = document.createElement('button');
-      overBtn.id = 'psmod-sum-btn';
+      overBtn.id = 'psvmod-sum-btn';
       overBtn.className = 'btn small ghost';
       overBtn.style.cssText = 'display:block;margin:0 auto 10px';
       overBtn.addEventListener('click', () => { overBtn.blur(); toggleHistory(); });
@@ -1569,41 +1605,41 @@
   function buildSummary() {
     const style = document.createElement('style');
     style.textContent = `
-#psmod-sum{position:fixed;z-index:100001;right:16px;top:64px;width:min(360px,calc(100vw - 32px));max-height:calc(100vh - 96px);overflow:auto;
+#psvmod-sum{position:fixed;z-index:100001;right:16px;top:64px;width:min(360px,calc(100vw - 32px));max-height:calc(100vh - 96px);overflow:auto;
   font:13px/1.3 var(--font,'Pixelify',system-ui,sans-serif);color:#fff;background:linear-gradient(#2c519f,#1a3170);border:2px solid #f4f8ff;
   outline:2px solid #0b1838;border-radius:8px;box-shadow:inset 0 0 0 2px #5b83d6,0 4px 0 #0a1430;padding:10px 12px;display:grid;gap:10px}
-#psmod-sum[hidden]{display:none}
-#psmod-sum h3{margin:0;font-size:16px;color:#ffd23f;letter-spacing:.04em}
-#psmod-sum .top{display:flex;align-items:center;gap:8px}
-#psmod-sum .top h3{flex:1}
-#psmod-sum button{font:inherit;font-weight:700;color:#fff;background:#0b1838;border:2px solid #5b83d6;border-radius:4px;height:24px;cursor:pointer;padding:0 8px}
-#psmod-sum button:hover{border-color:#ffd23f}
-#psmod-sum .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-#psmod-sum .grid div{background:#0b1838;border-radius:4px;padding:5px 7px}
-#psmod-sum .grid small{display:block;color:#b9cbf0;font-size:11px}
-#psmod-sum .grid b{font-size:15px}
-#psmod-sum table{width:100%;border-collapse:collapse;font-size:12px}
-#psmod-sum th,#psmod-sum td{text-align:left;padding:3px 4px;border-bottom:1px solid #2c4a8f;white-space:nowrap}
-#psmod-sum th{color:#b9cbf0;font-weight:600}
-#psmod-sum td.n{text-align:right;font-variant-numeric:tabular-nums}
-#psmod-sum .best{color:#ffd23f}
-#psmod-sum .sub{color:#b9cbf0;font-size:12px;margin:0}
-#psmod-sum .star{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;background:linear-gradient(#3a2a00,#1f1600);
-  border:2px solid #ffd23f;border-radius:6px;padding:10px 12px;animation:psmod-glow 1.6s ease-in-out 4}
-#psmod-sum .star i{grid-row:span 2;font-style:normal;font-size:34px;line-height:1;animation:psmod-wiggle 1.6s ease-in-out 4}
-#psmod-sum .star b{font-size:16px;color:#ffd23f}
-#psmod-sum .star span{color:#fff3c4}
-#psmod-sum .star .acts{grid-column:1/-1;display:flex;gap:8px;align-items:center;margin-top:6px}
-#psmod-sum .star a{flex:1;text-align:center;font-weight:700;font-size:15px;color:#0b1838;background:#ffd23f;border-radius:4px;
+#psvmod-sum[hidden]{display:none}
+#psvmod-sum h3{margin:0;font-size:16px;color:#ffd23f;letter-spacing:.04em}
+#psvmod-sum .top{display:flex;align-items:center;gap:8px}
+#psvmod-sum .top h3{flex:1}
+#psvmod-sum button{font:inherit;font-weight:700;color:#fff;background:#0b1838;border:2px solid #5b83d6;border-radius:4px;height:24px;cursor:pointer;padding:0 8px}
+#psvmod-sum button:hover{border-color:#ffd23f}
+#psvmod-sum .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+#psvmod-sum .grid div{background:#0b1838;border-radius:4px;padding:5px 7px}
+#psvmod-sum .grid small{display:block;color:#b9cbf0;font-size:11px}
+#psvmod-sum .grid b{font-size:15px}
+#psvmod-sum table{width:100%;border-collapse:collapse;font-size:12px}
+#psvmod-sum th,#psvmod-sum td{text-align:left;padding:3px 4px;border-bottom:1px solid #2c4a8f;white-space:nowrap}
+#psvmod-sum th{color:#b9cbf0;font-weight:600}
+#psvmod-sum td.n{text-align:right;font-variant-numeric:tabular-nums}
+#psvmod-sum .best{color:#ffd23f}
+#psvmod-sum .sub{color:#b9cbf0;font-size:12px;margin:0}
+#psvmod-sum .star{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;background:linear-gradient(#3a2a00,#1f1600);
+  border:2px solid #ffd23f;border-radius:6px;padding:10px 12px;animation:psvmod-glow 1.6s ease-in-out 4}
+#psvmod-sum .star i{grid-row:span 2;font-style:normal;font-size:34px;line-height:1;animation:psvmod-wiggle 1.6s ease-in-out 4}
+#psvmod-sum .star b{font-size:16px;color:#ffd23f}
+#psvmod-sum .star span{color:#fff3c4}
+#psvmod-sum .star .acts{grid-column:1/-1;display:flex;gap:8px;align-items:center;margin-top:6px}
+#psvmod-sum .star a{flex:1;text-align:center;font-weight:700;font-size:15px;color:#0b1838;background:#ffd23f;border-radius:4px;
   padding:6px 10px;text-decoration:none;box-shadow:0 3px 0 #a07800}
-#psmod-sum .star a:hover{filter:brightness(1.1)}
-#psmod-sum .star button{background:none;border:none;color:#b9a86a;font-weight:400;text-decoration:underline}
-@keyframes psmod-glow{50%{box-shadow:0 0 14px 2px rgba(255,210,63,.65)}}
-@keyframes psmod-wiggle{0%,60%,100%{transform:none}70%{transform:rotate(-14deg) scale(1.15)}85%{transform:rotate(14deg) scale(1.15)}}
-@media (prefers-reduced-motion:reduce){#psmod-sum .star,#psmod-sum .star i{animation:none}}`;
+#psvmod-sum .star a:hover{filter:brightness(1.1)}
+#psvmod-sum .star button{background:none;border:none;color:#b9a86a;font-weight:400;text-decoration:underline}
+@keyframes psvmod-glow{50%{box-shadow:0 0 14px 2px rgba(255,210,63,.65)}}
+@keyframes psvmod-wiggle{0%,60%,100%{transform:none}70%{transform:rotate(-14deg) scale(1.15)}85%{transform:rotate(14deg) scale(1.15)}}
+@media (prefers-reduced-motion:reduce){#psvmod-sum .star,#psvmod-sum .star i{animation:none}}`;
     document.head.appendChild(style);
     sumEl = document.createElement('div');
-    sumEl.id = 'psmod-sum';
+    sumEl.id = 'psvmod-sum';
     sumEl.hidden = true;
     document.body.appendChild(sumEl);
     for (const ev of ['pointerdown', 'mousedown', 'touchstart']) sumEl.addEventListener(ev, (e) => e.stopPropagation());
@@ -1695,11 +1731,11 @@
     };
     const add = () => {
       const list = document.getElementById('upg-list');
-      if (!list || document.getElementById('psmod-norep')) return;
+      if (!list || document.getElementById('psvmod-norep')) return;
       const label = document.createElement('label');
       label.className = 'note';
       label.style.cssText = 'display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;margin:8px 0';
-      label.innerHTML = tr('<input type="checkbox" id="psmod-norep" style="width:18px;height:18px;margin:0;cursor:pointer"> Empezar con un solo movimiento aunque tenga Repertorio');
+      label.innerHTML = tr('<input type="checkbox" id="psvmod-norep" style="width:18px;height:18px;margin:0;cursor:pointer"> Empezar con un solo movimiento aunque tenga Repertorio');
       const box = label.querySelector('input');
       box.checked = noRepertorio;
       box.addEventListener('change', () => { noRepertorio = box.checked; save('noRepertorio', noRepertorio); });
@@ -1828,7 +1864,7 @@
   const AUTO_CARDS = {
     evo: ['star', '#ffd23f', tr('Evolución'), tr('Cualquier ataque')],
     'stat-evo': ['star', '#ffd23f', tr('Mejora que evoluciona'), tr('Mejora')],
-    'heal-low': ['psmod-heal', '#5fe08a', 'Baya Zidra', tr('Con menos de media vida')],
+    'heal-low': ['psvmod-heal', '#5fe08a', 'Baya Zidra', tr('Con menos de media vida')],
     set: ['cards', '#ffd23f', 'Moveset', tr('En su orden')],
     up: ['up', '#8fa3c4', tr('Subir de nivel'), tr('Un ataque que tienes')],
     'new-fit': ['fist', '#8fa3c4', tr('Ataque nuevo'), tr('Que pegue bien')],
@@ -1878,7 +1914,7 @@
           cards = NS.LevelUp.offer(p);
           best = autoChooseRule(cards, p);
         }
-      } catch (err) { console.warn('[psmod] auto-pick', err); }
+      } catch (err) { console.warn('[psvmod] auto-pick', err); }
       const pick = best && best.card;
       if (best) autoTaken.set(best.rule, (autoTaken.get(best.rule) || 0) + 1);
       if (!pick) {
@@ -1904,11 +1940,11 @@
     // A button on the level-up screen that opens the list in Settings.
     const add = () => {
       const reroll = document.getElementById('lvl-reroll');
-      if (reroll && !document.getElementById('psmod-auto-lvl')) {
+      if (reroll && !document.getElementById('psvmod-auto-lvl')) {
         const wrap = document.createElement('div');
         wrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:8px';
-        wrap.innerHTML = '<button id="psmod-auto-lvl" class="btn small ghost" data-sfx="none"></button><p class="note" style="margin:0"></p>';
-        wrap.querySelector('button').addEventListener('click', () => showModTab('psmod-set-auto'));
+        wrap.innerHTML = '<button id="psvmod-auto-lvl" class="btn small ghost" data-sfx="none"></button><p class="note" style="margin:0"></p>';
+        wrap.querySelector('button').addEventListener('click', () => showModTab('psvmod-set-auto'));
         autoNote = wrap.querySelector('p');
         reroll.after(wrap);
       }
@@ -1921,7 +1957,7 @@
   waitFor(() => NS && NS.RunUI && NS.RunUI.showLevelUp && NS.RunUI.pick && NS.LevelUp && NS.Moves && NS.UI, setupAutoPick);
 
   function renderAutoBtns() {
-    const b = document.getElementById('psmod-auto-lvl');
+    const b = document.getElementById('psvmod-auto-lvl');
     if (b) b.textContent = auto.on ? tr('Auto mejoras: sí') : tr('Auto mejoras: no');
     if (panel) { const p = panel.querySelector('[data-a="on"]'); if (p) p.textContent = auto.on ? tr('Activas') : tr('Apagadas'); }
   }
@@ -2084,7 +2120,7 @@
     const set = movesetOf(mon.dex);
     const name = (id) => esc(gameText(NS.Moves.BY_ID[id].name));
     const rest = learnable(mon).filter((id) => !set.includes(id));
-    return `<div class="psmod-set" data-dex="${mon.dex}">
+    return `<div class="psvmod-set" data-dex="${mon.dex}">
       <ol class="psa-list">${set.map((id, i) => `<li>${ruleCard('move:' + id)}
         <button class="btn small" data-set="up" data-i="${i}"${i ? '' : ' disabled'}>↑</button><button class="btn small" data-set="down" data-i="${i}"${i < set.length - 1 ? '' : ' disabled'}>↓</button><button class="btn small" data-set="del" data-i="${i}">✕</button></li>`).join('')}</ol>
       ${set.length ? '' : `<p class="sub">${tr('Sin moveset: las auto mejoras pueden coger cualquier ataque.')}</p>`}
@@ -2106,7 +2142,7 @@
     const detail = document.getElementById('dex-detail');
     if (!detail || !NS || !NS.Moves) return;
     const mon = detailMon(detail);
-    const old = detail.querySelector('.psmod-setwrap');
+    const old = detail.querySelector('.psvmod-setwrap');
     if (!mon) { if (old) old.remove(); return; }
     const set = movesetOf(mon.dex);
     const row = poolRow(detail);
@@ -2114,13 +2150,13 @@
     const pool = NS.Moves.poolFor(mon);
     if (icons.length === pool.length) icons.forEach((el, i) => {
       const n = set.indexOf(pool[i]) + 1;
-      el.classList.add('psmod-mi');
+      el.classList.add('psvmod-mi');
       el.classList.toggle('on', n > 0);
-      el.dataset.psmodId = pool[i];
-      el.dataset.psmodN = n || '';
+      el.dataset.psvmodId = pool[i];
+      el.dataset.psvmodN = n || '';
     });
     const wrap = old || document.createElement('div');
-    wrap.className = 'psmod-setwrap';
+    wrap.className = 'psvmod-setwrap';
     wrap.innerHTML = `<b>${tr('Moveset para las auto mejoras')}</b><small>${tr('Pulsa los iconos de arriba o añádelos aquí. El orden es la prioridad.')}</small>${movesetHtml(mon)}`;
     if (wrap.previousElementSibling !== row) row.after(wrap);
   }
@@ -2129,22 +2165,22 @@
     psaStyle();
     const style = document.createElement('style');
     style.textContent = `
-#dex-detail .psmod-mi{cursor:pointer;position:relative;border-radius:4px;outline:2px solid transparent}
-#dex-detail .psmod-mi:hover{outline-color:rgba(255,210,63,.5)}
-#dex-detail .psmod-mi.on{outline-color:var(--gold,#ffd23f)}
-#dex-detail .psmod-mi.on::after{content:attr(data-psmod-n);position:absolute;right:-5px;top:-6px;font-size:10px;font-weight:700;line-height:12px;
+#dex-detail .psvmod-mi{cursor:pointer;position:relative;border-radius:4px;outline:2px solid transparent}
+#dex-detail .psvmod-mi:hover{outline-color:rgba(255,210,63,.5)}
+#dex-detail .psvmod-mi.on{outline-color:var(--gold,#ffd23f)}
+#dex-detail .psvmod-mi.on::after{content:attr(data-psvmod-n);position:absolute;right:-5px;top:-6px;font-size:10px;font-weight:700;line-height:12px;
   color:#0b1838;background:var(--gold,#ffd23f);border-radius:6px;padding:0 3px}
-#dex-detail .psmod-setwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;align-self:stretch;width:100%;min-width:0;box-sizing:border-box;margin:4px 0 8px;text-align:left}
-#dex-detail .psmod-setwrap>small{color:var(--muted);font-size:11px;white-space:normal;overflow-wrap:anywhere}
+#dex-detail .psvmod-setwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;align-self:stretch;width:100%;min-width:0;box-sizing:border-box;margin:4px 0 8px;text-align:left}
+#dex-detail .psvmod-setwrap>small{color:var(--muted);font-size:11px;white-space:normal;overflow-wrap:anywhere}
 #dex-detail .psa-list li{font-size:12px}
 #dex-detail .psa-add select{height:28px;font-size:12px}`;
     document.head.appendChild(style);
     const detail = document.getElementById('dex-detail');
     detail.addEventListener('click', (e) => {
-      const mi = e.target.closest('.psmod-mi');
+      const mi = e.target.closest('.psvmod-mi');
       const mon = mi && detailMon(detail);
       if (!mon) return;
-      const id = mi.dataset.psmodId;
+      const id = mi.dataset.psvmodId;
       const set = movesetOf(mon.dex);
       setMoveset(mon.dex, set.includes(id) ? set.filter((x) => x !== id) : [...set, id]);
     });
@@ -2156,9 +2192,9 @@
 
   // Buttons of a moveset, wherever it is shown (card or Mod tab).
   document.addEventListener('click', (e) => {
-    const b = e.target.closest('.psmod-set button[data-set]');
+    const b = e.target.closest('.psvmod-set button[data-set]');
     if (!b) return;
-    const box = b.closest('.psmod-set');
+    const box = b.closest('.psvmod-set');
     const dex = +box.dataset.dex;
     const set = movesetOf(dex).slice();
     const i = +b.dataset.i;
@@ -2171,7 +2207,7 @@
     setMoveset(dex, set);
   });
   // Keys pressed on its select are not for the game.
-  for (const ev of ['keydown', 'keyup']) document.addEventListener(ev, (e) => { if (e.target.closest && e.target.closest('.psmod-set select')) e.stopPropagation(); });
+  for (const ev of ['keydown', 'keyup']) document.addEventListener(ev, (e) => { if (e.target.closest && e.target.closest('.psvmod-set select')) e.stopPropagation(); });
 
   // --------------------------------------------------------- connection
   // In co-op the game talks over a direct WebRTC link. When that link drops,
@@ -2373,22 +2409,22 @@
   function buildMap() {
     const style = document.createElement('style');
     style.textContent = `
-#psmod-map{position:fixed;z-index:99998;width:${MAP_PX + 12}px;font:12px/1.2 var(--font,'Pixelify',system-ui,sans-serif);color:#fff;
+#psvmod-map{position:fixed;z-index:99998;width:${MAP_PX + 12}px;font:12px/1.2 var(--font,'Pixelify',system-ui,sans-serif);color:#fff;
   background:linear-gradient(#2c519f,#1a3170);border:2px solid #f4f8ff;outline:2px solid #0b1838;border-radius:8px;
   box-shadow:inset 0 0 0 2px #5b83d6,0 4px 0 #0a1430;user-select:none;-webkit-user-select:none}
-#psmod-map.psmod-hidden{display:none}
-#psmod-map .ps-head{display:flex;align-items:center;gap:4px;padding:5px 7px 4px;cursor:move;font-weight:700;letter-spacing:.06em}
-#psmod-map .ps-head b{flex:1;color:#ffd23f}
-#psmod-map .ps-range{font-weight:600;color:#b9cbf0;margin-right:2px}
-#psmod-map button{font:inherit;font-weight:700;color:#fff;background:#0b1838;border:2px solid #5b83d6;border-radius:4px;
+#psvmod-map.psvmod-hidden{display:none}
+#psvmod-map .ps-head{display:flex;align-items:center;gap:4px;padding:5px 7px 4px;cursor:move;font-weight:700;letter-spacing:.06em}
+#psvmod-map .ps-head b{flex:1;color:#ffd23f}
+#psvmod-map .ps-range{font-weight:600;color:#b9cbf0;margin-right:2px}
+#psvmod-map button{font:inherit;font-weight:700;color:#fff;background:#0b1838;border:2px solid #5b83d6;border-radius:4px;
   min-width:22px;height:20px;cursor:pointer;padding:0 4px;line-height:1}
-#psmod-map button:hover{border-color:#ffd23f}
-#psmod-map canvas{display:block;margin:0 6px 6px;width:${MAP_PX}px;height:${MAP_PX}px;border-radius:4px;background:#41604f}`;
+#psvmod-map button:hover{border-color:#ffd23f}
+#psvmod-map canvas{display:block;margin:0 6px 6px;width:${MAP_PX}px;height:${MAP_PX}px;border-radius:4px;background:#41604f}`;
     document.head.appendChild(style);
 
     mapEl = document.createElement('div');
-    mapEl.id = 'psmod-map';
-    mapEl.className = 'psmod-hidden';
+    mapEl.id = 'psvmod-map';
+    mapEl.className = 'psvmod-hidden';
     mapEl.innerHTML = tr`
       <div class="ps-head"><b>MAPA</b><span class="ps-range"></span>
         <button data-z="1" title="Ver más lejos (rueda del ratón)">-</button>
@@ -2430,10 +2466,10 @@
   function mapLoop(now) {
     requestAnimationFrame(mapLoop);
     const visible = mapShown && inRun();
-    mapEl.classList.toggle('psmod-hidden', !visible);
+    mapEl.classList.toggle('psvmod-hidden', !visible);
     if (!visible || now - lastMapDraw < 60) return;
     lastMapDraw = now;
-    try { drawMap(); } catch (err) { console.warn('[psmod] minimap', err); }
+    try { drawMap(); } catch (err) { console.warn('[psvmod] minimap', err); }
   }
 
   function drawMap() {
@@ -2716,11 +2752,11 @@
 
     const addToggle = () => {
       const anchor = document.getElementById('gacha-pity');
-      if (!anchor || document.getElementById('psmod-skip')) return;
+      if (!anchor || document.getElementById('psvmod-skip')) return;
       const label = document.createElement('label');
       label.className = 'note';
       label.style.cssText = 'display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700';
-      label.innerHTML = tr('<input type="checkbox" id="psmod-skip" style="width:18px;height:18px;margin:0;cursor:pointer"> Saltar siempre la animación de la tragaperras');
+      label.innerHTML = tr('<input type="checkbox" id="psvmod-skip" style="width:18px;height:18px;margin:0;cursor:pointer"> Saltar siempre la animación de la tragaperras');
       const box = label.querySelector('input');
       box.checked = skipGacha;
       box.addEventListener('change', () => { skipGacha = box.checked; save('skipGacha', skipGacha); });
@@ -2729,7 +2765,7 @@
       const one = document.getElementById('pull-1');
       if (!one || !one.parentElement) return;
       const all = document.createElement('button');
-      all.id = 'psmod-pull-all';
+      all.id = 'psvmod-pull-all';
       all.className = 'btn grow';
       all.dataset.sfx = 'none';
       one.parentElement.appendChild(all);
@@ -2765,9 +2801,9 @@
     // move our mark back onto our tab after every redraw.
     function addNatTab() {
       const gens = document.getElementById('gacha-gens');
-      if (!gens || document.getElementById('psmod-gnat')) return;
+      if (!gens || document.getElementById('psvmod-gnat')) return;
       const tab = document.createElement('button');
-      tab.id = 'psmod-gnat';
+      tab.id = 'psvmod-gnat';
       tab.className = 'gen-tab';
       gens.prepend(tab);
       const gameTabs = () => [...gens.querySelectorAll('.gen-tab[data-gen]')];
@@ -2822,17 +2858,17 @@
     if (!Gacha || !Gacha.BANNERS || !DEX) return;
     const style = document.createElement('style');
     style.textContent = `
-#psmod-regions{margin-top:6px}
-#psmod-regions summary{cursor:pointer;font-weight:700}
-#psmod-regions table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px}
-#psmod-regions th,#psmod-regions td{text-align:left;padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.15)}
-#psmod-regions td.n,#psmod-regions th.n{text-align:right;font-variant-numeric:tabular-nums}
-#psmod-regions tr.most td{color:#ffd23f}
-#psmod-regions button{font:inherit;font-size:12px;font-weight:700;color:inherit;background:none;border:1px solid currentColor;border-radius:4px;padding:1px 6px;cursor:pointer}
-#psmod-regions .miss{font-size:12.5px;line-height:1.5;padding:4px 6px 8px}`;
+#psvmod-regions{margin-top:6px}
+#psvmod-regions summary{cursor:pointer;font-weight:700}
+#psvmod-regions table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px}
+#psvmod-regions th,#psvmod-regions td{text-align:left;padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.15)}
+#psvmod-regions td.n,#psvmod-regions th.n{text-align:right;font-variant-numeric:tabular-nums}
+#psvmod-regions tr.most td{color:#ffd23f}
+#psvmod-regions button{font:inherit;font-size:12px;font-weight:700;color:inherit;background:none;border:1px solid currentColor;border-radius:4px;padding:1px 6px;cursor:pointer}
+#psvmod-regions .miss{font-size:12.5px;line-height:1.5;padding:4px 6px 8px}`;
     document.head.appendChild(style);
     const box = document.createElement('details');
-    box.id = 'psmod-regions';
+    box.id = 'psvmod-regions';
     box.className = 'note';
     box.open = load('regionsOpen', false);
     box.addEventListener('toggle', () => save('regionsOpen', box.open));
@@ -2891,26 +2927,26 @@
   // PokéPuzzles' own look: its pixel Poké Ball icon and its wordmark (Archivo
   // 700, "Poké" in ink and "Puzzles" in red, on the site's midnight colours).
   const PP_SITE = 'https://pokepuzzles.net';
-  const PP_URL = PP_SITE + '/?utm_source=pokesurvivor-mod&utm_medium=topbar';
+  const PP_URL = PP_SITE + '/?utm_source=pokesurvivor-mod&utm_medium=referral&utm_content=topbar';
 
   function addPuzzlesCard() {
     const bar = document.getElementById('topbar');
-    if (!bar || document.getElementById('psmod-pp')) return;
+    if (!bar || document.getElementById('psvmod-pp')) return;
     const font = document.createElement('link');
     font.rel = 'stylesheet';
     font.href = 'https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap';
     document.head.appendChild(font);
     const style = document.createElement('style');
     style.textContent = `
-#psmod-pp{text-decoration:none;cursor:pointer;background:rgba(9,11,16,.92);text-shadow:none;
+#psvmod-pp{text-decoration:none;cursor:pointer;background:rgba(9,11,16,.92);text-shadow:none;
   font:700 15px/1 'Archivo',system-ui,sans-serif;letter-spacing:-.02em;color:#F2EBDA;white-space:nowrap}
-#psmod-pp img{width:20px;height:20px;image-rendering:pixelated;flex:none}
-#psmod-pp b{color:#ff4444;font-weight:700}
-#psmod-pp:hover,#psmod-pp:focus-visible{border-color:#ff4444;background:#1C2130}
-@media (max-width:760px){#psmod-pp{font-size:13px}#psmod-pp img{width:16px;height:16px}}`;
+#psvmod-pp img{width:20px;height:20px;image-rendering:pixelated;flex:none}
+#psvmod-pp b{color:#ff4444;font-weight:700}
+#psvmod-pp:hover,#psvmod-pp:focus-visible{border-color:#ff4444;background:#1C2130}
+@media (max-width:760px){#psvmod-pp{font-size:13px}#psvmod-pp img{width:16px;height:16px}}`;
     document.head.appendChild(style);
     const a = document.createElement('a');
-    a.id = 'psmod-pp';
+    a.id = 'psvmod-pp';
     a.className = 'pill';
     a.href = PP_URL;
     a.target = '_blank';
@@ -2924,23 +2960,23 @@
   // Pokédex drawn in CSS (red body, blue lens).
   function addDexPill() {
     const bar = document.getElementById('topbar');
-    if (!bar || document.getElementById('psmod-mdx')) return;
+    if (!bar || document.getElementById('psvmod-mdx')) return;
     const style = document.createElement('style');
     style.textContent = `
-#psmod-mdx{cursor:pointer;color:#fff;background:linear-gradient(#e8333f,#b5121f);border-color:#ff8a92;text-shadow:0 1px 0 #5c0710;white-space:nowrap;font:inherit;font-weight:700}
-#psmod-mdx i{flex:none;width:16px;height:18px;border-radius:3px 3px 3px 7px;background:#c8141f;border:2px solid #2a0408;position:relative}
-#psmod-mdx i::after{content:'';position:absolute;left:2px;top:2px;width:6px;height:6px;border-radius:50%;background:#4fc3ff;border:1px solid #fff}
-#psmod-mdx:hover,#psmod-mdx:focus-visible{filter:brightness(1.12)}
-#topbar.psmod-bar1 #psmod-mdx span,#topbar.psmod-bar2 #psmod-mdx{display:none}`;
+#psvmod-mdx{cursor:pointer;color:#fff;background:linear-gradient(#e8333f,#b5121f);border-color:#ff8a92;text-shadow:0 1px 0 #5c0710;white-space:nowrap;font:inherit;font-weight:700}
+#psvmod-mdx i{flex:none;width:16px;height:18px;border-radius:3px 3px 3px 7px;background:#c8141f;border:2px solid #2a0408;position:relative}
+#psvmod-mdx i::after{content:'';position:absolute;left:2px;top:2px;width:6px;height:6px;border-radius:50%;background:#4fc3ff;border:1px solid #fff}
+#psvmod-mdx:hover,#psvmod-mdx:focus-visible{filter:brightness(1.12)}
+#topbar.psvmod-bar1 #psvmod-mdx span,#topbar.psvmod-bar2 #psvmod-mdx{display:none}`;
     document.head.appendChild(style);
     const b = document.createElement('button');
-    b.id = 'psmod-mdx';
+    b.id = 'psvmod-mdx';
     b.className = 'pill';
     b.type = 'button';
     b.title = tr('Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)');
     b.innerHTML = '<i></i><span>Movedex</span>';
     b.addEventListener('click', (e) => { e.stopPropagation(); b.blur(); toggleDex(true); });
-    const pp = document.getElementById('psmod-pp');
+    const pp = document.getElementById('psvmod-pp');
     if (pp) pp.after(b); else bar.prepend(b);
   }
 
@@ -2955,9 +2991,9 @@
     const tight = () => bar.getBoundingClientRect().left < 8 || bar.offsetHeight > 46;
     const fit = () => {
       if (bar.classList.contains('hidden')) return;
-      bar.classList.remove('psmod-bar1', 'psmod-bar2');
-      if (tight()) bar.classList.add('psmod-bar1');
-      if (tight()) bar.classList.add('psmod-bar2');
+      bar.classList.remove('psvmod-bar1', 'psvmod-bar2');
+      if (tight()) bar.classList.add('psvmod-bar1');
+      if (tight()) bar.classList.add('psvmod-bar2');
     };
     new ResizeObserver(fit).observe(bar);
     addEventListener('resize', fit);
@@ -2973,7 +3009,7 @@
   // newer, put a pill in the top bar that links to it. If the request
   // fails nothing is shown: the mod never depends on it.
   const REPO = 'aparmor2/pokesurvivor-mod';
-  const modVersion = () => document.documentElement.dataset.psmodVersion || '';
+  const modVersion = () => document.documentElement.dataset.psvmodVersion || '';
   const newer = (a, b) => {
     const x = a.split('.').map(Number), y = b.split('.').map(Number);
     for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0);
@@ -2995,14 +3031,14 @@
     }
     if (!info.tag || !newer(info.tag, mine)) return;
     const bar = document.getElementById('topbar');
-    if (!bar || document.getElementById('psmod-upd')) return;
+    if (!bar || document.getElementById('psvmod-upd')) return;
     const style = document.createElement('style');
     style.textContent = `
-#psmod-upd{text-decoration:none;cursor:pointer;color:#0b1838;background:#ffd23f;text-shadow:none;white-space:nowrap}
-#psmod-upd:hover,#psmod-upd:focus-visible{filter:brightness(1.08)}`;
+#psvmod-upd{text-decoration:none;cursor:pointer;color:#0b1838;background:#ffd23f;text-shadow:none;white-space:nowrap}
+#psvmod-upd:hover,#psvmod-upd:focus-visible{filter:brightness(1.08)}`;
     document.head.appendChild(style);
     const a = document.createElement('a');
-    a.id = 'psmod-upd';
+    a.id = 'psvmod-upd';
     a.className = 'pill';
     a.href = info.url || `https://github.com/${REPO}/releases/latest`;
     a.target = '_blank';
@@ -3023,7 +3059,7 @@
     const gens = document.getElementById('dex-gens');
     if (!gens) return;
     const mdex = document.createElement('button');
-    mdex.id = 'psmod-mdex';
+    mdex.id = 'psvmod-mdex';
     mdex.className = 'gen-tab';
     mdex.title = tr('Todos los movimientos, quién los aprende y cómo funcionan (Alt + P)');
     mdex.innerHTML = tr('<b>Movedex</b><small>movimientos</small>');
@@ -3149,11 +3185,11 @@
   }
 
   const DEX_CSS = `
-#psmod-dex{position:fixed;inset:0;z-index:100002;display:grid;place-items:center;background:rgba(4,8,20,.55);
+#psvmod-dex{position:fixed;inset:0;z-index:100002;display:grid;place-items:center;background:rgba(4,8,20,.55);
   font:13px/1.35 var(--font,'Pixelify',system-ui,sans-serif);color:#10202a}
-#psmod-dex[hidden]{display:none}
-#psmod-dex *{box-sizing:border-box}
-#psmod-dex button,#psmod-dex input,#psmod-dex select{font:inherit}
+#psvmod-dex[hidden]{display:none}
+#psvmod-dex *{box-sizing:border-box}
+#psvmod-dex button,#psvmod-dex input,#psvmod-dex select{font:inherit}
 .dx-shell{width:min(1000px,calc(100vw - 24px));height:min(700px,calc(100vh - 24px));display:grid;grid-template-rows:auto 1fr;
   background:linear-gradient(160deg,#ef3a46,#c8141f 55%,#a50d18);border:3px solid #5c0710;border-radius:20px 20px 14px 14px;
   box-shadow:inset 0 3px 0 rgba(255,255,255,.35),inset 0 -5px 0 rgba(0,0,0,.25),0 8px 0 #4a050c,0 18px 40px rgba(0,0,0,.5);overflow:hidden}
@@ -3203,7 +3239,7 @@
 .dx-bezel.dark{border-radius:10px 36px 10px 10px}
 .dx-view{background:#0d1b26;color:#e9f2ff;border:3px solid #050b10;border-radius:6px;padding:14px 16px;overflow-y:auto;min-height:0;
   background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);box-shadow:inset 0 0 24px rgba(0,0,0,.6)}
-#psmod-dex .dx-view>*+*{margin-top:12px}
+#psvmod-dex .dx-view>*+*{margin-top:12px}
 .dx-view>.dx-seg{display:flex;width:max-content}
 .dx-view h3{margin:0;font-size:24px;line-height:1.05;color:#fff}
 .dx-view h4{margin:0 0 4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8fb6ff}
@@ -3252,7 +3288,7 @@
     style.textContent = DEX_CSS;
     document.head.appendChild(style);
     dexEl = document.createElement('div');
-    dexEl.id = 'psmod-dex';
+    dexEl.id = 'psvmod-dex';
     dexEl.hidden = true;
     dexEl.innerHTML = tr`
       <div class="dx-shell" role="dialog" aria-label="Movedex">
@@ -3265,8 +3301,8 @@
         <div class="dx-body">
           <div class="dx-bezel"><div class="dx-screen">
             <input class="dx-q" type="search" placeholder="Buscar: Lanzallamas, quema…" aria-label="Buscar movimiento">
-            <input class="dx-monq" list="psmod-dexmons" placeholder="Tu Pokémon: Pikachu, Gengar…" autocomplete="off" aria-label="Pokémon">
-            <datalist id="psmod-dexmons"></datalist>
+            <input class="dx-monq" list="psvmod-dexmons" placeholder="Tu Pokémon: Pikachu, Gengar…" autocomplete="off" aria-label="Pokémon">
+            <datalist id="psvmod-dexmons"></datalist>
             <div class="dx-moninfo dx-mon" hidden></div>
             <div class="dx-filters">
               <select data-f="type" aria-label="Tipo"></select>
@@ -3288,7 +3324,7 @@
     $('[data-f="type"]').innerHTML = opt('', tr('Tipo')) + types.map((t) => opt(t, typeName(t))).join('');
     $('[data-f="kind"]').innerHTML = opt('', tr('Forma')) + kinds.map((k) => opt(k, kindName(k))).join('');
     $('[data-f="cat"]').innerHTML = opt('', tr('Categoría')) + opt('physical', catName('physical')) + opt('special', catName('special')) + opt('none', catName(null));
-    $('#psmod-dexmons').innerHTML = dexData.playable.map((p) => `<option value="${esc(p.name)}">#${p.dex}</option>`).join('');
+    $('#psvmod-dexmons').innerHTML = dexData.playable.map((p) => `<option value="${esc(p.name)}">#${p.dex}</option>`).join('');
 
     // Keys typed here are not for the game (it would pause on P, move on WASD...).
     for (const ev of ['keydown', 'keyup', 'keypress']) dexEl.addEventListener(ev, (e) => {
@@ -3339,7 +3375,7 @@
 
   function toggleDex(force) {
     if (!NS || !NS.Moves || !NS.DEX) return;
-    if (!dexData) { try { dexData = dexBuild(); } catch (err) { console.warn('[psmod] movedex', err); return; } }
+    if (!dexData) { try { dexData = dexBuild(); } catch (err) { console.warn('[psvmod] movedex', err); return; } }
     if (!dexEl) buildDex();
     const show = force == null ? dexEl.hidden : force;
     dexEl.hidden = !show;
@@ -3601,7 +3637,7 @@
   }
 
   const typing = (t) => !!(t && t.closest && t.closest('input, textarea, select, [contenteditable]'));
-  const onMod = (t) => !!(t && t.closest && t.closest('[id^="psmod"]'));
+  const onMod = (t) => !!(t && t.closest && t.closest('[id^="psvmod"]'));
   const emit = (target, type, code) => (target || document).dispatchEvent(new KeyboardEvent(type, { code, bubbles: true, cancelable: true }));
   const tapKey = (code) => { emit(document, 'keydown', code); emit(document, 'keyup', code); };
 
@@ -3823,11 +3859,11 @@
       step('hud', hudScale, tr('Tamaño del HUD'), tr('Nombre, vida, mejoras y ataques del juego.')) +
       sw('types', typeIcons, tr('Iconos de tipo de los juegos recientes'), tr('Los de Escarlata y Púrpura en los ataques, en vez de los pixelados del juego.')) +
       sw('items', itemIcons, tr('Iconos de objetos de los juegos'), tr('En los objetos y en las cartas de mejora.')) +
-      head(tr('Auto mejoras'), 'psmod-set-auto') +
+      head(tr('Auto mejoras'), 'psvmod-set-auto') +
       sw('auto', auto.on, tr('Elegir las cartas por mí'), tr('Al subir de nivel, el mod coge la carta del primer punto de la lista que haya salido. Alt + U')) +
       autoHtml() +
       movesetSection() +
-      head(tr('Objetos preferidos'), 'psmod-set-items') +
+      head(tr('Objetos preferidos'), 'psvmod-set-items') +
       `<p class="sub">${tr('Al coger un objeto llevando otro, te quedas con el que esté más arriba sin que el juego pregunte.')}</p>` +
       itemsHtml() +
       head(tr('Más')) +
@@ -3853,7 +3889,7 @@
       case 'KeyL': toggleNetLog(); break;
       case 'KeyK': toggleKeys(); break;
       case 'KeyP': toggleDex(); break;
-      case 'KeyU': toggleModTab('psmod-set-auto'); break;
+      case 'KeyU': toggleModTab('psvmod-set-auto'); break;
       case 'KeyB': setAlertSound(!alertSound); toast(alertSound ? tr('Avisos con sonido') : tr('Avisos sin sonido')); break;
       default: hit = false;
     }

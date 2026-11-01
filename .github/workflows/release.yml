@@ -26,7 +26,13 @@ jobs:
           fi
 
       - name: Crear zip
-        run: zip "pokesurvivor-mod-$GITHUB_REF_NAME.zip" manifest.json background.js inject.js keepalive.js sounds/shiny.ogg README.md LICENSE
+        run: zip "pokesurvivor-mod-$GITHUB_REF_NAME.zip" manifest.json background.js inject.js keepalive.js pokesurvivor-mod.user.js sounds/shiny.ogg README.md LICENSE
+
+      - name: Publicar userscript
+        uses: actions/upload-artifact@v4
+        with:
+          name: pokesurvivor-mod-userscript
+          path: pokesurvivor-mod.user.js
 
       - name: Publicar Release
         env:

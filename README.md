@@ -2,6 +2,8 @@
 
 Extensión de navegador para [pokesurvivor.com](https://pokesurvivor.com/): medidor de daño, minimapa, avisos de shiny y jefes, más campo de visión, resumen de cada partida y más.
 
+También se puede instalar como userscript en Tampermonkey o Violentmonkey, sin cargar una extensión descomprimida.
+
 ## Cómo instalarlo (2 minutos)
 
 Funciona en el ordenador con Chrome, Edge, Brave u Opera.
@@ -12,6 +14,10 @@ Funciona en el ordenador con Chrome, Edge, Brave u Opera.
 4. **Activa el "Modo de desarrollador"**: es un interruptor arriba a la derecha (en Edge, en el menú de la izquierda).
 5. **Pulsa "Cargar descomprimida"** (arriba a la izquierda) y elige la carpeta que acabas de descomprimir. Es la que tiene dentro `manifest.json`: si te dice que falta el manifiesto, entra una carpeta más adentro.
 6. **Abre o recarga [pokesurvivor.com](https://pokesurvivor.com/)**. Verás el panel del mod con el daño de la partida. `Alt` + `M` lo muestra y lo oculta.
+
+### Instalar como userscript
+
+Instala Tampermonkey o Violentmonkey y abre [pokesurvivor-mod.user.js](https://raw.githubusercontent.com/aparmor2/pokesurvivor-mod/main/pokesurvivor-mod.user.js). El gestor ofrecerá instalarlo y después funcionará al abrir `pokesurvivor.com`. No intentes cargar este archivo desde `chrome://extensions`: esa página solo sirve para la versión ZIP y mostrará que el formato no es compatible. Esta opción mantiene actualizados el script y el sonido desde GitHub.
 
 Si el navegador te avisa de que tienes extensiones en modo de desarrollador, es normal en las extensiones que no vienen de la tienda: cierra el aviso, pero no pulses "Desactivar".
 
@@ -141,7 +147,7 @@ El juego conecta a los jugadores directamente entre sí. Cuando esa conexión se
 
 ## Del mismo autor
 
-[**PokéPuzzles**](https://pokepuzzles.net/?utm_source=github&utm_medium=readme): puzles diarios de Pokémon (adivina el Pokémon, debilidades, rankings, gritos y más). En el juego tienes el enlace en la barra de arriba, a la izquierda de las monedas.
+[**PokéPuzzles**](https://pokepuzzles.net/?utm_source=github&utm_medium=referral&utm_content=readme): puzles diarios de Pokémon (adivina el Pokémon, debilidades, rankings, gritos y más). En el juego tienes el enlace en la barra de arriba, a la izquierda de las monedas.
 
 ## English
 
