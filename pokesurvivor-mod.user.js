@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PokéSurvivor Mod
 // @namespace    https://github.com/aparmor2/pokesurvivor-mod
-// @version      1.9.0
+// @version      1.9.1
 // @description  Medidor de daño, minimapa, avisos y ayudas para pokesurvivor.com
 // @author       aparmor2
 // @match        https://pokesurvivor.com/*
@@ -16,6 +16,6 @@
 // ==/UserScript==
 
 (() => {
-  document.documentElement.dataset.psvmodVersion = '1.9.0';
+  document.documentElement.dataset.psvmodVersion = '1.9.1';
   document.documentElement.dataset.psvmodShiny = 'https://raw.githubusercontent.com/aparmor2/pokesurvivor-mod/main/sounds/shiny.ogg';
 })();

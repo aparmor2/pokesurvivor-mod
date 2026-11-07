@@ -467,22 +467,87 @@
 
   let NS = null;
 
-  // The bundle creates that object with Object.create(null) and sets
-  // `ns.BUILT = true` first, so a setter on Object.prototype never sees it.
-  // Until we have it, null-prototype objects get a stand-in prototype whose
-  // one-shot BUILT setter hands us the object; then they all go back to a
-  // null prototype and Object.create to the native one.
+  // Since late 2026 most keys of that object are hashes that change with
+  // every build (`_63d60ac` instead of `Camera`), while the members of each
+  // module keep their names. So each module the mod uses is told apart by
+  // what it has, and the namespace gets a lazy alias under the old name, so
+  // the rest of the mod keeps writing NS.Net, NS.Coop...
+  const own = (o, ...ks) => o != null && ks.every((k) => Object.prototype.hasOwnProperty.call(o, k));
+  const obj = (v) => v != null && typeof v === 'object' && !Array.isArray(v);
+  const cls = (v, ...ks) => typeof v === 'function' && own(v.prototype, ...ks);
+  const SIG = {
+    U: (v) => obj(v) && own(v, 'clamp', 'TYPE_COLOR', 'TYPE_NAME'),
+    I18n: (v) => obj(v) && own(v, 'lang', 't', 'choices', 'startDom'),
+    Camera: (v) => obj(v) && own(v, 'VIEW_W', 'MIN_VIEW_H', 'resize'),
+    Touch: (v) => obj(v) && own(v, 'addButton', 'safeArea', 'drawStick'),
+    Net: (v) => obj(v) && own(v, 'onPeer', 'toHost', 'syncMembers', 'sendFast'),
+    Coop: (v) => obj(v) && own(v, 'mates', 'isHost', 'xpFactor'),
+    Game: (v) => obj(v) && own(v, 'startRun', 'togglePause', 'everyone'),
+    Combat: (v) => obj(v) && own(v, 'tick', 'resolve', 'updateFields'),
+    Projectiles: (v) => obj(v) && own(v, 'spawn', 'spawnOrb', 'nearest'),
+    EnemyMgr: (v) => obj(v) && own(v, 'addRemote', 'stash', 'queryCircle'),
+    Pickups: (v) => obj(v) && own(v, 'dropXp', 'pullAll', 'KIND'),
+    Player: (v) => cls(v, 'cast', 'setAbility', 'gainXp'),
+    Enemy: (v) => cls(v, 'hurt', 'applyStun', 'makeShiny'),
+    Moves: (v) => obj(v) && own(v, 'ALL', 'BY_ID', 'POOL', 'poolFor', 'startFor'),
+    Mons: (v) => obj(v) && own(v, 'monFor', 'taught', 'natureOf'),
+    World: (v) => obj(v) && own(v, 'kindAt', 'liquidKind', 'walkable'),
+    Rift: (v) => obj(v) && own(v, 'rift', 'arena', 'enterRequest'),
+    Events: (v) => obj(v) && own(v, 'golden', 'bag', 'onNet'),
+    LevelUp: (v) => obj(v) && own(v, 'offer', 'STATS'),
+    RunUI: (v) => obj(v) && own(v, 'showLevelUp', 'showItemChoice', 'pick'),
+    AbilityFX: (v) => obj(v) && own(v, 'FX', 'of'),
+    Icons: (v) => obj(v) && own(v, 'canvas', 'url', 'html', 'RARITY_BALL'),
+    SettingsUI: (v) => obj(v) && own(v, 'init', 'open', 'close', 'isOpen'),
+    Social: (v) => obj(v) && own(v, 'claimNick', 'me', 'friends'),
+    Shop: (v) => obj(v) && own(v, 'tmPrice', 'takeTm'),
+    Slots: (v) => obj(v) && own(v, 'play', 'skip', 'stop') && Object.keys(v).length === 3,
+    DB: (v) => obj(v) && own(v, 'save', 'playAsGuest', 'loginWithGoogle'),
+    DEX: (v) => Array.isArray(v) && v.length > 500 && own(v[0], 'dex', 'name', 'types'),
+    SPRITE_META: (v) => obj(v) && obj(v[1]) && own(v[1], 's', 'a') && obj(v[1].a),
+    // Move id -> dex numbers that can learn it with a TM.
+    TM_MOVES: (v) => {
+      const by = obj(v) && NS && NS.Moves && NS.Moves.BY_ID;
+      const ks = by ? Object.keys(v) : [];
+      return ks.length > 5 && ks.every((k) => by[k] && Array.isArray(v[k]) && v[k].every((n) => typeof n === 'number'));
+    },
+  };
+  const fits = (name, v) => { try { return !!SIG[name](v); } catch { return false; } };
+
+  // Camera and Net have to be patched the moment they arrive: Net is
+  // assigned and right after it Coop registers its peer listener.
+  const HOOKS = {
+    Camera: (c) => setupFov(c),
+    Net: (n) => patchNet(n),
+  };
+  const hooked = new Set();
+  function onModule(name, v) {
+    if (hooked.has(name)) return;
+    hooked.add(name);
+    try { HOOKS[name](v); } catch (err) { console.warn('[psvmod]', name, err); }
+    if (Object.keys(HOOKS).every((n) => hooked.has(n))) release();
+  }
+
+  // The bundle creates the namespace with Object.create(null), so a setter
+  // on Object.prototype never sees it. Until we have it, null-prototype
+  // objects inherit from a Proxy that sees every property they get: the
+  // object that gets the Camera or Net module (or, in older builds, the
+  // `BUILT` flag) is the namespace. Then they all go back to a null
+  // prototype and Object.create to the native one.
   const nativeCreate = Object.create;
   const pending = [];
-  const bait = nativeCreate(null);
-  Object.defineProperty(bait, 'BUILT', {
-    configurable: true,
-    get() { return undefined; },
-    set(v) {
-      Object.defineProperty(this, 'BUILT', { value: v, writable: true, configurable: true, enumerable: true });
-      const ns = this;
-      release();
-      if (!NS) capture(ns);
+  const bait = new Proxy(nativeCreate(null), {
+    set(target, key, v, recv) {
+      const ok = Reflect.set(target, key, v, recv);
+      if (typeof key !== 'string' || (NS && recv !== NS)) return ok;
+      if (!NS && key === 'BUILT') { capture(recv); return ok; }
+      if (v == null || (typeof v !== 'object' && typeof v !== 'function')) return ok;
+      for (const name in HOOKS) {
+        if (hooked.has(name) || !fits(name, v)) continue;
+        if (!NS) capture(recv);
+        onModule(name, v);
+      }
+      return ok;
     },
   });
   Object.create = function create(proto, props) {
@@ -501,27 +566,41 @@
 
   function capture(ns) {
     NS = ns;
+    aliasModules();
     setGame(NS);
     window.__psvmodNS = NS; // handy for poking around from DevTools
-    trapModule('Camera', (c) => {
-      // Net is assigned later in this same script run, and Coop registers
-      // its peer listener right after, so it has to be patched on arrival.
-      trapModule('Net', patchNet);
-      setupFov(c);
-      waitFor(() => NS.Net && NS.Coop && NS.Game, setupMeter);
-    });
+    waitFor(() => NS.Net && NS.Coop && NS.Game, setupMeter);
   }
 
-  function trapModule(name, fn) {
-    Object.defineProperty(NS, name, {
-      configurable: true,
-      enumerable: true,
-      get() { return undefined; },
-      set(v) {
-        Object.defineProperty(NS, name, { value: v, writable: true, configurable: true, enumerable: true });
-        try { fn(v); } catch (err) { console.warn('[psvmod]', name, err); }
-      },
-    });
+  // NS.<old name> finds the module by its signature the first time and
+  // remembers its key. The aliases are not enumerable, so scanning the
+  // namespace never runs into them. If a build assigns the old name again,
+  // the setter turns the alias into a plain property.
+  function aliasModules() {
+    for (const name of Object.keys(SIG)) {
+      if (Object.prototype.hasOwnProperty.call(NS, name)) continue;
+      let key = null, found, missAt = -1e9;
+      Object.defineProperty(NS, name, {
+        configurable: true,
+        enumerable: false,
+        get() {
+          if (key !== null && NS[key] === found) return found;
+          key = null;
+          const now = performance.now();
+          if (now - missAt < 500) return undefined;
+          for (const k of Object.keys(NS)) {
+            const v = NS[k];
+            if (fits(name, v)) { key = k; found = v; return v; }
+          }
+          missAt = now;
+          return undefined;
+        },
+        set(v) {
+          Object.defineProperty(NS, name, { value: v, writable: true, configurable: true, enumerable: true });
+          if (HOOKS[name]) onModule(name, v);
+        },
+      });
+    }
   }
 
   function waitFor(cond, fn) {
